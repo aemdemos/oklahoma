@@ -1,20 +1,89 @@
 footer {
-  background-color: var(--light-color);
+  background-color: #464646 ;
   font-size: var(--body-font-size-xs);
+  position: relative;
 }
 
 footer .footer > div {
   margin: auto;
   max-width: 1200px;
-  padding: 40px 24px 24px;
+  padding: 40px 24px 0;
+  font-size: 16px;
+  color: white;
 }
 
 footer .footer p {
   margin: 0;
 }
 
+footer .footer a.button:any-link, footer .footer a.button:hover {
+  background-color: unset;
+  padding-top: 0;
+  margin-top: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+footer .footer .section:nth-of-type(1) {
+  position: relative;
+}
+
+footer .footer .section:nth-of-type(1) img {
+  width: 100%;
+  max-width: 205px;
+  height: auto;
+}
+
+footer .back-to-top {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+footer .back-to-top:hover {
+  text-decoration: underline;
+}
+
+footer .footer .section:nth-of-type(3) .columns > div > div {
+  flex: unset;
+  gap: 0;
+}
+
+footer .footer .section:nth-of-type(2) .columns > div > div:nth-of-type(1) {
+  border-right: 1px solid white;
+  max-width: 33%;
+  width: 100%;
+}
+
+footer .footer .section:nth-of-type(3) {
+  position: relative;
+  margin-top: 20px;
+  padding-top: 10px;
+}
+
+footer .footer .section:nth-of-type(3) .columns > div > div:nth-of-type(5) {
+  max-width: unset;
+  margin-left: auto;
+}
+
+footer .footer .section:nth-of-type(3)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: auto;
+  width: 100vw;
+  transform: translateX(-50%);
+  height: 1px;
+  background-color: white;
+}
+
 @media (width >= 900px) {
   footer .footer > div {
-    padding: 40px 32px 24px;
+    padding: 40px 32px 0px;
   }
 }
