@@ -477,7 +477,7 @@ function decorateIcons(element, prefix = '') {
  * @param {HTMLElement} block - The block element containing the pictures.
  */
 function decorateLinkedPictures(block) {
-  block.querySelectorAll('picture + br + a, span.icon + br + a').forEach((a) => {
+  block.querySelectorAll('picture + br + a').forEach((a) => {
     // remove br
     a.previousElementSibling.remove();
     const picture = a.previousElementSibling;
