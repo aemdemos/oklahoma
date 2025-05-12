@@ -935,6 +935,42 @@
           "urlHash": "d2c66c2981ab11a6b2f1389d120d5d558ab96a25",
           "uuid": "d2c66c29-23-7e0da3f9034416977730b09ecfeb48b595021b3f",
           "xpath": "/html[1]/body[1]/main[1]/div[2]/div[1]/div[5]/div[1]/div[16]"
+        },
+        {
+          "url": "https://oklahoma.gov/ocsw/kate-barnard.html",
+          "urlHash": "d2c66c2981ab11a6b2f1389d120d5d558ab96a25",
+          "uuid": "d2c66c29-10-08c4779f886c711f64303a67b435b3a7a121d32b",
+          "xpath": "/html[1]/body[1]/main[1]/div[2]/div[1]/div[5]/div[1]/div[3]"
+        },
+        {
+          "url": "https://oklahoma.gov/ocsw/kate-barnard.html",
+          "urlHash": "d2c66c2981ab11a6b2f1389d120d5d558ab96a25",
+          "uuid": "d2c66c29-11-752b6ee0eea902dcbcd030ee4d52621f02c5b918",
+          "xpath": "/html[1]/body[1]/main[1]/div[2]/div[1]/div[5]/div[1]/div[4]"
+        },
+        {
+          "url": "https://oklahoma.gov/ocsw/kate-barnard.html",
+          "urlHash": "d2c66c2981ab11a6b2f1389d120d5d558ab96a25",
+          "uuid": "d2c66c29-12-5facab8db382eb614bcd9e19d14c4b14042135bf",
+          "xpath": "/html[1]/body[1]/main[1]/div[2]/div[1]/div[5]/div[1]/div[5]"
+        },
+        {
+          "url": "https://oklahoma.gov/ocsw/kate-barnard.html",
+          "urlHash": "d2c66c2981ab11a6b2f1389d120d5d558ab96a25",
+          "uuid": "d2c66c29-15-73a3965daa55f7280348677710f7505775b1f0ac",
+          "xpath": "/html[1]/body[1]/main[1]/div[2]/div[1]/div[5]/div[1]/div[8]"
+        },
+        {
+          "url": "https://oklahoma.gov/ocsw/kate-barnard.html",
+          "urlHash": "d2c66c2981ab11a6b2f1389d120d5d558ab96a25",
+          "uuid": "d2c66c29-16-8ae590c61bd62f88dae823ebcae3ef3ebd9582ce",
+          "xpath": "/html[1]/body[1]/main[1]/div[2]/div[1]/div[5]/div[1]/div[9]"
+        },
+        {
+          "url": "https://oklahoma.gov/ocsw/kate-barnard.html",
+          "urlHash": "d2c66c2981ab11a6b2f1389d120d5d558ab96a25",
+          "uuid": "d2c66c29-20-ea6e8cf559b755e5b47a33e6c0f98a7c64434f62",
+          "xpath": "/html[1]/body[1]/main[1]/div[2]/div[1]/div[5]/div[1]/div[13]"
         }
       ]
     },
@@ -1085,48 +1121,6 @@
           "urlHash": "efc96fb92cd1debe2af2945345c7f3dc53e3e30b",
           "uuid": "efc96fb9-01-ab3e4de776b49f538ccb9d433b686862faf5a7cc",
           "xpath": "/html[1]/body[1]/div[3]"
-        }
-      ]
-    },
-    {
-      "name": "Table (no header)",
-      "cluster": 3,
-      "instances": [
-        {
-          "url": "https://oklahoma.gov/ocsw/kate-barnard.html",
-          "urlHash": "d2c66c2981ab11a6b2f1389d120d5d558ab96a25",
-          "uuid": "d2c66c29-10-08c4779f886c711f64303a67b435b3a7a121d32b",
-          "xpath": "/html[1]/body[1]/main[1]/div[2]/div[1]/div[5]/div[1]/div[3]"
-        },
-        {
-          "url": "https://oklahoma.gov/ocsw/kate-barnard.html",
-          "urlHash": "d2c66c2981ab11a6b2f1389d120d5d558ab96a25",
-          "uuid": "d2c66c29-11-752b6ee0eea902dcbcd030ee4d52621f02c5b918",
-          "xpath": "/html[1]/body[1]/main[1]/div[2]/div[1]/div[5]/div[1]/div[4]"
-        },
-        {
-          "url": "https://oklahoma.gov/ocsw/kate-barnard.html",
-          "urlHash": "d2c66c2981ab11a6b2f1389d120d5d558ab96a25",
-          "uuid": "d2c66c29-12-5facab8db382eb614bcd9e19d14c4b14042135bf",
-          "xpath": "/html[1]/body[1]/main[1]/div[2]/div[1]/div[5]/div[1]/div[5]"
-        },
-        {
-          "url": "https://oklahoma.gov/ocsw/kate-barnard.html",
-          "urlHash": "d2c66c2981ab11a6b2f1389d120d5d558ab96a25",
-          "uuid": "d2c66c29-15-73a3965daa55f7280348677710f7505775b1f0ac",
-          "xpath": "/html[1]/body[1]/main[1]/div[2]/div[1]/div[5]/div[1]/div[8]"
-        },
-        {
-          "url": "https://oklahoma.gov/ocsw/kate-barnard.html",
-          "urlHash": "d2c66c2981ab11a6b2f1389d120d5d558ab96a25",
-          "uuid": "d2c66c29-16-8ae590c61bd62f88dae823ebcae3ef3ebd9582ce",
-          "xpath": "/html[1]/body[1]/main[1]/div[2]/div[1]/div[5]/div[1]/div[9]"
-        },
-        {
-          "url": "https://oklahoma.gov/ocsw/kate-barnard.html",
-          "urlHash": "d2c66c2981ab11a6b2f1389d120d5d558ab96a25",
-          "uuid": "d2c66c29-20-ea6e8cf559b755e5b47a33e6c0f98a7c64434f62",
-          "xpath": "/html[1]/body[1]/main[1]/div[2]/div[1]/div[5]/div[1]/div[13]"
         }
       ]
     },
