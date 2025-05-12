@@ -266,3 +266,18 @@ header nav .nav-sections ul > li > ul > li {
 header nav .nav-tools {
   grid-area: tools;
 }
+
+header .nav-wrapper .translation-wrapper {
+  background-color: #464646;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+header .nav-wrapper .translation-wrapper > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between 
+}
+
+

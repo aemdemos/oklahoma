@@ -1,4 +1,4 @@
-import { getMetadata } from '../../scripts/aem.js';
+import { decorateIcons, getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 // media query match that indicates mobile/tablet width
@@ -161,6 +161,23 @@ export default async function decorate(block) {
 
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
+
+  const translationWrapper = document.createElement('div');
+  translationWrapper.className = 'translation-wrapper';
+  translationWrapper.innerHTML = `
+  <div>
+      <span class="icon icon-logo-small"></span>
+      <span class="icon icon-translate"></span>
+      <div>
+        Translate
+      </div>
+      <div>
+        State Agencies
+      </div>
+    </div>
+  `;
+  navWrapper.append(translationWrapper);
+  decorateIcons(translationWrapper);
   navWrapper.append(nav);
   block.append(navWrapper);
 }
