@@ -1,0 +1,150 @@
+{
+  "originUrl": "https://oklahoma.gov",
+  "lastCrawled": "https://oklahoma.gov/",
+  "urls": [
+    {
+      "url": "https://oklahoma.gov/ocsw.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw",
+      "id": "55439134da1131bb03c10d9acf1b67ed89ee3f03"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/about.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/about",
+      "id": "efc96fb92cd1debe2af2945345c7f3dc53e3e30b"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/about/annual-report.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/about/annual-report",
+      "id": "896506b7a2b04463dad7f4183df5cc3b6acadf2f"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/about/bylaws-and-procedures.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/about/bylaws-and-procedures",
+      "id": "48d4342863bdca89ae0abd00abe6eda344642f86"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/about/history.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/about/history",
+      "id": "e39114bfc6f19f0a88d6ec26262028c7ccd10780"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/about/membership.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/about/membership",
+      "id": "e10ca341c17e5ca03c71da9c9aac7c0e2003b1e4"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/awards.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/awards",
+      "id": "b041a931f790409a0de80cd12302cb9d6731a93c"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/book-speaker.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/book-speaker",
+      "id": "e15166fdaadddf23da07fbfc48ef0d34dd927e1d"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/business-meeting.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/business-meeting",
+      "id": "0383e109cd5b153ec811d12c3cd3b1b498cfb2a7"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/events.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/events",
+      "id": "e1c904068e34800ad3f3815c584dabe5025fea2b"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/events/2022/august/event-example.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/events/2022/august/event-example",
+      "id": "74b0cf5e319031cf2d846f52d950b5fa36316faf"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/guardian-award.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/guardian-award",
+      "id": "47329905cc757c15d9f4c54e19434a7d002b6ce5"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/helpful-links.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/helpful-links",
+      "id": "86b31e5f466da520b403a891bccab123a7c3e3e9"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/history-of-kate-barnard.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/history-of-kate-barnard",
+      "id": "864c231ec0738fd6396f03ec8731273cfe1a7d07"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/human-trafficking.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/human-trafficking",
+      "id": "5f0f6290ea291a22334db2ef0cc9c2bba9a6a0d1"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/initiatives.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/initiatives",
+      "id": "65d92208f13ad2120c9bf041c586640e6cd72a8c"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/kate-barnard.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/kate-barnard",
+      "id": "d2c66c2981ab11a6b2f1389d120d5d558ab96a25"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/newsroom.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/newsroom",
+      "id": "0cf949401fbc178d3d68b688a7a0ce80e20bd6dd"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/newsroom/2023/april/ocsw-names-2023-women-s-hall-of-fame-inductees.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/newsroom/2023/april/ocsw-names-2023-women-s-hall-of-fame-inductees",
+      "id": "b3b2770410c119c4928c5ed82e256633dd94b3e8"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/owhof.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/owhof",
+      "id": "c7e3c4c2bbe8b7fb0a06f6ced2420b282fef1b15"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/speakers-bureau.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/speakers-bureau",
+      "id": "5d5de5495c8e19df0fa9de466b7f04241428494f"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/summits.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/summits",
+      "id": "586a4b2c24a0cf0e4ae35805b91fd69f2768dc53"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/tap.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/tap",
+      "id": "616dce85c832d34a07934a7b4a49bb049f0087db"
+    },
+    {
+      "url": "https://oklahoma.gov/ocsw/thank-you.html",
+      "source": "SITEMAPS",
+      "targetPath": "/ocsw/thank-you",
+      "id": "387c21a574c79e32560ddc7ec7cb73e828c4a970"
+    }
+  ]
+}
