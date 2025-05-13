@@ -1,53 +1,49 @@
 /* global WebImporter */
- export default function parse(element, { document }) {
+export default function parse(element, { document }) {
   const rows = [];
 
-  // Adding the header row for the Cards (no images) block
+  // Define the header row
   rows.push(['Cards (no images)']);
 
-  // Extracting content from the given element
-  const textElement = element.querySelector('.cmp-text');
+  // Extract content from HTML
+  const textContainer = element.querySelector('.text .cmp-text');
 
-  if (textElement) {
-    const textContent = document.createElement('div');
-    textContent.innerHTML = textElement.innerHTML;
+  if (textContainer) {
+    const textRows = [];
 
-    const cardContent = document.createElement('div');
-
-    // Extract heading if present
-    const heading = textContent.querySelector('p b');
+    // Extract heading
+    const heading = textContainer.querySelector('b');
     if (heading) {
-      const headingElement = document.createElement('h2');
-      headingElement.textContent = heading.textContent;
-      cardContent.appendChild(headingElement);
+      const boldHeading = document.createElement('b');
+      boldHeading.textContent = heading.textContent;
+      textRows.push(boldHeading);
     }
 
-    // Extract description if present
-    const paragraphs = textContent.querySelectorAll('p:not(:first-child)');
-    paragraphs.forEach((para) => {
-      const paragraphElement = document.createElement('p');
-      paragraphElement.textContent = para.textContent.trim();
-      cardContent.appendChild(paragraphElement);
+    // Extract description
+    const paragraphs = textContainer.querySelectorAll('p');
+    paragraphs.forEach((p) => {
+      if (!p.querySelector('b')) { // Avoid redundant heading extraction
+        const paragraph = document.createElement('p');
+        paragraph.textContent = p.textContent;
+        textRows.push(paragraph);
+      }
     });
 
-    // Extract list items if present (Topics)
-    const listItems = textContent.querySelectorAll('ul li');
-    if (listItems.length) {
-      const listContainer = document.createElement('ul');
-      listItems.forEach((li) => {
+    // Extract list
+    const list = textContainer.querySelector('ul');
+    if (list) {
+      const listElement = document.createElement('ul');
+      list.querySelectorAll('li').forEach((li) => {
         const listItem = document.createElement('li');
-        listItem.textContent = li.textContent.trim();
-        listContainer.appendChild(listItem);
+        listItem.textContent = li.textContent;
+        listElement.appendChild(listItem);
       });
-      cardContent.appendChild(listContainer);
+      textRows.push(listElement);
     }
 
-    rows.push([cardContent]);
+    rows.push([textRows]); // Add extracted content as a single cell in the row
   }
 
-  // Creating the block table
   const blockTable = WebImporter.DOMUtils.createTable(rows, document);
-
-  // Replacing the original element with the new structured block
   element.replaceWith(blockTable);
 }

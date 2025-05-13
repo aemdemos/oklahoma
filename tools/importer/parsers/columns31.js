@@ -1,33 +1,34 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Extracting image and text content
+  // Extract the image element
   const imageElement = element.querySelector('.cmp-image img');
   const textElement = element.querySelector('.cmp-text');
 
-  // Verify image element exists
-  const imageSrc = imageElement ? imageElement.getAttribute('src') : '';
-  const imageAlt = imageElement ? imageElement.getAttribute('alt') : '';
-  const image = imageSrc ? document.createElement('img') : null;
-  if (image) {
-    image.src = imageSrc;
-    image.alt = imageAlt;
+  if (!imageElement || !textElement) {
+    console.warn('Missing content from the element. Skipping parsing.');
+    return;
   }
 
-  // Verify text content exists
-  const textContent = textElement ? textElement.innerHTML : '';
+  // Extract image attributes dynamically
+  const image = document.createElement('img');
+  image.src = imageElement.getAttribute('src');
+  image.alt = imageElement.getAttribute('alt');
 
-  // Creating cells for the table
+  // Extract title and text dynamically
+  const titleElement = textElement.querySelector('b');
+  const paragraphs = textElement.querySelectorAll('p');
+
+  const title = titleElement ? titleElement.textContent : 'Untitled';
+  const text = paragraphs.length > 1 ? paragraphs[1].textContent : '';
+
+  // Construct the table dynamically
   const cells = [
-    ['Columns'],
-    [
-      textContent,
-      image ? image : '',
-    ],
+    ['Columns'], // Header row matching the example
+    [image, `${title}<br>${text}`],
   ];
 
-  // Creating block table
   const block = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Replacing the original element with the new block table
+  // Replace the element with the new block
   element.replaceWith(block);
 }

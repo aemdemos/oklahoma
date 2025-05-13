@@ -2,34 +2,28 @@
 export default function parse(element, { document }) {
   const cells = [];
 
-  // Extracting the title
-  const titleElement = element.querySelector('h1.cmp-title__text');
-  const title = titleElement ? titleElement.textContent.trim() : '';
-
-  // Extracting the image
-  const imageElement = element.querySelector('img.cmp-image__image');
-  const image = imageElement ? document.createElement('img') : null;
-  if (image) {
+  // Extract image
+  const imageElement = element.querySelector('img');
+  const image = document.createElement('img');
+  if (imageElement) {
     image.src = imageElement.src;
-    image.alt = imageElement.alt;
+    image.alt = imageElement.alt || '';
   }
 
-  // Adding header row
+  // Extract title
+  const titleElement = element.querySelector('h1');
+  const title = document.createElement('h1');
+  if (titleElement) {
+    title.innerHTML = titleElement.innerHTML;
+  }
+
+  // Create table content
   cells.push(['Hero']);
+  cells.push([image, title]);
 
-  // Adding content row
-  const contentRow = [];
-  if (image) contentRow.push(image);
-  if (title) {
-    const titleNode = document.createElement('h1');
-    titleNode.textContent = title;
-    contentRow.push(titleNode);
-  }
-  cells.push(contentRow);
-
-  // Create the table
+  // Create table
   const block = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Replace the original element
+  // Replace element
   element.replaceWith(block);
 }

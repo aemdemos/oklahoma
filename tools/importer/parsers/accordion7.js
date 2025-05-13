@@ -1,25 +1,30 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const hr = document.createElement('hr');
+  // Correct header row matching the example exactly
+  const headerRow = ['Accordion'];
 
-  const blockName = ['Accordion'];
+  // Block Table for Accordion
   const rows = [];
 
-  const items = element.querySelectorAll('.cmp-accordion__item');
-  items.forEach(item => {
+  const accordionItems = element.querySelectorAll('.cmp-accordion__item');
+  accordionItems.forEach((item) => {
     const title = item.querySelector('.cmp-accordion__title')?.textContent.trim();
-    const contentElement = item.querySelector('[data-cmp-hook-accordion="panel"]');
+    const contentPanel = item.querySelector('[data-cmp-hook-accordion="panel"]');
 
     let content = '';
-    if (contentElement) {
-      content = contentElement.innerHTML.trim();
+    if (contentPanel) {
+      const textContent = contentPanel.querySelector('.cmp-text');
+      content = textContent ? textContent.textContent.trim() : '';
     }
 
-    rows.push([title, content]);
+    if (title && content) {
+      rows.push([title, content]);
+    }
   });
 
-  const tableData = [blockName, ...rows];
-  const blockTable = WebImporter.DOMUtils.createTable(tableData, document);
+  const cells = [headerRow, ...rows];
+  const accordionBlock = WebImporter.DOMUtils.createTable(cells, document);
 
-  element.replaceWith(hr, blockTable);
+  // Replace the original element
+  element.replaceWith(accordionBlock);
 }

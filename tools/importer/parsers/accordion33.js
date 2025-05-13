@@ -1,42 +1,33 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const hr = document.createElement('hr');
+  const rows = [];
 
-  // Header row for Accordion block
+  // Header row - Ensure it matches the example exactly
   const headerRow = ['Accordion'];
+  rows.push(headerRow);
 
-  // Collect accordion items
-  const accordionItems = Array.from(element.querySelectorAll('.cmp-accordion__item')).map((item) => {
+  // Extract accordion items
+  const items = element.querySelectorAll('.cmp-accordion__item');
+  items.forEach((item) => {
     const titleElement = item.querySelector('.cmp-accordion__title');
-    const contentElement = item.querySelector('.cmp-accordion__panel');
+    const title = titleElement ? titleElement.textContent.trim() : '';
 
-    // Extract title text dynamically
-    const title = titleElement?.textContent?.trim() || 'Untitled';
+    const contentPanel = item.querySelector('[data-cmp-hook-accordion="panel"]');
+    const contentElements = contentPanel
+      ? Array.from(contentPanel.childNodes).filter((node) => {
+          return (
+            node.nodeType === 1 ||
+            (node.nodeType === 3 && node.textContent.trim() !== '')
+          );
+        })
+      : [];
 
-    // Extract content dynamically, simplifying elements and stripping unnecessary attributes
-    const contentElements = Array.from(contentElement?.children || []).map(child => {
-      if (child.tagName === 'P' && child.querySelector('a')) {
-        const link = child.querySelector('a');
-        const linkElement = document.createElement('a');
-        linkElement.href = link.getAttribute('href');
-        linkElement.textContent = link.textContent;
-        return linkElement;
-      }
-      if (child.tagName === 'P') {
-        return document.createElement('p').append(child.textContent);
-      }
-      return child.textContent || '';
-    });
-
-    return [title, contentElements];
+    rows.push([title, contentElements]);
   });
 
-  // Combine header and accordion items into table data
-  const tableData = [headerRow, ...accordionItems];
+  // Create the block table
+  const block = WebImporter.DOMUtils.createTable(rows, document);
 
-  // Create Accordion block table
-  const accordionBlock = WebImporter.DOMUtils.createTable(tableData, document);
-
-  // Replace element with Accordion block table
-  element.replaceWith(hr, accordionBlock);
+  // Replace original element with the new block
+  element.replaceWith(block);
 }

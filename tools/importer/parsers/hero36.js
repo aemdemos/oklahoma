@@ -1,69 +1,46 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Define the header row as specified in the example
-  const headerRow = ['Hero'];
+  const hr = document.createElement('hr');
 
-  // Initialize an array to hold content for the second row
-  const contentArray = [];
-
-  // Extract image content
-  const imgElement = element.querySelector('.cmp-teaser__image img');
-  if (imgElement && imgElement.src) {
-    const image = document.createElement('img');
-    image.src = imgElement.src;
-    image.alt = imgElement.alt || '';
-    image.title = imgElement.title || '';
-    contentArray.push(image);
+  // Extract image
+  const imageElement = element.querySelector('img');
+  const image = imageElement && document.createElement('img');
+  if (image) {
+    image.src = imageElement.src;
+    image.alt = imageElement.alt;
+    image.title = imageElement.title;
   }
 
-  // Extract the primary headline
-  const headlineElement = element.querySelector('#title-f08c47e607 .cmp-title__text');
-  if (headlineElement) {
-    const headline = document.createElement('h1');
-    headline.textContent = headlineElement.textContent;
-    contentArray.push(headline);
-  }
+  // Extract titles
+  const h1 = element.querySelector('h1');
+  const h2 = element.querySelector('h2');
+  const h3 = element.querySelector('h3');
 
-  // Extract the subheading
-  const subheadingElement = element.querySelector('#title-34202c804d .cmp-title__text');
-  if (subheadingElement) {
-    const subheading = document.createElement('h2');
-    subheading.textContent = subheadingElement.textContent;
-    contentArray.push(subheading);
-  }
-
-  // Extract the author
-  const authorElement = element.querySelector('#title-1ea9a00b20 .cmp-title__text');
-  if (authorElement) {
-    const author = document.createElement('h3');
-    author.textContent = authorElement.textContent;
-    contentArray.push(author);
-  }
-
-  // Extract article text
+  // Extract text content
   const textElement = element.querySelector('.cmp-text');
-  if (textElement) {
-    const textContent = document.createElement('div');
-    textContent.innerHTML = textElement.innerHTML; // Use innerHTML to preserve formatting
-    contentArray.push(textContent);
-  }
+  const paragraphs = textElement ? Array.from(textElement.querySelectorAll('p')) : [];
 
-  // Extract Last modified date
+  // Extract last modified date
   const lastModifiedElement = element.querySelector('.cmp-last-modified-date__text span');
-  if (lastModifiedElement) {
-    const lastModified = document.createElement('p');
-    lastModified.textContent = `Last Modified on ${lastModifiedElement.textContent}`;
-    contentArray.push(lastModified);
-  }
+  const lastModified = lastModifiedElement ? lastModifiedElement.textContent : '';
 
-  // Create a table from the extracted content
-  const heroCells = [
-    headerRow,
-    [contentArray], // Combine all extracted content into a single cell
+  // Combine all content into a single cell
+  const combinedContent = document.createElement('div');
+  if (image) combinedContent.appendChild(image);
+  if (h1) combinedContent.appendChild(document.createElement('h1')).textContent = h1.textContent;
+  if (h2) combinedContent.appendChild(document.createElement('h2')).textContent = h2.textContent;
+  if (h3) combinedContent.appendChild(document.createElement('h3')).textContent = h3.textContent;
+  paragraphs.forEach((p) => combinedContent.appendChild(p.cloneNode(true)));
+  if (lastModified) combinedContent.appendChild(document.createElement('p')).textContent = `Last Modified on ${lastModified}`;
+
+  // Create table rows
+  const cells = [
+    ['Hero'],  // Correct header row as per example
+    [combinedContent],
   ];
 
-  const heroTable = WebImporter.DOMUtils.createTable(heroCells, document);
+  const block = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Replace original element
-  element.replaceWith(heroTable);
+  // Replace the original element with the new block
+  element.replaceWith(hr, block);
 }

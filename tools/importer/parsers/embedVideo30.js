@@ -1,37 +1,44 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Extract relevant content
-  const headerRow = ['Embed']; // Header row matches example exactly
+  // Extract content from the element
+  const blockName = 'Embed';
 
-  // Extract the toolbar title
-  const toolbarTitle = element.querySelector('.fc-toolbar-title')?.textContent.trim() || '';
+  // Extract image if available
+  let image;
+  const imageElement = element.querySelector('img');
+  if (imageElement && imageElement.src) {
+    image = document.createElement('img');
+    image.src = imageElement.src;
+  }
 
-  // Extract the buttons and their content dynamically
-  const buttons = [...element.querySelectorAll('.fc-button')].map((button) => {
-    const spanIcon = button.querySelector('.fc-icon');
-    const buttonContent = document.createElement('div');
+  // Extract URL if available
+  let url;
+  const linkElement = element.querySelector('a');
+  const videoElement = element.querySelector('video');
+  const videoSrc = linkElement?.href || videoElement?.src;
+  if (videoSrc) {
+    url = document.createElement('a');
+    url.href = videoSrc;
+    url.textContent = videoSrc;
+  }
 
-    // Include the icon if it exists
-    if (spanIcon) {
-      buttonContent.appendChild(spanIcon.cloneNode(true));
-    }
+  // Handle missing content properly
+  const content = [];
+  if (image) content.push(image);
+  if (url) content.push(url);
 
-    // Add the text content of the button
-    const textNode = document.createTextNode(button.textContent.trim());
-    buttonContent.appendChild(textNode);
+  // Ensure content row is not empty
+  const contentRow = content.length > 0 ? content : ['No content available'];
 
-    return buttonContent;
-  });
-
-  // Create table rows dynamically
+  // Construct table data structure
   const cells = [
-    headerRow, // Header row
-    [document.createTextNode(toolbarTitle), buttons], // Second row with title and buttons
+    [blockName], // Header row exactly as required
+    [contentRow], // Content row with either image or URL
   ];
 
-  // Create block table
-  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+  // Create table block using provided helper function
+  const block = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Replace original element
-  element.replaceWith(blockTable);
+  // Replace the original element with the new block
+  element.replaceWith(block);
 }

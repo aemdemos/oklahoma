@@ -1,28 +1,33 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Extract image
+  // Helper function to extract text content from an element
+  const getTextContent = (el) => el ? el.textContent.trim() : '';
+
+  // Extract the image element and clone it
   const imageElement = element.querySelector('img');
-  const image = document.createElement('img');
-  image.src = imageElement?.src || '';
-  image.alt = imageElement?.alt || '';
+  const image = imageElement ? imageElement.cloneNode(true) : null;
 
-  // Extract title
-  const titleElement = element.querySelector('.cmp-teaser__title');
-  const title = document.createElement('h1');
-  title.textContent = titleElement?.textContent.trim() || '';
+  // Extract the heading
+  const headingElement = element.querySelector('.cmp-teaser__title');
+  const heading = headingElement ? document.createElement('h1') : null;
+  if (heading) heading.textContent = getTextContent(headingElement);
 
-  // Extract description
+  // Extract the description paragraph
   const descriptionElement = element.querySelector('.cmp-teaser__description p');
-  const description = document.createElement('p');
-  description.textContent = descriptionElement?.textContent.trim() || '';
+  const description = descriptionElement ? document.createElement('p') : null;
+  if (description) description.textContent = getTextContent(descriptionElement);
 
-  // Create table content
-  const cells = [
+  // Prepare the table data with separate cells
+  const tableData = [
     ['Hero'], // Header row
-    [[image], title, description], // Content row
+    [
+      image, heading, description // Separate elements in individual cells
+    ]
   ];
-  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Replace the original element with the created table
+  // Create the table
+  const blockTable = WebImporter.DOMUtils.createTable(tableData, document);
+
+  // Replace the original element
   element.replaceWith(blockTable);
 }

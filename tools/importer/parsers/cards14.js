@@ -1,32 +1,40 @@
 /* global WebImporter */
+
 export default function parse(element, { document }) {
-  const rows = [];
+  // Create the header row with the correct format
+  const headerRow = ['Cards'];
 
-  // Add header row for the Cards block based on the example prompt
-  rows.push(['Cards']);
+  // Parse the rows
+  const rows = Array.from(element.querySelectorAll('div.image')).map((imageDiv) => {
+    const img = imageDiv.querySelector('img');
+    const altText = img.getAttribute('alt') || '';
+    const src = img.getAttribute('src');
+    const title = img.getAttribute('title') || '';
 
-  // Select all card containers from the given HTML
-  const cardContainers = element.querySelectorAll('.image');
+    // Create image element
+    const imageElement = document.createElement('img');
+    imageElement.setAttribute('src', src);
+    imageElement.setAttribute('alt', altText);
+    imageElement.setAttribute('title', title);
 
-  cardContainers.forEach((container) => {
-    const imageElement = container.querySelector('img');
-    const textElement = container.nextElementSibling.querySelector('.cmp-text');
-
-    if (imageElement && textElement) {
-      const image = document.createElement('img');
-      image.src = imageElement.src;
-      image.alt = imageElement.alt || '';
-
-      const textContainer = document.createElement('div');
-      textContainer.innerHTML = textElement.innerHTML;
-
-      rows.push([image, textContainer]);
+    // Extract and sanitize text content next to the image
+    const descriptionDiv = imageDiv.nextElementSibling;
+    let sanitizedText = '';
+    if (descriptionDiv) {
+      sanitizedText = descriptionDiv.textContent.trim(); // Extract clean text content only
     }
+
+    // Create content element
+    const contentElement = document.createElement('div');
+    contentElement.textContent = sanitizedText; // Add extracted text content
+
+    return [imageElement, contentElement];
   });
 
-  // Create the block table using WebImporter.DOMUtils
-  const table = WebImporter.DOMUtils.createTable(rows, document);
+  // Create block table
+  const cells = [headerRow, ...rows];
+  const table = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Replace the original element with the new table
+  // Replace the original element
   element.replaceWith(table);
 }

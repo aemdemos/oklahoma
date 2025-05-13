@@ -1,45 +1,37 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const cells = [];
+  // Extracting image
+  const imageElement = element.querySelector('img');
+  const image = imageElement ? document.createElement('img') : null;
+  if (imageElement) {
+    image.setAttribute('src', imageElement.getAttribute('src'));
+    image.setAttribute('alt', imageElement.getAttribute('alt'));
+    image.setAttribute('title', imageElement.getAttribute('title'));
+  }
 
-  // Validate and extract header row
+  // Extracting heading
+  const headingElement = element.querySelector('.cmp-teaser__title');
+  const heading = headingElement ? document.createElement('h1') : null;
+  if (headingElement) {
+    heading.textContent = headingElement.textContent.trim();
+  }
+
+  // Extracting description
+  const descriptionElement = element.querySelector('.cmp-text > p');
+  const description = descriptionElement ? document.createElement('p') : null;
+  if (descriptionElement) {
+    description.textContent = descriptionElement.textContent.trim();
+  }
+
+  // Creating corrected table rows
+  // Header row must match example exactly and occupy a single column
   const headerRow = ['Hero'];
-  cells.push(headerRow);
+  const contentRow = [[image, heading, description]];  // Placing all content in a single cell
 
-  // Extract and combine content row elements into a single cell
-  const contentRow = [];
-  
-  // Extract background image
-  const image = element.querySelector('img');
-  if (image && image.src) {
-    const imageElement = document.createElement('img');
-    imageElement.src = image.src;
-    imageElement.alt = image.alt || '';
-    contentRow.push(imageElement);
-  }
+  // Generating table
+  const cells = [headerRow, contentRow];
+  const block = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Extract title
-  const title = element.querySelector('.cmp-teaser__title');
-  if (title && title.textContent.trim()) {
-    const titleElement = document.createElement('h1');
-    titleElement.textContent = title.textContent.trim();
-    contentRow.push(titleElement);
-  }
-
-  // Extract description
-  const description = element.querySelector('.cmp-teaser__description');
-  if (description && description.textContent.trim()) {
-    const descriptionElement = document.createElement('p');
-    descriptionElement.innerHTML = description.textContent.trim();
-    contentRow.push(descriptionElement);
-  }
-
-  // Push the combined content row
-  cells.push([contentRow]);
-
-  // Create the block table
-  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
-
-  // Replace the original element
-  element.replaceWith(blockTable);
+  // Replacing original element
+  element.replaceWith(block);
 }

@@ -1,20 +1,20 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Create the header row for the table with the exact header text from the example
-  const headerRow = ['Embed'];
+  // Extract content dynamically from the provided element
+  const titleElement = element.querySelector('.cmp-accordion__title');
+  const titleText = titleElement ? titleElement.textContent.trim() : '';
 
-  // Extract the URL content dynamically
-  const twitterLink = 'https://twitter.com/creativecloud/status/1549061442904633345?s=20&t=ZmXIH_DWvqQXGXCq__W3sA'; // Plain string URL
+  // Ensure extracted titleText is dynamically retrieved and no content is hardcoded
 
-  // Use proper formatting for the content row
-  const contentRow = [twitterLink];
+  // Create the table structure for the block
+  const blockTableData = [
+    ['Embed'], // Header row matching example exactly
+    [titleText], // Content row with the extracted title
+  ];
 
-  // Construct the table using the helper function
-  const embedTable = WebImporter.DOMUtils.createTable([
-    headerRow,
-    contentRow,
-  ], document);
+  // Generate the block table using the helper function
+  const block = WebImporter.DOMUtils.createTable(blockTableData, document);
 
-  // Replace the original element with the newly created table
-  element.replaceWith(embedTable);
+  // Replace the original element with the new block
+  element.replaceWith(block);
 }

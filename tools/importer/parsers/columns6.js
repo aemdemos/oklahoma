@@ -1,33 +1,46 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Extract the block name from the example
-  const headers = ['Columns'];
+  // Extract and organize sections dynamically
+  const tableContent = [];
 
-  // Extract image element
-  const imageElement = element.querySelector('.image img');
-  const image = imageElement ? imageElement.cloneNode(true) : document.createTextNode('');
+  // Add the header row with the block name
+  tableContent.push(['Columns']);
 
-  // Extract text content
-  const textElement = element.querySelector('.text');
-  const textContent = textElement ? textElement.innerHTML : document.createTextNode('');
-
-  // Combine extracted content
-  const cells = [
-    headers,
-    [textContent, image]
-  ];
-
-  // Create the table using WebImporter
-  const table = WebImporter.DOMUtils.createTable(cells, document);
-
-  // Check for section breaks and append them if necessary
-  const separatorElement = element.querySelector('.separator hr');
-  const sectionBreak = separatorElement ? separatorElement.cloneNode(true) : null;
-
-  // Replace the original element
-  if (sectionBreak) {
-    element.replaceWith(sectionBreak, table);
-  } else {
-    element.replaceWith(table);
+  // Safely extract the image element from the left column
+  const imageDiv = element.querySelector('.image .cmp-image img');
+  let image = null;
+  if (imageDiv) {
+    image = document.createElement('img');
+    image.src = imageDiv.getAttribute('src');
+    image.alt = imageDiv.getAttribute('alt');
   }
+
+  // Safely extract the text content from the right column
+  const textDiv = element.querySelector('.text .cmp-text');
+  let textContent = null;
+  if (textDiv) {
+    textContent = document.createElement('div');
+    textContent.innerHTML = textDiv.innerHTML;
+  }
+
+  // Populate content rows, ensuring dynamic extraction
+  const rowContent = [];
+  if (image) rowContent.push(image);
+  if (textContent) rowContent.push(textContent);
+  if (rowContent.length > 0) {
+    tableContent.push(rowContent);
+  }
+
+  // Check for a separator (hr) and handle it properly
+  const separator = element.querySelector('.separator .cmp-separator__horizontal-rule');
+  if (separator) {
+    const hr = document.createElement('hr');
+    element.before(hr); // Add section break before the table
+  }
+
+  // Create the table using WebImporter.DOMUtils.createTable
+  const table = WebImporter.DOMUtils.createTable(tableContent, document);
+
+  // Replace the original element with the new table
+  element.replaceWith(table);
 }
