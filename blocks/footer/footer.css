@@ -1,20 +1,209 @@
 footer {
-  background-color: var(--light-color);
+  background-color: #464646;
   font-size: var(--body-font-size-xs);
+  position: relative;
 }
 
 footer .footer > div {
   margin: auto;
   max-width: 1200px;
-  padding: 40px 24px 24px;
+  padding: 40px 24px 0;
+  font-size: 16px;
+  color: white;
 }
 
 footer .footer p {
   margin: 0;
+  font-size: 1rem;
 }
 
-@media (width >= 900px) {
+footer .footer .columns-container:not(:last-of-type) {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+footer .footer .columns-container:last-of-type {
+  padding-bottom: 20px;
+  padding-top: 20px;
+  position: relative;
+}
+
+footer .footer a.button:any-link, footer .footer a.button:hover {
+  background-color: unset;
+  padding-top: 0;
+  margin-top: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  color: #e8e8e8;
+  line-height: 23px;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+footer .footer .section:nth-of-type(1) {
+  position: relative;
+}
+
+footer .footer .icon img {
+  width: 35px;
+  height: 35px;
+}
+
+footer .footer .section:nth-of-type(1) img {
+  width: 100%;
+  max-width: 205px;
+  height: auto;
+}
+
+footer .back-to-top {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+}
+
+footer .back-to-top .icon {
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  fill: white;
+  padding-left: 4px;
+}
+
+footer .back-to-top:hover {
+  text-decoration: underline;
+}
+
+footer .footer .columns.links div {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 1rem 1.5rem;
+  color: #e8e8e8;
+}
+
+footer .footer .columns.links > div > div:last-child {
+  grid-column: 1 / -1;
+  justify-self: start;
+  text-align: left;
+  width: 100%;
+}
+
+footer .footer .section:nth-of-type(2) .columns > div > div:first-of-type {
+  border-bottom: 0.5px solid white;
+  padding-bottom: 30px;
+}
+
+footer .footer .section:nth-of-type(2) .columns > div > div:nth-of-type(2) {
+  padding-top: 30px;
+}
+
+footer .footer .section:nth-of-type(3) .columns:not(:last-of-type) > div > div {
+  flex: unset;
+  gap: 0;
+}
+
+footer .footer .columns.links .links-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 1rem 2.5rem;
+}
+
+footer .footer .section:nth-of-type(3) .columns > div > div:nth-of-type(5) {
+  max-width: unset;
+  margin-left: auto;
+}
+
+footer .footer .section:nth-of-type(3)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: auto;
+  width: 100vw;
+  transform: translateX(-50%);
+  height: 1px;
+  background-color: white;
+}
+
+footer .footer p a {
+  color: white;
+}
+
+footer .footer .columns.links p {
+  font-size: 0.88rem;
+}
+
+footer .footer p a:hover {
+  text-decoration: none;
+}
+
+footer .footer .columns.links .links-wrapper p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+footer .footer .columns.links .links-wrapper p a {
+  padding-right: 1.2rem;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+@media (width >= 768px) {
   footer .footer > div {
-    padding: 40px 32px 24px;
+    padding: 40px 32px 0;
+  }
+
+  footer .footer .columns-container:not(:last-of-type) {
+    margin-bottom: 50px;
+    margin-top: 30px;
+  }
+
+  footer .footer .columns.links div {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  footer .footer .columns.links .links-wrapper {
+    display: flex;
+    gap: 10px;
+  }
+
+  footer .footer .section:nth-of-type(2) .columns > div {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+  }
+
+  footer .footer .columns.links > div > div:last-child {
+    grid-column: unset;
+    margin-left: auto;
+    text-align: right;
+    width: auto;
+    justify-content: flex-end;
+  }
+
+  footer .footer .section:nth-of-type(2) .columns > div > div:nth-of-type(1) {
+    border-right: 1px solid white;
+    flex: 0 0 auto;
+    border-bottom: none;
+    padding-bottom: 0;
+    padding-right: 32px;
+  }
+
+  footer .footer .section:nth-of-type(2) .columns > div > div:nth-of-type(2) {
+    flex: 0 1 auto;
+    padding-top: 0;
   }
 }
