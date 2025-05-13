@@ -125,6 +125,7 @@ export default async function decorate(block) {
     if (section) section.classList.add(`nav-${c}`);
   });
 
+  // Setup nav brand
   const navBrand = nav.querySelector('.nav-brand');
   const brandLink = navBrand.querySelector('.button');
   if (brandLink) {
@@ -132,6 +133,31 @@ export default async function decorate(block) {
     brandLink.closest('.button-container').className = '';
   }
 
+  // Setup nav tools (search)
+  const navTools = nav.querySelector('.nav-tools');
+  if (navTools) {
+    const searchWrapperParent = navTools.querySelector('.default-content-wrapper');
+    searchWrapperParent.className = 'search-wrapper-parent';
+
+    const searchWrapper = document.createElement('div');
+    searchWrapper.className = 'search-wrapper';
+
+    // Create input
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = 'Search';
+
+    // Move existing icon into the new wrapper
+    const iconSpan = searchWrapperParent.querySelector('.icon-search');
+    if (iconSpan) {
+      searchWrapper.appendChild(input);
+      searchWrapper.appendChild(iconSpan);
+      searchWrapperParent.innerHTML = ''; // clear old content
+      searchWrapperParent.appendChild(searchWrapper);
+    }
+  }
+
+  // Setup nav sections
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
@@ -166,15 +192,15 @@ export default async function decorate(block) {
   translationWrapper.className = 'translation-wrapper';
   translationWrapper.innerHTML = `
   <div>
-      <span class="icon icon-logo-small"></span>
+    <span class="icon icon-logo-small"></span>
+    <div class="translate-group">
       <span class="icon icon-translate"></span>
-      <div>
-        Translate
-      </div>
-      <div>
-        State Agencies
-      </div>
+      <div>Translate</div>
     </div>
+    <div>
+      State Agencies
+    </div>
+  </div>
   `;
   navWrapper.append(translationWrapper);
   decorateIcons(translationWrapper);

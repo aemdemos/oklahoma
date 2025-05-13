@@ -4,6 +4,7 @@ header .nav-wrapper {
   width: 100%;
   z-index: 2;
   position: relative;
+  border-bottom: 2px solid;
 }
 
 header nav {
@@ -153,8 +154,8 @@ header .nav-brand {
 }
 
 header nav .nav-brand img {
-  width: 128px;
-  height: auto;
+  width: 250px;
+  height: 70px;
 }
 
 /* sections */
@@ -274,6 +275,41 @@ header nav .nav-sections ul > li > ul > li {
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li {
     padding: 8px 0;
   }
+
+  header .nav-wrapper .translation-wrapper > div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin: 0 auto;
+    max-width: 1200px;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: white;
+  }
+
+  .translate-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .translation-wrapper > div > .icon-logo-small {
+    margin-right: auto;
+    height: 30px;
+    width: 30px;
+  }
+
+  .translation-wrapper > div > .translate-group,
+  .translation-wrapper > div > div:last-child {
+    margin-left: 32px;
+  }
+
+  .translation-wrapper > div > .icon-translate {
+    height: 30px;
+    width: 30px;
+  }
 }
 
 /* tools */
@@ -283,7 +319,7 @@ header nav .nav-tools {
 
 header .nav-wrapper .translation-wrapper {
   padding: 0 32px;
-  height: 30px;
+  height: 50px;
   background-color: #464646;
   display: flex;
   align-items: center;
@@ -295,10 +331,69 @@ header .nav-wrapper .translation-wrapper > div {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+  margin: 0 auto;
   max-width: 1200px;
-  font-size: 16px;
+  font-size: 1.1rem;
   font-weight: 400;
   color: white;
+}
+
+.translate-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.translation-wrapper > div > .icon-logo-small {
+  margin-right: auto;
+  height: 30px;
+  width: 30px;
+}
+
+.translation-wrapper > div > .translate-group,
+.translation-wrapper > div > div:last-child {
+  margin-left: 32px;
+}
+
+.translation-wrapper > div > .icon-translate {
+  height: 30px;
+  width: 30px;
+}
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 2px solid;
+}
+
+.search-wrapper input {
+  width: 160px;
+  height: 32px;
+  padding: 4px 0;
+  font-size: 18px;
+  color: #464646;
+  font-weight: 700;
+  padding-left: 5px;
+  border: none;
+  background: transparent;
+  border-radius: 0;
+}
+
+.search-wrapper input:focus {
+  outline: none;
+}
+
+.search-wrapper .icon-search {
+  display: flex;
+  align-items: center;
+}
+
+.search-wrapper .icon-search img {
+  width: 30px;
+  height: 30px;
+  transform: scaleX(-1);
 }
 
 
