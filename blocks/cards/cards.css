@@ -1,3 +1,4 @@
+
 .cards > ul {
   list-style: none;
   margin: 0;
@@ -24,4 +25,77 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+}
+
+.cards-wrapper > .cards > ul {
+  display: flex; /* Use flexbox for overall layout */
+  flex-direction: row; /* Align cards horizontally */
+  gap: 24px; /* Space between cards */
+  padding: 0; /* Remove extra padding */
+  list-style: none; /* Remove default list styles */
+}
+
+.cards-wrapper > .cards > ul > li {
+  display: flex; /* Use flexbox for image and text alignment */
+  flex-direction: row; /* Align image and text side by side */
+  align-items: center; /* Vertically align image and text */
+  gap: 20px; /* Add spacing between image and text */
+  padding: 16px; /* Adjust padding for compact look */
+  background-color: var(--background-color); /* Ensure white background */
+  border: 1px solid #dadada; /* Restore border for visual clarity */
+}
+
+.cards-wrapper > .cards > ul > li .cards-card-image {
+  flex-shrink: 0; /* Prevent the image container from shrinking */
+  width: 60px; /* Fixed width for image container */
+  height: 60px; /* Fixed height for image container */
+  display: flex; /* Use flexbox for centering image */
+  justify-content: center; /* Horizontally center image */
+  align-items: center; /* Vertically center image */
+  overflow: hidden; /* Prevent image overflow */
+}
+
+.cards-wrapper > .cards > ul > li .cards-card-image img {
+  width: 100%; /* Ensure image fits container width */
+  height: 100%; /* Ensure image fits container height */
+  object-fit: contain; /* Maintain image aspect ratio */
+}
+
+.cards-wrapper > .cards > ul > li .cards-card-body {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack text elements vertically */
+  align-items: flex-start; /* Align text content to the left */
+  gap: 5px; /* Add spacing between title and date */
+  margin: 0; /* Reset margin */
+}
+
+.cards-wrapper > .cards > ul > li .cards-card-body h2 {
+  font-size: 18px; /* Adjust heading font size */
+  font-weight: bold; /* Make the title bold */
+  color: var(--link-color); /* Use default link color */
+  margin: 0; /* Remove extra margin */
+}
+
+.cards-wrapper > .cards > ul > li .cards-card-body p {
+  font-size: 14px; /* Adjust font size for the date */
+  color: var(--text-color); /* Use default text color */
+  margin: 0; /* Remove extra margin */
+}
+
+.cards-wrapper > .cards > ul > li .cards-card-body h2 a {
+  text-decoration: none; /* Remove underline for links */
+}
+
+.cards-wrapper > .cards > ul > li .cards-card-body h2 a:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+
+.cards.cards22 {
+  display: flex; /* Use flexbox for overall layout */
+  flex-direction: row; /* Align cards horizontally */
+  gap: 24px; /* Space between cards */
+  padding: 0; /* Remove extra padding */
+  list-style: none; /* Remove default list styles */
+  border: 1px solid #dadada; /* Restore border for visual clarity */
+  background-color: var(--background-color); /* Ensure white background */
 }
