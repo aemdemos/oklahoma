@@ -1,49 +1,57 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const rows = [];
+    // Extracts the content from the HTML element
+    const content = [];
 
-  // Define the header row
-  rows.push(['Cards (no images)']);
+    const titleElement = element.querySelector('.cmp-text b');
+    const title = titleElement ? titleElement.textContent.trim() : '';
 
-  // Extract content from HTML
-  const textContainer = element.querySelector('.text .cmp-text');
+    const descriptionElement = element.querySelector('.cmp-text p:nth-of-type(2)');
+    const description = descriptionElement ? descriptionElement.textContent.trim() : '';
 
-  if (textContainer) {
-    const textRows = [];
+    const topicsElement = element.querySelector('.cmp-text ul');
+    const topics = topicsElement ? Array.from(topicsElement.querySelectorAll('li')).map(li => li.textContent.trim()) : [];
 
-    // Extract heading
-    const heading = textContainer.querySelector('b');
-    if (heading) {
-      const boldHeading = document.createElement('b');
-      boldHeading.textContent = heading.textContent;
-      textRows.push(boldHeading);
+    if (title || description || topics.length > 0) {
+        const rowContent = document.createElement('div');
+        
+        if (title) {
+            const titleNode = document.createElement('strong');
+            titleNode.textContent = title;
+            rowContent.appendChild(titleNode);
+        }
+        
+        if (description) {
+            const descriptionNode = document.createElement('p');
+            descriptionNode.textContent = description;
+            rowContent.appendChild(descriptionNode);
+        }
+
+        if (topics.length > 0) {
+            const topicsNode = document.createElement('p');
+            const topicsList = document.createElement('ul');
+            topics.forEach(topic => {
+                const topicItem = document.createElement('li');
+                topicItem.textContent = topic;
+                topicsList.appendChild(topicItem);
+            });
+            topicsNode.textContent = 'Topics';
+            rowContent.appendChild(topicsNode);
+            rowContent.appendChild(topicsList);
+        }
+
+        content.push(rowContent);
     }
 
-    // Extract description
-    const paragraphs = textContainer.querySelectorAll('p');
-    paragraphs.forEach((p) => {
-      if (!p.querySelector('b')) { // Avoid redundant heading extraction
-        const paragraph = document.createElement('p');
-        paragraph.textContent = p.textContent;
-        textRows.push(paragraph);
-      }
-    });
+    // Define the table structure
+    const cells = [
+        ['Cards (no images)'],  // Header row
+        ...content.map(item => [item]),  // Content rows
+    ];
 
-    // Extract list
-    const list = textContainer.querySelector('ul');
-    if (list) {
-      const listElement = document.createElement('ul');
-      list.querySelectorAll('li').forEach((li) => {
-        const listItem = document.createElement('li');
-        listItem.textContent = li.textContent;
-        listElement.appendChild(listItem);
-      });
-      textRows.push(listElement);
-    }
+    // Create the table block
+    const blockTable = WebImporter.DOMUtils.createTable(cells, document);
 
-    rows.push([textRows]); // Add extracted content as a single cell in the row
-  }
-
-  const blockTable = WebImporter.DOMUtils.createTable(rows, document);
-  element.replaceWith(blockTable);
+    // Replace the original element with the new structured element
+    element.replaceWith(blockTable);
 }

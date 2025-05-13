@@ -1,30 +1,23 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Correct header row matching the example exactly
-  const headerRow = ['Accordion'];
+  const accordionItems = [...element.querySelectorAll('.cmp-accordion__item')];
 
-  // Block Table for Accordion
-  const rows = [];
+  const rows = accordionItems.map((item) => {
+    const titleElement = item.querySelector('.cmp-accordion__title');
+    const contentElement = item.querySelector('[data-cmp-hook-accordion="panel"]');
 
-  const accordionItems = element.querySelectorAll('.cmp-accordion__item');
-  accordionItems.forEach((item) => {
-    const title = item.querySelector('.cmp-accordion__title')?.textContent.trim();
-    const contentPanel = item.querySelector('[data-cmp-hook-accordion="panel"]');
+    const title = titleElement ? titleElement.textContent.trim() : '';
+    const content = contentElement ? [...contentElement.children] : [];
 
-    let content = '';
-    if (contentPanel) {
-      const textContent = contentPanel.querySelector('.cmp-text');
-      content = textContent ? textContent.textContent.trim() : '';
-    }
-
-    if (title && content) {
-      rows.push([title, content]);
-    }
+    return [title, content];
   });
 
-  const cells = [headerRow, ...rows];
-  const accordionBlock = WebImporter.DOMUtils.createTable(cells, document);
+  const tableData = [
+    ['Accordion'], // Correctly implementing header row
+    ...rows
+  ];
 
-  // Replace the original element
-  element.replaceWith(accordionBlock);
+  const blockTable = WebImporter.DOMUtils.createTable(tableData, document);
+
+  element.replaceWith(blockTable); // Removed incorrect <hr> addition
 }

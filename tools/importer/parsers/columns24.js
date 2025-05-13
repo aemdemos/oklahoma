@@ -3,39 +3,42 @@ export default function parse(element, { document }) {
   const cells = [];
 
   // Add header row
-  cells.push(['Columns']);
+  const headerRow = ['Columns'];
+  cells.push(headerRow);
 
-  // Collect content from each slide
-  const slides = element.querySelectorAll('.cmp-carousel__item');
-  slides.forEach(slide => {
-    const imageLink = slide.querySelector('.cmp-teaser__image a');
-    const image = slide.querySelector('.cmp-teaser__image img');
-    const titleLink = slide.querySelector('.cmp-teaser__title a');
-    const description = slide.querySelector('.cmp-teaser__description p');
-
-    if (image && titleLink && description) {
-      const imageElement = document.createElement('img');
-      imageElement.src = image.src;
-      imageElement.alt = image.alt;
-
-      const linkElement = document.createElement('a');
-      linkElement.href = imageLink.href;
-      linkElement.textContent = 'View More';
-
-      const slideContent = [
-        titleLink.cloneNode(true), // Title link
-        description.cloneNode(true), // Description node
-        imageElement, // Image element
-        linkElement // Link element
-      ];
-
-      cells.push(slideContent);
+  // Extracting individual column content
+  const columnData = [...element.querySelectorAll('.cmp-carousel__item')].map(item => {
+    const titleElement = item.querySelector('.cmp-teaser__title-link');
+    const title = titleElement ? document.createElement('a') : null;
+    if (title) {
+      title.href = titleElement.href;
+      title.textContent = titleElement.textContent.trim();
     }
+
+    const imageElement = item.querySelector('.cmp-teaser__image img');
+    const image = imageElement ? document.createElement('img') : null;
+    if (image) {
+      image.src = imageElement.src;
+      image.alt = imageElement.alt;
+    }
+
+    const descriptionElement = item.querySelector('.cmp-teaser__description p');
+    const description = descriptionElement ? document.createElement('p') : null;
+    if (description) {
+      description.innerHTML = descriptionElement.innerHTML;
+    }
+
+    return [title, image, description].filter(Boolean); // Create separate cells for each piece of content
   });
 
-  // Create block table
-  const block = WebImporter.DOMUtils.createTable(cells, document);
+  // Add rows to cells array
+  columnData.forEach(column => {
+    cells.push(column); // Add each content item as a separate cell in the row
+  });
 
-  // Replace element with block
-  element.replaceWith(block);
+  // Create the structured table
+  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+
+  // Replace original element with the block table
+  element.replaceWith(blockTable);
 }

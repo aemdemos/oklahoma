@@ -1,46 +1,50 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Ensure correct handling of section metadata and dynamic extraction
-  const hr = document.createElement('hr');
+  // Initialize the table with the correct header row
+  const cells = [["Accordion"]];
 
-  // Extract accordion items
-  const accordionItems = element.querySelectorAll('.cmp-accordion__item');
+  // Process each accordion item dynamically
+  const items = element.querySelectorAll('div.cmp-accordion__item');
+  items.forEach((item) => {
 
-  // Initialize the table cells
-  const cells = [['Accordion']];
+    // Extract the title
+    const titleElement = item.querySelector(".cmp-accordion__title");
+    const title = titleElement ? titleElement.textContent.trim() : "";
 
-  accordionItems.forEach((item) => {
-    // Dynamically extract the title
-    const titleElement = item.querySelector('.cmp-accordion__title');
-    const title = titleElement ? titleElement.textContent.trim() : 'Untitled';
+    // Extract the content
+    const contentElements = item.querySelectorAll(".cmp-accordion__panel .aem-GridColumn");
+    const content = Array.from(contentElements).map(contentElement => {
+      const imgElement = contentElement.querySelector('img');
+      const textElement = contentElement.querySelector('p');
 
-    // Extract content from panel
-    const contentContainer = item.querySelector('[data-cmp-hook-accordion="panel"]');
-    const imageElement = contentContainer.querySelector('.cmp-image img');
-    const textElement = contentContainer.querySelector('.cmp-text');
+      const combinedContent = [];
 
-    const content = [];
+      // Add image as a link if available
+      if (imgElement) {
+        const linkElement = document.createElement('a');
+        linkElement.href = imgElement.src;
+        linkElement.textContent = imgElement.title || "Image Link";
+        combinedContent.push(linkElement);
+      }
 
-    // Add image dynamically if it exists
-    if (imageElement) {
-      const image = document.createElement('img');
-      image.src = imageElement.src;
-      image.alt = imageElement.alt;
-      content.push(image);
-    }
+      // Add text content if available
+      if (textElement) {
+        combinedContent.push(textElement);
+      }
 
-    // Add text dynamically if it exists
-    if (textElement) {
-      content.push(textElement);
-    }
+      return combinedContent;
+    });
 
-    // Push title and content into cells array
-    cells.push([title, content]);
+    // Flatten content array and ensure it's properly formatted
+    const flattenedContent = content.flat();
+
+    // Add the row to the table
+    cells.push([title, flattenedContent]);
   });
 
-  // Create block table dynamically
-  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+  // Create the accordion block table using the helper method
+  const block = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Replace element with the section break and block table
-  element.replaceWith(hr, blockTable);
+  // Replace the original element with the new structured block
+  element.replaceWith(block);
 }

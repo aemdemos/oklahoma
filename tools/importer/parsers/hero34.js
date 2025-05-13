@@ -1,65 +1,56 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const hr = document.createElement('hr');
+  // Extract the image dynamically
+  const imgElement = element.querySelector('.cmp-teaser__image img');
+  let image = null;
+  if (imgElement) {
+    image = document.createElement('img');
+    image.src = imgElement.src;
+    image.alt = imgElement.alt || '';
+    image.title = imgElement.title || '';
+  }
 
-  // Extracting content dynamically
-  const imageElement = element.querySelector('.cmp-teaser__image img');
-  const titleElement = element.querySelector('.cmp-title__text');
+  // Extract the heading dynamically
+  const headingElement = element.querySelector('.cmp-title__text');
+  let heading = null;
+  if (headingElement) {
+    heading = document.createElement('h1');
+    heading.textContent = headingElement.textContent.trim();
+  }
+
+  // Extract the paragraph dynamically
   const textElement = element.querySelector('.cmp-text p');
-  const buttonElement = element.querySelector('.cmp-button');
-  const lastModifiedElement = element.querySelector('.cmp-last-modified-date__text span');
-
-  // Ensuring header matches example
-  const blockHeader = ['Hero'];
-
-  const blockContent = [];
-
-  // Handling image dynamically
-  if (imageElement) {
-    const img = document.createElement('img');
-    img.src = imageElement.getAttribute('src');
-    img.alt = imageElement.getAttribute('alt');
-    blockContent.push(img);
-  }
-
-  // Handling title dynamically
-  if (titleElement) {
-    const title = document.createElement('h1');
-    title.textContent = titleElement.textContent;
-    blockContent.push(title);
-  }
-
-  // Handling text dynamically
+  let paragraph = null;
   if (textElement) {
-    const text = document.createElement('p');
-    text.innerHTML = textElement.innerHTML;
-    blockContent.push(text);
+    paragraph = document.createElement('p');
+    paragraph.textContent = textElement.textContent.trim();
   }
 
-  // Handling button dynamically
+  // Extract the button dynamically
+  const buttonElement = element.querySelector('.cmp-button');
+  let button = null;
   if (buttonElement) {
-    const buttonLink = document.createElement('a');
-    buttonLink.href = buttonElement.getAttribute('href');
-    buttonLink.target = buttonElement.getAttribute('target');
-    buttonLink.textContent = buttonElement.textContent;
-    blockContent.push(buttonLink);
+    button = document.createElement('a');
+    button.href = buttonElement.href;
+    button.textContent = buttonElement.querySelector('.cmp-button__text')?.textContent || 'Learn More';
   }
 
-  // Handling last modified date dynamically
-  if (lastModifiedElement) {
-    const lastModified = document.createElement('p');
-    lastModified.textContent = `Last Modified: ${lastModifiedElement.textContent}`;
-    blockContent.push(lastModified);
+  // Extract last modified date dynamically
+  const modifiedDateElement = element.querySelector('.cmp-last-modified-date__text span');
+  let modifier = null;
+  if (modifiedDateElement) {
+    modifier = document.createElement('p');
+    modifier.textContent = `Last Modified on ${modifiedDateElement.textContent.trim()}`;
   }
 
-  // Creating table structure
+  // Create the final table dynamically with checks for null values
   const cells = [
-    blockHeader,
-    [blockContent],
+    ['Hero'],
+    [image, heading, paragraph, button, modifier].filter(Boolean)
   ];
 
-  const block = WebImporter.DOMUtils.createTable(cells, document);
+  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Replacing the original element
-  element.replaceWith(hr, block);
+  // Replace the original element
+  element.replaceWith(blockTable);
 }

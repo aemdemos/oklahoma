@@ -2,28 +2,29 @@
 export default function parse(element, { document }) {
   const cells = [];
 
-  // Add the exact header row from the example
+  // Add header row for Accordion block as per example structure
   const headerRow = ['Accordion'];
   cells.push(headerRow);
 
-  // Extract accordion items from child elements
-  const childDivs = element.querySelectorAll('div');
+  const sections = element.querySelectorAll('div');
 
-  childDivs.forEach((div) => {
-    const label = div.querySelector('label');
-    const select = div.querySelector('select');
+  sections.forEach(section => {
+    const label = section.querySelector('label');
+    const title = label ? label.textContent.trim() : 'Untitled';
 
-    if (label && select) {
-      const title = label.textContent.trim();
-      const options = Array.from(select.querySelectorAll('option')).map(option => option.textContent.trim()).join(', ');
+    const content = [];
 
-      cells.push([title, options]);
+    // Extract select options dynamically if present
+    const select = section.querySelector('select');
+    if (select) {
+      const options = Array.from(select.options).map(option => option.textContent.trim()).join(', ');
+      content.push(`Options: ${options}`);
     }
+
+    cells.push([title, content.length > 0 ? content.join(' ') : 'No Content']);
   });
 
-  // Create table using WebImporter.DOMUtils.createTable()
-  const table = WebImporter.DOMUtils.createTable(cells, document);
+  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Replace original element with the generated table
-  element.replaceWith(table);
+  element.replaceWith(blockTable);
 }
