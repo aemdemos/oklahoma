@@ -45,6 +45,11 @@ footer .footer .section:nth-of-type(1) {
   position: relative;
 }
 
+footer .footer .icon img {
+  width: 35px;
+  height: 35px;
+}
+
 footer .footer .section:nth-of-type(1) img {
   width: 100%;
   max-width: 205px;
@@ -77,6 +82,19 @@ footer .back-to-top:hover {
   text-decoration: underline;
 }
 
+footer .footer .columns.links > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+footer .footer .columns.links > div > div:last-child {
+  grid-column: 1 / -1;
+  justify-self: start;
+  text-align: left;
+  width: 100%;
+}
+
 footer .footer .section:nth-of-type(2) .columns > div > div:first-of-type {
   border-bottom: 0.5px solid white;
   padding-bottom: 30px;
@@ -91,22 +109,11 @@ footer .footer .section:nth-of-type(3) .columns:not(:last-of-type) > div > div {
   gap: 0;
 }
 
-footer .footer .columns.links > div {
-  display: block;
-}
-
 footer .footer .columns.links .links-wrapper {
   display: grid;
   grid-template-columns: repeat(2, auto);
   gap: 1rem 1.5rem;
   margin-bottom: 1rem;
-}
-
-footer .footer .columns.links > div > div:last-child {
-  grid-column: 1 / -1;
-  justify-self: start;
-  text-align: left;
-  width: 100%;
 }
 
 footer .footer .section:nth-of-type(3) .columns > div > div:nth-of-type(5) {
@@ -134,14 +141,13 @@ footer .footer p a:hover {
   text-decoration: none;
 }
 
-footer .footer .icon img {
-  width: 35px;
-  height: 35px;
-}
-
 @media (width >= 768px) {
   footer .footer > div {
     padding: 40px 32px 0;
+  }
+
+  footer .footer .columns.links p {
+    font-size: 0.88rem;
   }
 
   footer .footer .columns-container:not(:last-of-type) {
@@ -153,6 +159,11 @@ footer .footer .icon img {
     display: flex;
     align-items: flex-start;
     gap: 32px;
+  }
+
+  footer .footer .columns.links > div > div:last-child {
+    margin-left: auto;
+    text-align: right;
   }
 
   footer .footer .section:nth-of-type(2) .columns > div > div:nth-of-type(1) {
@@ -168,20 +179,9 @@ footer .footer .icon img {
     padding-top: 0;
   }
 
-  footer .footer .columns.links > div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
   footer .footer .columns.links .links-wrapper {
     display: flex;
     gap: 2rem;
     margin-bottom: 0;
-  }
-
-  footer .footer .columns.links > div > div:last-child {
-    margin-left: auto;
-    text-align: right;
   }
 }
