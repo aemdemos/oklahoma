@@ -1,0 +1,6 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" class="cmp-back-to-top__up" width="32"  height="32" ><defs><symbol id="icon-close-arrow" viewBox="0 0 32 32">
+            <path fill="white" d="M32.738 23.557c0 0.004 0 0.009 0 0.014 0 1.359-1.102 2.462-2.462 2.462-0.683 0-1.302-0.278-1.748-0.728l-12.185-12.185-12.185 12.308c-0.445 0.442-1.058 0.716-1.735 0.716s-1.29-0.273-1.736-0.716l0 0c-0.428-0.442-0.692-1.046-0.692-1.711s0.264-1.268 0.692-1.711l-0.001 0.001 15.655-15.852 15.655 15.655c0.454 0.445 0.736 1.063 0.738 1.747v0.001z">
+            </path>
+        </symbol></defs>
+            <use xlink:href="#icon-close-arrow" fill="white"></use>
+          </svg>

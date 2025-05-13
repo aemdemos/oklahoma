@@ -4,7 +4,6 @@
  * https://www.hlx.live/developer/block-collection/table
  */
 
-
 /**
  *
  * @param {Element} block

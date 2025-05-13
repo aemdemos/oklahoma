@@ -66,18 +66,18 @@
   size-adjust:108.96%;
 }
 
-@font-face {
-  font-family:"Font Awesome 6 Pro Fallback";
-  font-style:normal;
-  font-weight:400;
-  src:local("Arial");
-  ascent-override:87.50%;
-  descent-override:12.50%;
-  line-gap-override:0.00%;
-  size-adjust:100.00%;
-}
-
-@media (width>=900px) {
+@media (width >= 768px) {
+  @font-face {
+    font-family:"Font Awesome 6 Pro Fallback";
+    font-style:normal;
+    font-weight:400;
+    src:local("Arial");
+    ascent-override:87.50%;
+    descent-override:12.50%;
+    line-gap-override:0.00%;
+    size-adjust:100.00%;
+  }
+  
   :root {
     --body-font-size-m: 42px;
     --body-font-size-s: 18px;
@@ -258,8 +258,8 @@ main>.section:first-of-type {
   margin-top: 0;
 }
 
-@media (width>=900px) {
-  main>.section>div {
+@media (width >= 768px) {
+  main > .section > div {
     padding: 0 32px;
   }
 }
