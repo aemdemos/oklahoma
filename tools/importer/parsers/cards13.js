@@ -1,49 +1,32 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const rows = [];
-  
-  // Add the header row dynamically
-  rows.push(['Cards']);
+  const headerRow = ['Cards'];
 
-  // Extracting the image element and text content
-  const imageElement = element.querySelector('.image img');
-  const linkElement = element.querySelector('.image a');
-  const textElement = element.querySelector('.text .cmp-text');
+  const cardsData = [];
 
-  // Handle missing image or link cases
-  const imageCell = document.createElement('div');
-  if (linkElement && imageElement) {
-    const image = document.createElement('img');
-    image.src = imageElement.src;
-    image.alt = imageElement.alt || '';
+  element.querySelectorAll('.aem-GridColumn').forEach((column) => {
+    const imageContainer = column.querySelector('.cmp-image');
+    const textContainer = column.querySelector('.cmp-text');
 
-    const link = document.createElement('a');
-    link.href = linkElement.href;
-    link.target = '_blank';
-    link.appendChild(image);
+    if (imageContainer && textContainer) {
+      const link = imageContainer.querySelector('a');
+      const img = imageContainer.querySelector('img');
 
-    imageCell.appendChild(link);
-  } else if (imageElement) {
-    const image = document.createElement('img');
-    image.src = imageElement.src;
-    image.alt = imageElement.alt || '';
-    imageCell.appendChild(image);
-  }
+      const imageElement = document.createElement('div');
+      imageElement.appendChild(img.cloneNode(true));
+      if (link) {
+        const linkElement = document.createElement('a');
+        linkElement.href = link.href;
+        linkElement.appendChild(imageElement);
+      }
 
-  // Handle missing text cases
-  const textCell = document.createElement('div');
-  if (textElement) {
-    textCell.innerHTML = textElement.innerHTML;
-  } else {
-    textCell.textContent = '';
-  }
+      const textElement = textContainer.cloneNode(true);
 
-  // Add the row with image and text content
-  rows.push([imageCell, textCell]);
+      cardsData.push([imageElement, textElement]);
+    }
+  });
 
-  // Create the table block
-  const blockTable = WebImporter.DOMUtils.createTable(rows, document);
-
-  // Replace the original element
-  element.replaceWith(blockTable);
+  const cells = [headerRow, ...cardsData];
+  const block = WebImporter.DOMUtils.createTable(cells, document);
+  element.replaceWith(block);
 }

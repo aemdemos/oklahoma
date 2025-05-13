@@ -1,22 +1,28 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Extract the URL dynamically from the HTML
-  const queryIndexElement = element.querySelector('.newslist__filter-template');
-  const queryIndexURL = queryIndexElement ? queryIndexElement.getAttribute('data-newslistingapiurl') : '';
+  // Extract relevant content dynamically from the provided element
+  const queryIndexUrl = element.querySelector('[data-newslistingapiurl]')?.getAttribute('data-newslistingapiurl');
 
-  // Create the header row matching the example exactly
+  // Validate extracted content
+  if (!queryIndexUrl) {
+    console.error('Missing query index URL');
+    return;
+  }
+
+  // Create the header row for the table
   const headerRow = ['Search'];
 
-  // Create the content row dynamically using the extracted URL
-  const contentRow = [queryIndexURL];
+  // Create the content row with the absolute URL
+  const contentRow = [
+    `https://main--helix-block-collection--adobe.hlx.page${queryIndexUrl}`,
+  ];
 
-  // Create the block table using WebImporter.DOMUtils.createTable
-  const cells = [
+  // Use WebImporter.DOMUtils.createTable to generate the structured table
+  const table = WebImporter.DOMUtils.createTable([
     headerRow,
     contentRow,
-  ];
-  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+  ], document);
 
-  // Replace the original element with the new block table
-  element.replaceWith(blockTable);
+  // Replace the original element with the new table
+  element.replaceWith(table);
 }

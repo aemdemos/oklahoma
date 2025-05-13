@@ -1,33 +1,40 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Helper function to extract text content from an element
-  const getTextContent = (el) => el ? el.textContent.trim() : '';
+  // Check if the element is null or undefined
+  if (!element) return;
 
-  // Extract the image element and clone it
+  // Extract the image
   const imageElement = element.querySelector('img');
-  const image = imageElement ? imageElement.cloneNode(true) : null;
+  const image = imageElement ? document.createElement('img') : null;
+  if (image && imageElement.src) {
+    image.src = imageElement.src;
+    image.alt = imageElement.alt || ''; // Use dynamic alt
+    image.title = imageElement.title || ''; // Use dynamic title
+  }
 
   // Extract the heading
-  const headingElement = element.querySelector('.cmp-teaser__title');
+  const headingElement = element.querySelector('h1');
   const heading = headingElement ? document.createElement('h1') : null;
-  if (heading) heading.textContent = getTextContent(headingElement);
+  if (heading && headingElement.textContent) {
+    heading.textContent = headingElement.textContent.trim();
+  }
 
-  // Extract the description paragraph
-  const descriptionElement = element.querySelector('.cmp-teaser__description p');
+  // Extract the description
+  const descriptionElement = element.querySelector('p');
   const description = descriptionElement ? document.createElement('p') : null;
-  if (description) description.textContent = getTextContent(descriptionElement);
+  if (description && descriptionElement.textContent) {
+    description.textContent = descriptionElement.textContent.trim();
+  }
 
-  // Prepare the table data with separate cells
-  const tableData = [
-    ['Hero'], // Header row
-    [
-      image, heading, description // Separate elements in individual cells
-    ]
+  // Define the table content
+  const cells = [
+    ['Hero'],
+    [[image, heading, description]], // Combine elements into a single cell array
   ];
 
-  // Create the table
-  const blockTable = WebImporter.DOMUtils.createTable(tableData, document);
+  // Create the block table
+  const block = WebImporter.DOMUtils.createTable(cells, document);
 
   // Replace the original element
-  element.replaceWith(blockTable);
+  element.replaceWith(block);
 }

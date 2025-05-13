@@ -1,37 +1,47 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Extracting image
-  const imageElement = element.querySelector('img');
-  const image = imageElement ? document.createElement('img') : null;
-  if (imageElement) {
-    image.setAttribute('src', imageElement.getAttribute('src'));
-    image.setAttribute('alt', imageElement.getAttribute('alt'));
-    image.setAttribute('title', imageElement.getAttribute('title'));
-  }
+  // Helper function to extract image
+  const extractImage = (imgElement) => {
+    if (!imgElement) return null;
+    const imgSrc = imgElement.getAttribute('src');
+    const imgAlt = imgElement.getAttribute('alt');
+    const imgTitle = imgElement.getAttribute('title');
+    const image = document.createElement('img');
+    image.src = imgSrc;
+    image.alt = imgAlt || '';
+    image.title = imgTitle || '';
+    return image;
+  };
 
-  // Extracting heading
-  const headingElement = element.querySelector('.cmp-teaser__title');
-  const heading = headingElement ? document.createElement('h1') : null;
-  if (headingElement) {
-    heading.textContent = headingElement.textContent.trim();
-  }
+  // Extract image
+  const imageElement = element.querySelector('.cmp-teaser__image img');
+  const image = extractImage(imageElement);
 
-  // Extracting description
-  const descriptionElement = element.querySelector('.cmp-text > p');
-  const description = descriptionElement ? document.createElement('p') : null;
-  if (descriptionElement) {
-    description.textContent = descriptionElement.textContent.trim();
-  }
+  // Extract title
+  const titleElement = element.querySelector('.cmp-teaser__title');
+  const title = document.createElement('h1');
+  title.textContent = titleElement?.textContent.trim() || '';
 
-  // Creating corrected table rows
-  // Header row must match example exactly and occupy a single column
-  const headerRow = ['Hero'];
-  const contentRow = [[image, heading, description]];  // Placing all content in a single cell
+  // Extract description
+  const descriptionElement = element.querySelector('.cmp-teaser__description p');
+  const description = document.createElement('p');
+  description.textContent = descriptionElement?.textContent.trim() || '';
 
-  // Generating table
-  const cells = [headerRow, contentRow];
-  const block = WebImporter.DOMUtils.createTable(cells, document);
+  // Combine content into a single cell
+  const combinedContent = document.createElement('div');
+  if (image) combinedContent.appendChild(image);
+  if (title) combinedContent.appendChild(title);
+  if (description) combinedContent.appendChild(description);
 
-  // Replacing original element
-  element.replaceWith(block);
+  // Create table cells
+  const cells = [
+    ['Hero'], // Header row with a single column
+    [combinedContent], // Content row with all elements combined into a single cell
+  ];
+
+  // Create table
+  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+
+  // Replace element with block table
+  element.replaceWith(blockTable);
 }

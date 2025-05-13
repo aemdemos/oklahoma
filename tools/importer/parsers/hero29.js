@@ -1,31 +1,36 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Helper function to get text content of an element
-  const getTextContent = (el) => (el ? el.textContent.trim() : '');
+    const cells = [];
 
-  // Extracting Hero block data
-  const heroImage = element.querySelector('.cmp-teaser__image img');
-  const heroTitle = element.querySelector('.cmp-teaser__content .cmp-teaser__title');
+    // Ensure Header Row Matches Example Exactly
+    const headerRow = ['Hero'];
+    cells.push(headerRow);
 
-  const heroTableData = [
-    ['Hero'],
-    [
-      heroImage ? (() => {
-        const img = document.createElement('img');
-        img.setAttribute('src', heroImage.src);
-        img.setAttribute('alt', heroImage.alt);
-        return img;
-      })() : '',
-      heroTitle ? (() => {
+    // Extract Image and Handle Missing Values
+    const imageElement = element.querySelector('img');
+    if (imageElement) {
+        const image = document.createElement('img');
+        image.src = imageElement.src;
+        image.alt = imageElement.alt || '';
+        image.title = imageElement.title || '';
+        cells.push([image]);
+    } else {
+        cells.push(['']); // Fallback for missing image
+    }
+
+    // Extract Heading and Handle Missing Values
+    const headingElement = element.querySelector('h1, h2, h3, h4, h5, h6');
+    if (headingElement) {
         const heading = document.createElement('h1');
-        heading.textContent = getTextContent(heroTitle);
-        return heading;
-      })() : ''
-    ]
-  ];
+        heading.textContent = headingElement.textContent;
+        cells.push([heading]);
+    } else {
+        cells.push(['']); // Fallback for missing heading
+    }
 
-  const heroTable = WebImporter.DOMUtils.createTable(heroTableData, document);
+    // Create Block Table
+    const blockTable = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Replace element content
-  element.replaceWith(heroTable);
+    // Replace Original Element with Block Table
+    element.replaceWith(blockTable);
 }

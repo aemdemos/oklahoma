@@ -1,33 +1,34 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const rows = [];
+  // Accordion content extraction
+  const accordionItems = Array.from(element.querySelectorAll('.cmp-accordion__item'));
+  const tableData = [['Accordion']];
 
-  // Header row - Ensure it matches the example exactly
-  const headerRow = ['Accordion'];
-  rows.push(headerRow);
+  accordionItems.forEach((item) => {
+    const titleElement = document.createElement('div');
+    const contentElement = document.createElement('div');
 
-  // Extract accordion items
-  const items = element.querySelectorAll('.cmp-accordion__item');
-  items.forEach((item) => {
-    const titleElement = item.querySelector('.cmp-accordion__title');
-    const title = titleElement ? titleElement.textContent.trim() : '';
+    // Extract and handle title
+    const title = item.querySelector('.cmp-accordion__title')?.textContent.trim();
+    if (title) {
+      titleElement.textContent = title;
+    } else {
+      titleElement.textContent = 'Untitled';
+    }
 
-    const contentPanel = item.querySelector('[data-cmp-hook-accordion="panel"]');
-    const contentElements = contentPanel
-      ? Array.from(contentPanel.childNodes).filter((node) => {
-          return (
-            node.nodeType === 1 ||
-            (node.nodeType === 3 && node.textContent.trim() !== '')
-          );
-        })
-      : [];
+    // Extract and handle content
+    const content = item.querySelector('.cmp-accordion__panel')?.innerHTML.trim();
+    if (content) {
+      contentElement.innerHTML = content;
+    } else {
+      contentElement.innerHTML = '<p>No content available</p>';
+    }
 
-    rows.push([title, contentElements]);
+    tableData.push([titleElement, contentElement]);
   });
 
-  // Create the block table
-  const block = WebImporter.DOMUtils.createTable(rows, document);
+  const accordionTable = WebImporter.DOMUtils.createTable(tableData, document);
 
-  // Replace original element with the new block
-  element.replaceWith(block);
+  // Replace original element with structured elements
+  element.replaceWith(accordionTable);
 }

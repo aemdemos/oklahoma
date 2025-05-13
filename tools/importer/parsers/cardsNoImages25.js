@@ -1,38 +1,37 @@
 /* global WebImporter */
- export default function parse(element, { document }) {
-  // Create header row for the table
+export default function parse(element, { document }) {
+  // Initialize an array for the table header
   const headerRow = ['Cards (no images)'];
 
-  // Extract the content of each card
-  const cards = [];
-  const cardsContainer = element.querySelectorAll('.cmp-card');
+  // Extract relevant card content dynamically
+  const cardHeading = element.querySelector('.cmp-card__heading h2');
+  const cardDescriptionItems = element.querySelectorAll('.cmp-card__heading ul li');
 
-  cardsContainer.forEach((card) => {
-    const cardContent = [];
+  // Handle cases where content may be missing
+  const cardContent = [];
 
-    // Extract heading if available
-    const heading = card.querySelector('h2');
-    if (heading) {
-      const headingText = document.createElement('strong');
-      headingText.textContent = heading.textContent.trim();
-      cardContent.push(headingText);
-    }
+  // Add heading dynamically if it exists
+  if (cardHeading) {
+    cardContent.push(`<strong>${cardHeading.textContent.trim()}</strong>`);
+  }
 
-    // Extract description if available
-    const descriptionItems = card.querySelectorAll('ul li');
-    descriptionItems.forEach((item) => {
-      const paragraph = document.createElement('p');
-      paragraph.textContent = item.textContent.trim();
-      cardContent.push(paragraph);
-    });
-
-    cards.push([cardContent]);
+  // Add descriptions dynamically, ensuring all list items are included
+  cardDescriptionItems.forEach((item) => {
+    cardContent.push(item.textContent.trim());
   });
 
-  // Construct the table
-  const tableCells = [headerRow, ...cards];
-  const table = WebImporter.DOMUtils.createTable(tableCells, document);
+  // Combine heading and description into one cell
+  const cardRow = [`${cardContent.join('<br>')}`];
 
-  // Replace the original element with the new table
-  element.replaceWith(table);
+  // Define the table structure
+  const cells = [
+    headerRow, // Exact header row as per example
+    cardRow   // Card content
+  ];
+
+  // Create the block table using the helper method
+  const block = WebImporter.DOMUtils.createTable(cells, document);
+
+  // Replace the original element with the block
+  element.replaceWith(block);
 }

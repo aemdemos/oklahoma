@@ -1,35 +1,38 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const sharingLinks = [];
+  const embedLinks = [];
 
-  // Extract social sharing links
-  const fbShareButton = element.querySelector('.fb-share-button');
-  if (fbShareButton && fbShareButton.getAttribute('data-href')) {
-    sharingLinks.push(fbShareButton.getAttribute('data-href'));
-  }
+  // Extract all iframe src attributes
+  const iframes = element.querySelectorAll('iframe');
+  iframes.forEach((iframe) => {
+    if (iframe.src) {
+      const anchor = document.createElement('a');
+      anchor.href = iframe.src;
+      anchor.textContent = iframe.src;
+      embedLinks.push(anchor);
+    }
+  });
 
-  const twitterIframe = element.querySelector('iframe.twitter-share-button');
-  if (twitterIframe && twitterIframe.src) {
-    sharingLinks.push(twitterIframe.src);
-  }
+  // Extract all anchor href attributes
+  const anchors = element.querySelectorAll('a');
+  anchors.forEach((anchor) => {
+    if (anchor.href) {
+      const anchorElement = document.createElement('a');
+      anchorElement.href = anchor.href;
+      anchorElement.textContent = anchor.href;
+      embedLinks.push(anchorElement);
+    }
+  });
 
-  const emailShare = element.querySelector('.cmp-email-share__button');
-  if (emailShare && emailShare.href) {
-    sharingLinks.push(emailShare.href);
-  }
-
-  const downloadLink = element.querySelector('.cmp-download-page');
-  if (downloadLink && downloadLink.href) {
-    sharingLinks.push(downloadLink.href);
-  }
-
-  // Create the content row dynamically based on extracted links
-  const cells = [
-    ['Embed (social)'], // Header row
-    [sharingLinks.join(', ')] // Content row with extracted URLs
+  // Prepare table data
+  const tableData = [
+    ['Embed'],
+    [embedLinks],
   ];
 
-  const table = WebImporter.DOMUtils.createTable(cells, document);
+  // Create table block
+  const blockTable = WebImporter.DOMUtils.createTable(tableData, document);
 
-  element.replaceWith(table);
+  // Replace element with new table
+  element.replaceWith(blockTable);
 }
