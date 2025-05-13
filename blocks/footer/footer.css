@@ -82,10 +82,11 @@ footer .back-to-top:hover {
   text-decoration: underline;
 }
 
-footer .footer .columns.links > div {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+footer .footer .columns.links div {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 1rem 1.5rem;
+  color: #e8e8e8;
 }
 
 footer .footer .columns.links > div > div:last-child {
@@ -112,8 +113,7 @@ footer .footer .section:nth-of-type(3) .columns:not(:last-of-type) > div > div {
 footer .footer .columns.links .links-wrapper {
   display: grid;
   grid-template-columns: repeat(2, auto);
-  gap: 1rem 1.5rem;
-  margin-bottom: 1rem;
+  gap: 1rem 2.5rem;
 }
 
 footer .footer .section:nth-of-type(3) .columns > div > div:nth-of-type(5) {
@@ -137,8 +137,26 @@ footer .footer p a {
   color: white;
 }
 
+footer .footer .columns.links p {
+  font-size: 0.88rem;
+}
+
 footer .footer p a:hover {
   text-decoration: none;
+}
+
+footer .footer .columns.links .links-wrapper p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+footer .footer .columns.links .links-wrapper p a {
+  padding-right: 1.2rem;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 @media (width >= 768px) {
@@ -146,13 +164,20 @@ footer .footer p a:hover {
     padding: 40px 32px 0;
   }
 
-  footer .footer .columns.links p {
-    font-size: 0.88rem;
-  }
-
   footer .footer .columns-container:not(:last-of-type) {
     margin-bottom: 50px;
     margin-top: 30px;
+  }
+
+  footer .footer .columns.links div {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  footer .footer .columns.links .links-wrapper {
+    display: flex;
+    gap: 10px;
   }
 
   footer .footer .section:nth-of-type(2) .columns > div {
@@ -162,8 +187,11 @@ footer .footer p a:hover {
   }
 
   footer .footer .columns.links > div > div:last-child {
+    grid-column: unset;
     margin-left: auto;
     text-align: right;
+    width: auto;
+    justify-content: flex-end;
   }
 
   footer .footer .section:nth-of-type(2) .columns > div > div:nth-of-type(1) {
@@ -177,11 +205,5 @@ footer .footer p a:hover {
   footer .footer .section:nth-of-type(2) .columns > div > div:nth-of-type(2) {
     flex: 0 1 auto;
     padding-top: 0;
-  }
-
-  footer .footer .columns.links .links-wrapper {
-    display: flex;
-    gap: 2rem;
-    margin-bottom: 0;
   }
 }
