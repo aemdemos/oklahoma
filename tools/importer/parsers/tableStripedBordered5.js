@@ -1,34 +1,50 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Helper function to create table rows
-  const createRow = (content) => {
-    const row = [];
-    content.forEach((item) => {
-      if (typeof item === 'string') {
-        row.push(item);
-      } else {
-        row.push(item);
-      }
-    });
-    return row;
+  // Helper to create a link element
+  const createLink = (href, text) => {
+    const a = document.createElement('a');
+    a.href = href;
+    a.textContent = text;
+    return a;
   };
 
-  // Extracting the relevant content from the element
-  const logoLink = element.querySelector('.cmp-global-header__logo');
-  const translateButton = element.querySelector('#show-google-translate-button');
-  const translateLink = element.querySelector('.VIpgJd-ZVi9od-l4eHX-hSRGPd');
-  const stateAgencyLink = element.querySelector('.cmp-global-header-right-nav-list__item-title[href="/stateagency.html"]');
+  // Extract content from the provided HTML element
+  const rows = [];
 
-  // Fixing the header row text to match the example exactly
-  const headerRow = ['Table (striped & bordered)'];
-  const dataRow1 = createRow(['Logo', logoLink ? logoLink.cloneNode(true) : '']);
-  const dataRow2 = createRow(['Translate', [translateButton ? translateButton.cloneNode(true) : '', translateLink ? translateLink.cloneNode(true) : '']]);
-  const dataRow3 = createRow(['State Agencies', stateAgencyLink ? stateAgencyLink.cloneNode(true) : '']);
+  // Add header row for the table block
+  rows.push(['Table (striped, bordered)']);
 
-  // Constructing the table
-  const cells = [headerRow, dataRow1, dataRow2, dataRow3];
-  const table = WebImporter.DOMUtils.createTable(cells, document);
+  const headerDiv = element.querySelector('.cmp-global-header');
+  if (headerDiv) {
+    // Extract logo
+    const logoImg = headerDiv.querySelector('img');
+    if (logoImg && logoImg.src) {
+      rows.push([createLink(logoImg.src, 'Logo')]);
+    } else {
+      rows.push(['No Logo']);
+    }
 
-  // Replacing the element with the final structure
-  element.replaceWith(table);
+    // Extract navigation items
+    const navItems = headerDiv.querySelectorAll('.cmp-global-header-right-nav-list__item');
+    navItems.forEach((navItem) => {
+      const link = navItem.querySelector('a');
+      if (link) {
+        rows.push([createLink(link.href, link.textContent)]);
+      } else {
+        const googleTranslateButton = navItem.querySelector('#show-google-translate-button');
+        const googleAnchor = navItem.querySelector('a[href*="translate.google.com"]');
+        if (googleTranslateButton && googleAnchor) {
+          rows.push([
+            createLink(googleAnchor.href, googleAnchor.textContent || 'Google Translate'),
+          ]);
+        }
+      }
+    });
+  }
+
+  // Create a table using WebImporter.DOMUtils.createTable
+  const blockTable = WebImporter.DOMUtils.createTable(rows, document);
+
+  // Replace the original element with the new structured table
+  element.replaceWith(blockTable);
 }

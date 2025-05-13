@@ -1,34 +1,33 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Accordion content extraction
-  const accordionItems = Array.from(element.querySelectorAll('.cmp-accordion__item'));
-  const tableData = [['Accordion']];
+  const rows = [];
 
-  accordionItems.forEach((item) => {
-    const titleElement = document.createElement('div');
-    const contentElement = document.createElement('div');
+  // Header row - Ensure it matches the example exactly
+  const headerRow = ['Accordion'];
+  rows.push(headerRow);
 
-    // Extract and handle title
-    const title = item.querySelector('.cmp-accordion__title')?.textContent.trim();
-    if (title) {
-      titleElement.textContent = title;
-    } else {
-      titleElement.textContent = 'Untitled';
-    }
+  // Extract accordion items
+  const items = element.querySelectorAll('.cmp-accordion__item');
+  items.forEach((item) => {
+    const titleElement = item.querySelector('.cmp-accordion__title');
+    const title = titleElement ? titleElement.textContent.trim() : '';
 
-    // Extract and handle content
-    const content = item.querySelector('.cmp-accordion__panel')?.innerHTML.trim();
-    if (content) {
-      contentElement.innerHTML = content;
-    } else {
-      contentElement.innerHTML = '<p>No content available</p>';
-    }
+    const contentPanel = item.querySelector('[data-cmp-hook-accordion="panel"]');
+    const contentElements = contentPanel
+      ? Array.from(contentPanel.childNodes).filter((node) => {
+          return (
+            node.nodeType === 1 ||
+            (node.nodeType === 3 && node.textContent.trim() !== '')
+          );
+        })
+      : [];
 
-    tableData.push([titleElement, contentElement]);
+    rows.push([title, contentElements]);
   });
 
-  const accordionTable = WebImporter.DOMUtils.createTable(tableData, document);
+  // Create the block table
+  const block = WebImporter.DOMUtils.createTable(rows, document);
 
-  // Replace original element with structured elements
-  element.replaceWith(accordionTable);
+  // Replace original element with the new block
+  element.replaceWith(block);
 }

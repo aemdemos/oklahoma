@@ -1,53 +1,39 @@
 /* global WebImporter */
-export default function parse(element, { document }) {
-    // Helper function to create rows for cards
-    const createCardRow = (image, title, description, link) => {
-        const imgElement = document.createElement('img');
-        imgElement.src = image.src;
-        imgElement.alt = image.alt || '';
+ export default function parse(element, { document }) {
+  // Extract content from the element
+  const cards = [];
 
-        const titleElement = document.createElement('h2');
-        titleElement.textContent = title;
+  element.querySelectorAll('.newsfeed__list').forEach((newsItem) => {
+    const image = newsItem.querySelector('.newsfeed__image img');
+    const titleLink = newsItem.querySelector('.newsfeed__title a');
+    const date = newsItem.querySelector('.caption');
 
-        const descriptionElement = document.createElement('p');
-        descriptionElement.textContent = description;
+    if (image && titleLink && date) {
+      const imageElement = document.createElement('img');
+      imageElement.src = image.src;
 
-        const linkElement = document.createElement('a');
-        linkElement.href = link.href;
-        linkElement.textContent = link.textContent;
+      const content = document.createElement('div');
 
-        return [imgElement, [titleElement, descriptionElement, linkElement]];
-    };
+      const title = document.createElement('h2');
+      const titleAnchor = document.createElement('a');
+      titleAnchor.href = titleLink.href;
+      titleAnchor.textContent = titleLink.textContent;
+      title.appendChild(titleAnchor);
 
-    // Extract data from the element
-    const cards = [];
-    const cardElements = element.querySelectorAll('.newsfeed__list');
-    cardElements.forEach((card) => {
-        const imageElement = card.querySelector('img');
-        const titleElement = card.querySelector('.newsfeed__title a');
-        const descriptionElement = card.querySelector('.caption');
+      const dateElement = document.createElement('div');
+      dateElement.textContent = date.textContent;
 
-        const image = {
-            src: imageElement?.src || '',
-            alt: imageElement?.alt || '',
-        };
+      content.appendChild(title);
+      content.appendChild(dateElement);
 
-        const title = titleElement?.textContent || '';
-        const description = descriptionElement?.textContent || '';
+      cards.push([imageElement, content]);
+    }
+  });
 
-        const link = {
-            href: titleElement?.href || '#',
-            textContent: 'Read More',
-        };
+  const headerRow = ['Cards'];
+  const rows = [headerRow, ...cards];
+  const blockTable = WebImporter.DOMUtils.createTable(rows, document);
 
-        cards.push(createCardRow(image, title, description, link));
-    });
-
-    // Create table with precise header row
-    const headerRow = ['Cards'];
-    const tableRows = [headerRow, ...cards];
-    const blockTable = WebImporter.DOMUtils.createTable(tableRows, document);
-
-    // Replace element with the block table
-    element.replaceWith(blockTable);
+  // Replace the original element with the block table
+  element.replaceWith(blockTable);
 }

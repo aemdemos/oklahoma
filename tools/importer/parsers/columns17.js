@@ -1,43 +1,41 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const hr = document.createElement('hr');
+  // Helper function to extract text content
+  const getTextContent = (el) => el ? el.textContent.trim() : '';
 
-  // Ensure the header row matches the example exactly
-  const headerRow = ['Columns'];
+  // Extracting address block
+  const addressBlock = element.querySelector('.cmp-agency-footer__address p');
 
-  // Extract and structure content dynamically for Address
-  const addressElement = element.querySelector('.cmp-agency-footer__address');
-  const addressContent = addressElement ? addressElement.innerHTML.trim() : '';
-  const addressBlock = document.createElement('div');
-  addressBlock.innerHTML = addressContent;
+  // Extracting contact details (cell and email)
+  const contactBlock = element.querySelector('.cmp-agency-footer__links .cmp-text');
 
-  // Extract and structure content dynamically for Links
-  const linksElement = element.querySelector('.cmp-agency-footer__links .cmp-text');
-  const linksBlock = linksElement
-    ? Array.from(linksElement.querySelectorAll('a')).map(link => {
-        const anchor = document.createElement('a');
-        anchor.href = link.href;
-        anchor.textContent = link.textContent.trim();
-        return anchor;
-      })
-    : [];
+  // Extracting social share link, assuming it exists
+  const socialLink = element.querySelector('.cmp-social-share a');
 
-  // Extract and structure content dynamically for Social Share
-  const socialShareElement = element.querySelector('.cmp-social-share__button');
-  const socialShareBlock = socialShareElement ? document.createElement('a') : '';
-  if (socialShareBlock) {
-    socialShareBlock.href = socialShareElement.href;
-    socialShareBlock.textContent = socialShareElement.title;
+  // Address block content
+  const addressContent = getTextContent(addressBlock);
+
+  // Contact details content
+  const contactDetails = [];
+  if (contactBlock) {
+    const contactLinks = contactBlock.querySelectorAll('a');
+    contactLinks.forEach((link) => {
+      contactDetails.push(link.cloneNode(true));
+    });
   }
 
-  // Assemble table rows dynamically
-  const cells = [
-    headerRow,
-    [addressBlock, linksBlock, socialShareBlock],
+  // Social media link content
+  const socialLinkContent = socialLink ? socialLink.cloneNode(true) : null; // Include only if it exists
+
+  // Building table rows
+  const tableContent = [
+    ['Columns'],
+    [addressContent, contactDetails, socialLinkContent]
   ];
 
-  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+  // Create the block table
+  const block = WebImporter.DOMUtils.createTable(tableContent, document);
 
-  // Replace the original element with the structured HTML
-  element.replaceWith(hr, blockTable);
+  // Replace element with the new block
+  element.replaceWith(block);
 }

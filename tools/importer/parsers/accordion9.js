@@ -1,29 +1,35 @@
 /* global WebImporter */
 
 export default function parse(element, { document }) {
-  // Correctly create the header row based on the example
-  const headerRow = ['Accordion'];
+    const hr = document.createElement('hr');
 
-  // Extract accordion title and content dynamically
-  const accordionItems = Array.from(element.querySelectorAll('.cmp-accordion__item')).map((item) => {
-    const titleElement = item.querySelector('.cmp-accordion__title');
-    const panelElement = item.querySelector('.cmp-accordion__panel');
+    const cells = [['Accordion']];
 
-    // Ensure we extract title and clean panel content or fallback to empty strings
-    const title = titleElement ? titleElement.textContent.trim() : '';
-    const content = panelElement
-      ? Array.from(panelElement.querySelectorAll('p, a, table')).map(el => el.textContent.trim()).join(' ') // Clean and simplify content
-      : '';
+    const accordionItems = element.querySelectorAll('.cmp-accordion__item');
 
-    return [title, content];
-  });
+    accordionItems.forEach((item) => {
+        const titleElement = item.querySelector('.cmp-accordion__title');
+        const contentElement = item.querySelector('.cmp-accordion__panel');
 
-  // Create rows combining header and content
-  const tableRows = [headerRow, ...accordionItems];
+        if (titleElement && contentElement) {
+            const title = titleElement.textContent.trim();
+            const content = Array.from(contentElement.querySelectorAll('p, table, a')).map(el => {
+                if (el.tagName === 'TABLE') {
+                    return el.cloneNode(true);
+                } else if (el.tagName === 'A') {
+                    const link = document.createElement('a');
+                    link.href = el.href;
+                    link.textContent = el.textContent.trim();
+                    return link;
+                } else {
+                    return el.textContent.trim();
+                }
+            });
+            cells.push([title, content]);
+        }
+    });
 
-  // Generate block table
-  const accordionTable = WebImporter.DOMUtils.createTable(tableRows, document);
+    const blockTable = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Replace original element with formatted table (no unnecessary section metadata block)
-  element.replaceWith(accordionTable);
+    element.replaceWith(hr, blockTable);
 }

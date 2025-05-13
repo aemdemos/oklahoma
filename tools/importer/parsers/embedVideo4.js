@@ -1,33 +1,45 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const rows = [];
+  // Create an array to hold structured data for the block
+  const cells = [];
 
-  // Extract the image and URL dynamically
-  const imageLink = element.querySelector('a.cmp-agency-footer__logo');
-  const img = imageLink ? imageLink.querySelector('img') : null;
-  const linkHref = imageLink ? imageLink.getAttribute('href') : null;
+  // Add the block name as the header row
+  cells.push(['Embed']);
 
-  // Ensure content exists before adding to the table
-  if (!img || !linkHref) {
-    console.warn('Missing image or link in element:', element);
-    return;
+  // Extract image and link content
+  const logoImage = element.querySelector('img');
+  const imageElement = logoImage ? document.createElement('img') : null;
+  if (imageElement) {
+    imageElement.src = logoImage.src;
+  }
+  const imageAlt = logoImage ? logoImage.alt : ''; // Extract alt attribute
+
+  // Extract link
+  const linkElement = element.querySelector('a.cmp-agency-footer__logo');
+  const url = linkElement ? linkElement.href : ''; // Extract link URL
+
+  // Combine extracted elements into one cell
+  const contentCell = [];
+  if (imageElement) {
+    contentCell.push(imageElement);
+  }
+  if (imageAlt) {
+    const altTextNode = document.createTextNode(imageAlt);
+    contentCell.push(altTextNode);
+  }
+  if (url) {
+    const link = document.createElement('a');
+    link.href = url;
+    link.textContent = url;
+    contentCell.push(link);
   }
 
-  // Build the header row dynamically matching example
-  rows.push(['Embed']);
+  // Add the content cell to the table
+  cells.push([contentCell]);
 
-  // Build the content rows properly formatted
-  rows.push([img]);
+  // Create table using WebImporter.DOMUtils.createTable
+  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Create the link element dynamically and add it as a row
-  const linkElement = document.createElement('a');
-  linkElement.setAttribute('href', linkHref);
-  linkElement.textContent = linkHref;
-  rows.push([linkElement]);
-
-  // Create the block table
-  const blockTable = WebImporter.DOMUtils.createTable(rows, document);
-
-  // Replace the original element with the new table
+  // Replace the original element with the new structured block
   element.replaceWith(blockTable);
 }

@@ -1,36 +1,31 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-    const cells = [];
+  // Helper function to get text content of an element
+  const getTextContent = (el) => (el ? el.textContent.trim() : '');
 
-    // Ensure Header Row Matches Example Exactly
-    const headerRow = ['Hero'];
-    cells.push(headerRow);
+  // Extracting Hero block data
+  const heroImage = element.querySelector('.cmp-teaser__image img');
+  const heroTitle = element.querySelector('.cmp-teaser__content .cmp-teaser__title');
 
-    // Extract Image and Handle Missing Values
-    const imageElement = element.querySelector('img');
-    if (imageElement) {
-        const image = document.createElement('img');
-        image.src = imageElement.src;
-        image.alt = imageElement.alt || '';
-        image.title = imageElement.title || '';
-        cells.push([image]);
-    } else {
-        cells.push(['']); // Fallback for missing image
-    }
-
-    // Extract Heading and Handle Missing Values
-    const headingElement = element.querySelector('h1, h2, h3, h4, h5, h6');
-    if (headingElement) {
+  const heroTableData = [
+    ['Hero'],
+    [
+      heroImage ? (() => {
+        const img = document.createElement('img');
+        img.setAttribute('src', heroImage.src);
+        img.setAttribute('alt', heroImage.alt);
+        return img;
+      })() : '',
+      heroTitle ? (() => {
         const heading = document.createElement('h1');
-        heading.textContent = headingElement.textContent;
-        cells.push([heading]);
-    } else {
-        cells.push(['']); // Fallback for missing heading
-    }
+        heading.textContent = getTextContent(heroTitle);
+        return heading;
+      })() : ''
+    ]
+  ];
 
-    // Create Block Table
-    const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+  const heroTable = WebImporter.DOMUtils.createTable(heroTableData, document);
 
-    // Replace Original Element with Block Table
-    element.replaceWith(blockTable);
+  // Replace element content
+  element.replaceWith(heroTable);
 }

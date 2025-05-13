@@ -1,40 +1,42 @@
 /* global WebImporter */
-export default function parse(element, { document }) {
-  // Define table rows
-  const cells = [];
+export default function parse(element, { document }) { 
+  // Step 1: Extract the relevant content dynamically from the element
+  const heading = element.querySelector('.cmp-alert__text p:first-child');
+  const subheading = element.querySelector('.cmp-alert__text p:nth-child(2)');
+  const location = element.querySelector('.cmp-alert__text p:nth-child(4)');
+  const address = element.querySelector('.cmp-alert__text p:nth-child(5)');
 
-  // Extracting content dynamically
-  const alertTextDiv = element.querySelector('.cmp-alert__text');
-  const alertParagraphs = alertTextDiv ? Array.from(alertTextDiv.querySelectorAll('p')).filter(p => p.textContent.trim()) : [];
+  // Ensure fallback values for cases where elements might be missing
+  const headingText = heading ? heading.textContent.trim() : '';
+  const subheadingText = subheading ? subheading.textContent.trim() : '';
+  const locationText = location ? location.textContent.trim() : '';
+  const addressText = address ? address.textContent.trim() : '';
 
-  const logoLink = element.querySelector('.cmp-agency-header__logo');
-  const logoImage = logoLink ? logoLink.querySelector('img') : null;
+  // Create HTML elements for the extracted content
+  const headingElement = document.createElement('h1');
+  headingElement.textContent = headingText;
 
-  const navItems = element.querySelectorAll('.cmp-navigation__item-link');
-  const navLinks = Array.from(navItems).map(item => {
-    const link = item.querySelector('a');
-    return link ? link : item.querySelector('span');
-  }).filter(link => link);
+  const subheadingElement = document.createElement('p');
+  subheadingElement.textContent = subheadingText;
 
-  // Create consolidated content cell
-  const contentCell = document.createElement('div');
+  const locationElement = document.createElement('p');
+  locationElement.textContent = locationText;
 
-  alertParagraphs.forEach(paragraph => contentCell.appendChild(paragraph));
-  if (logoImage) contentCell.appendChild(logoImage);
-  navLinks.forEach(link => contentCell.appendChild(link));
+  const addressElement = document.createElement('p');
+  addressElement.textContent = addressText;
 
-  // Critical review: Header row matches example exactly
-  const headerRow = ['Hero'];
+  // Step 2: Prepare the table data as per the example structure
+  const tableHeader = ['Hero'];
+  const blockContent = [headingElement, subheadingElement, locationElement, addressElement];
 
-  // Push rows into table
-  cells.push(headerRow);
-  cells.push([contentCell]);
+  const tableData = [
+    tableHeader,
+    [blockContent],
+  ];
 
-  // Create block table dynamically
-  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+  // Step 3: Create the block table
+  const table = WebImporter.DOMUtils.createTable(tableData, document);
 
-  const hr = document.createElement('hr');
-
-  // Replace the element correctly
-  element.replaceWith(hr, blockTable);
+  // Step 4: Replace the original element with the new block table
+  element.replaceWith(table);
 }

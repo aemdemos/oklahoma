@@ -1,52 +1,46 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-    // Extract the container
-    const container = element.querySelector('.cmp-container');
-    if (!container) return;
+  // Extract and organize sections dynamically
+  const tableContent = [];
 
-    // Create rows for the table
-    const rows = [];
+  // Add the header row with the block name
+  tableContent.push(['Columns']);
 
-    // Header row with block name
-    const headerRow = ['Columns'];
-    rows.push(headerRow);
+  // Safely extract the image element from the left column
+  const imageDiv = element.querySelector('.image .cmp-image img');
+  let image = null;
+  if (imageDiv) {
+    image = document.createElement('img');
+    image.src = imageDiv.getAttribute('src');
+    image.alt = imageDiv.getAttribute('alt');
+  }
 
-    // Content row
-    const contentRow = [];
+  // Safely extract the text content from the right column
+  const textDiv = element.querySelector('.text .cmp-text');
+  let textContent = null;
+  if (textDiv) {
+    textContent = document.createElement('div');
+    textContent.innerHTML = textDiv.innerHTML;
+  }
 
-    // Extract images and text content dynamically
-    const gridItems = container.querySelectorAll('.aem-GridColumn');
+  // Populate content rows, ensuring dynamic extraction
+  const rowContent = [];
+  if (image) rowContent.push(image);
+  if (textContent) rowContent.push(textContent);
+  if (rowContent.length > 0) {
+    tableContent.push(rowContent);
+  }
 
-    gridItems.forEach((item) => {
-        const image = item.querySelector('img');
-        if (image) {
-            const imgElement = document.createElement('img');
-            imgElement.src = image.src;
-            imgElement.alt = image.alt;
-            contentRow.push(imgElement);
-        }
+  // Check for a separator (hr) and handle it properly
+  const separator = element.querySelector('.separator .cmp-separator__horizontal-rule');
+  if (separator) {
+    const hr = document.createElement('hr');
+    element.before(hr); // Add section break before the table
+  }
 
-        const text = item.querySelector('.cmp-text');
-        if (text) {
-            const content = document.createElement('div');
-            content.innerHTML = text.innerHTML;
-            contentRow.push(content);
-        }
+  // Create the table using WebImporter.DOMUtils.createTable
+  const table = WebImporter.DOMUtils.createTable(tableContent, document);
 
-        const link = item.querySelector('a');
-        if (link) {
-            const linkElement = document.createElement('a');
-            linkElement.href = link.href;
-            linkElement.textContent = link.textContent;
-            contentRow.push(linkElement);
-        }
-    });
-
-    rows.push(contentRow);
-
-    // Create the table
-    const table = WebImporter.DOMUtils.createTable(rows, document);
-
-    // Replace the original element with the new table
-    element.replaceWith(table);
+  // Replace the original element with the new table
+  element.replaceWith(table);
 }

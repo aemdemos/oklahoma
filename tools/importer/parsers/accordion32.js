@@ -1,29 +1,50 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Ensure the proper header matches the example
-  const cells = [];
+  const rows = [];
 
-  // Add the header row with dynamic extraction
-  const accordionHeader = "Accordion";
-  cells.push([accordionHeader]);
+  // Create header row for the accordion block
+  const headerRow = ['Accordion'];
+  rows.push(headerRow);
 
-  // Handle all accordion items dynamically
-  const accordionItems = element.querySelectorAll('.cmp-accordion__item');
+  const extractAccordionItems = (accordion) => {
+    const items = accordion.querySelectorAll('.cmp-accordion__item');
+    items.forEach((item) => {
+      const title = item.querySelector('.cmp-accordion__title')?.textContent.trim() || 'Missing Title';
 
-  accordionItems.forEach((item) => {
-    const titleButton = item.querySelector('.cmp-accordion__button');
-    const title = titleButton ? titleButton.innerText.trim() : '';
+      const contentContainer = item.querySelector('.cmp-accordion__panel');
+      const contentElements = [];
 
-    const contentNode = item.querySelector('[data-cmp-hook-accordion="panel"]');
-    const content = contentNode ? [...contentNode.children] : [];
+      if (contentContainer) {
+        const paragraphs = contentContainer.querySelectorAll('p');
+        paragraphs.forEach((paragraph) => {
+          contentElements.push(paragraph);
+        });
 
-    // Check for missing data and handle edge cases (e.g., empty title or content)
-    cells.push([title || 'No title provided', content.length > 0 ? content : ['No content available']]);
-  });
+        const images = contentContainer.querySelectorAll('img');
+        images.forEach((image) => {
+          const imgElement = document.createElement('img');
+          imgElement.src = image.src;
+          imgElement.alt = image.alt;
+          contentElements.push(imgElement);
+        });
+      } else {
+        contentElements.push('No Content Available');
+      }
 
-  // Create Accordion block table with dynamically extracted data
-  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+      rows.push([title, contentElements]);
+    });
+  };
 
-  // Replace the original element
-  element.replaceWith(blockTable);
+  const accordion = element.querySelector('.cmp-accordion');
+  if (accordion) {
+    extractAccordionItems(accordion);
+  } else {
+    rows.push(['Accordion', 'No accordion items found']);
+  }
+
+  // Create the accordion block table
+  const accordionBlock = WebImporter.DOMUtils.createTable(rows, document);
+
+  // Replace the original element with the structured accordion block
+  element.replaceWith(accordionBlock);
 }
