@@ -12,37 +12,22 @@
 
 import { TransformHook } from './transform.js';
 
-export default function transform(hookName, element, { document, originalURL, publishUrl }) {
+export default function transform(hookName, element, { document, params: { originalURL }, inventory }) {
   if (hookName === TransformHook.beforeTransform) {
     // adjust links
     [...document.querySelectorAll('a')].forEach((a) => {
       let href = a.getAttribute('href');
       if (href) {
         try {
-          /* eslint-disable no-new */
-          new URL(href);
-        } catch (e) {
-          href = `./${href}`;
-        }
-
-        try {
-          if (href.startsWith('./') || href.startsWith('/') || href.startsWith('../')) {
-            // transform relative URLs to absolute URLs
-            const targetUrl = new URL(href, publishUrl);
-            // eslint-disable-next-line no-param-reassign
-            a.href = targetUrl.toString();
-          } else if (originalURL) {
-            // also transform absolute URLs to current host
-            const currentHref = new URL(href);
-            const currentUrl = new URL(originalURL);
-            if (currentHref.host === currentUrl.host) {
-              // if current host is same than href host, switch href host with url host
-              // this is the case for absolutes URLs pointing to the same host
-              const targetUrl = new URL(publishUrl);
-              const newHref = new URL(`${currentHref.pathname}${currentHref.search}${currentHref.hash}`, `${targetUrl.protocol}//${targetUrl.host}`);
-              // eslint-disable-next-line no-param-reassign
-              a.href = newHref.toString();
-            }
+          const sourceUrl = new URL(href, inventory.originUrl);
+          const siteUrl = inventory.urls.find(({ url }) => url === sourceUrl.href);
+          if (siteUrl) {
+            // use https://main----.aem.page when inventory.publishUrl is localhost
+            const publishUrl = inventory.publishUrl.includes('localhost')
+              ? `https://main----.aem.page`
+              : inventory.publishUrl;
+            // update href with targetPath and publishUrl            
+            a.href = new URL(siteUrl.targetPath, publishUrl).href;
           }
         } catch (e) {
           // eslint-disable-next-line no-console

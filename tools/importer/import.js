@@ -51,6 +51,7 @@ import {
   generateDocumentPath,
   handleOnLoad,
   TableBuilder,
+  buildInventory,
 } from './import.utils.js';
 
 const parsers = {
@@ -94,6 +95,9 @@ const transformers = {
 };
 
 WebImporter.Import = {
+  findSiteUrl: (instance, siteUrls) => (
+    siteUrls.find(({ id }) => id === instance.urlHash)
+  ),
   transform: (hookName, element, payload) => {
     // perform any additional transformations to the page
     Object.entries(transformers).forEach(([, transformerFn]) => (
@@ -121,8 +125,15 @@ WebImporter.Import = {
     );
     return result.singleNodeValue;
   },
-  getFragmentXPaths: (fragments = [], url = '') => (fragments.flatMap(({ instances = [] }) => instances)
-    .filter((instance) => instance.url === url)
+  getFragmentXPaths: (fragments = [], urls = [], sourceUrl = '') => (fragments.flatMap(({ instances = [] }) => instances)
+    .filter((instance) => {
+      // find url in urls array
+      const siteUrl = WebImporter.Import.findSiteUrl(instance, urls);
+      if (!siteUrl) {
+        return false;
+      }
+      return siteUrl.url === sourceUrl;
+    })
     .map(({ xpath }) => xpath)),
 };
 
@@ -136,18 +147,18 @@ const pageElements = [
 * Page transformation function
 */
 function transformPage(main, { inventory, ...source }) {
-  const { fragments = [], blocks: inventoryBlocks = [] } = inventory;
+  const { urls = [], fragments = [], blocks: inventoryBlocks = [] } = inventory;
   const { document, params: { originalURL } } = source;
 
   // get fragment elements from the current page
-  const fragmentElements = WebImporter.Import.getFragmentXPaths(fragments, originalURL)
+  const fragmentElements = WebImporter.Import.getFragmentXPaths(fragments, urls, originalURL)
     .map((xpath) => WebImporter.Import.getElementByXPath(document, xpath))
     .filter((el) => el);
 
   // get dom elements for each block on the current page
   const blockElements = inventoryBlocks
     .flatMap((block) => block.instances
-      .filter((instance) => instance.url === originalURL)
+      .filter((instance) => WebImporter.Import.findSiteUrl(instance, urls).url === originalURL)
       .map((instance) => ({
         ...block,
         element: WebImporter.Import.getElementByXPath(document, instance.xpath),
@@ -222,7 +233,13 @@ function transformFragment(main, { fragment, inventory, ...source }) {
     }
   } else {
     (fragment.instances || [])
-      .filter(({ url }) => `${url}#${fragment.name}` === originalURL)
+      .filter((instance) => {
+        const siteUrl = WebImporter.Import.findSiteUrl(instance, inventory.urls);
+        if (!siteUrl) {
+          return false;
+        }
+        return `${siteUrl.url}#${fragment.name}` === originalURL;
+      })
       .map(({ xpath }) => ({
         xpath,
         element: WebImporter.Import.getElementByXPath(document, xpath),
@@ -271,11 +288,15 @@ export default {
     let inventory = null;
     // $$inventory = {{{inventory}}};
     if (!inventory) {
-      // fetch the inventory
+      const siteUrlsUrl = new URL('/tools/importer/site-urls.json', publishUrl);
       const inventoryUrl = new URL('/tools/importer/inventory.json', publishUrl);
       try {
+        // fetch and merge site-urls and inventory
+        const siteUrlsResp = await fetch(siteUrlsUrl.href);
         const inventoryResp = await fetch(inventoryUrl.href);
+        const siteUrls = await siteUrlsResp.json();
         inventory = await inventoryResp.json();
+        inventory = buildInventory(siteUrls, inventory, publishUrl);
       } catch (e) {
         console.error('Failed to fetch inventory');
       }
@@ -287,7 +308,7 @@ export default {
     let main = document.body;
 
     // before transform hook
-    WebImporter.Import.transform(TransformHook.beforeTransform, main, { ...source, publishUrl });
+    WebImporter.Import.transform(TransformHook.beforeTransform, main, { ...source, inventory });
 
     // perform the transformation
     let path = null;
@@ -305,11 +326,11 @@ export default {
     } else {
       // page transformation
       transformPage(main, { ...source, inventory });
-      path = generateDocumentPath(source);
+      path = generateDocumentPath(source, inventory);
     }
 
     // after transform hook
-    WebImporter.Import.transform(TransformHook.afterTransform, main, { ...source, publishUrl });
+    WebImporter.Import.transform(TransformHook.afterTransform, main, { ...source, inventory });
 
     return [{
       element: main,
