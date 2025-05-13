@@ -1,30 +1,27 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Correct header row matching the example exactly
+  // Accordion block table header
   const headerRow = ['Accordion'];
 
-  // Block Table for Accordion
-  const rows = [];
-
-  const accordionItems = element.querySelectorAll('.cmp-accordion__item');
-  accordionItems.forEach((item) => {
+  // Extract rows dynamically from the accordion items
+  const rows = Array.from(element.querySelectorAll('.cmp-accordion__item')).map(item => {
     const title = item.querySelector('.cmp-accordion__title')?.textContent.trim();
-    const contentPanel = item.querySelector('[data-cmp-hook-accordion="panel"]');
+    const content = item.querySelector('.cmp-accordion__panel')?.innerHTML.trim() || ''; // Extract content, but exclude redundant attributes
 
-    let content = '';
-    if (contentPanel) {
-      const textContent = contentPanel.querySelector('.cmp-text');
-      content = textContent ? textContent.textContent.trim() : '';
-    }
+    // Clean the content to remove unnecessary attributes
+    const cleanedContent = content.replace(/(aria-hidden|data-cmp-hook-accordion|role|aria-controls|aria-expanded|aria-labelledby)=".*?"/g, '').trim();
 
-    if (title && content) {
-      rows.push([title, content]);
-    }
+    return [title, cleanedContent];
   });
 
-  const cells = [headerRow, ...rows];
-  const accordionBlock = WebImporter.DOMUtils.createTable(cells, document);
+  // Create the table structure
+  const accordionCells = [
+    headerRow, // Header row
+    ...rows    // Data rows
+  ];
 
-  // Replace the original element
-  element.replaceWith(accordionBlock);
+  const accordionTable = WebImporter.DOMUtils.createTable(accordionCells, document);
+
+  // Replace element without <hr> unless Section Metadata is specified
+  element.replaceWith(accordionTable);
 }

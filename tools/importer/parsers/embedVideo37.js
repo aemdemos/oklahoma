@@ -1,71 +1,73 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const blocks = [];
+  // Initialize content blocks
+  const contentBlocks = [];
 
-  // Embed Video Block
+  // Embed block extraction
   const iframe = element.querySelector('iframe[src]');
   if (iframe) {
-    const videoUrl = iframe.src;
-    const embedBlock = WebImporter.DOMUtils.createTable([
-      ['Embed'],
-      [videoUrl],
-    ], document);
-    blocks.push(embedBlock);
+    const embedBlock = [
+      ['Embed'], // Header row exactly as per example
+      [iframe.src] // Dynamically extract src attribute
+    ];
+    contentBlocks.push(WebImporter.DOMUtils.createTable(embedBlock, document));
   }
 
-  // Human Trafficking Title Block
-  const titleElement = element.querySelector('h1.cmp-title__text');
+  // Title block extraction
+  const titleElement = element.querySelector('.cmp-title__text');
   if (titleElement) {
-    const titleBlock = WebImporter.DOMUtils.createTable([
-      ['Title'],
-      [titleElement.textContent],
-    ], document);
-    blocks.push(titleBlock);
+    const titleBlock = [
+      ['Title'], // Header row exactly as per example
+      [titleElement.textContent.trim()] // Dynamically extract text content
+    ];
+    contentBlocks.push(WebImporter.DOMUtils.createTable(titleBlock, document));
   }
 
-  // Text Blocks
+  // Text blocks extraction
   const textElements = element.querySelectorAll('.cmp-text');
   textElements.forEach((textElement) => {
-    const textBlock = WebImporter.DOMUtils.createTable([
-      ['Text'],
-      [textElement.innerHTML],
-    ], document);
-    blocks.push(textBlock);
+    const textContent = textElement.innerHTML.trim(); // Dynamically extract text content
+    const textBlock = [
+      ['Text'], // Header row exactly as per example
+      [textContent]
+    ];
+    contentBlocks.push(WebImporter.DOMUtils.createTable(textBlock, document));
   });
 
-  // Image Blocks
-  const imageElements = element.querySelectorAll('img.cmp-image__image');
-  imageElements.forEach((imgElement) => {
-    const imageBlock = WebImporter.DOMUtils.createTable([
-      ['Image'],
-      [imgElement],
-    ], document);
-    blocks.push(imageBlock);
+  // Image blocks extraction
+  const imageElements = element.querySelectorAll('.cmp-image__image');
+  imageElements.forEach((imageElement) => {
+    const imgSrc = imageElement.src; // Dynamically extract src attribute
+    const imgAlt = imageElement.alt; // Dynamically extract alt attribute
+    const imageBlock = [
+      ['Image'], // Header row exactly as per example
+      [`<img src="${imgSrc}" alt="${imgAlt}" />`]
+    ];
+    contentBlocks.push(WebImporter.DOMUtils.createTable(imageBlock, document));
   });
 
-  // Buttons Blocks
+  // Button blocks extraction
   const buttonElements = element.querySelectorAll('.cmp-button');
   buttonElements.forEach((buttonElement) => {
-    const buttonLink = buttonElement.getAttribute('href');
-    const buttonLabel = buttonElement.querySelector('.cmp-button__text')?.textContent;
-
-    const buttonBlock = WebImporter.DOMUtils.createTable([
-      ['Button'],
-      [`${buttonLabel} (${buttonLink})`],
-    ], document);
-    blocks.push(buttonBlock);
+    const buttonHref = buttonElement.href; // Dynamically extract href attribute
+    const buttonText = buttonElement.querySelector('.cmp-button__text')?.textContent.trim();
+    const buttonBlock = [
+      ['Button'], // Header row exactly as per example
+      [`<a href="${buttonHref}">${buttonText}</a>`]
+    ];
+    contentBlocks.push(WebImporter.DOMUtils.createTable(buttonBlock, document));
   });
 
-  // Last Modified Date Block
+  // Last Modified block extraction
   const lastModifiedElement = element.querySelector('.cmp-last-modified-date__text span');
   if (lastModifiedElement) {
-    const lastModifiedBlock = WebImporter.DOMUtils.createTable([
-      ['Last Modified'],
-      [lastModifiedElement.textContent],
-    ], document);
-    blocks.push(lastModifiedBlock);
+    const lastModifiedBlock = [
+      ['Last Modified'], // Header row exactly as per example
+      [lastModifiedElement.textContent.trim()] // Dynamically extract text content
+    ];
+    contentBlocks.push(WebImporter.DOMUtils.createTable(lastModifiedBlock, document));
   }
 
-  // Replace the original element with the blocks
-  element.replaceWith(...blocks);
+  // Replace element with the parsed blocks
+  element.replaceWith(...contentBlocks);
 }

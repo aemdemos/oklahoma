@@ -93,12 +93,8 @@ export async function handleOnLoad({ document }) {
  * @param {string} url
  * @returns {string}
 */
-export function generateDocumentPath({ params: { originalURL } }, inventory) {
-  const siteUrl = inventory.urls.find(({ url }) => url === originalURL);
-  if (siteUrl) {
-    return siteUrl.targetPath;
-  }
-  let p = new URL(originalURL).pathname;
+export function generateDocumentPath({ url }) {
+  let p = new URL(url).pathname;
   if (p.endsWith('/')) {
     p = `${p}index`;
   }
@@ -158,14 +154,15 @@ export const TableBuilder = (originalFunc) => {
 };
 
 function reduceInstances(instances) {
-  return instances.map((instance) => ({
-    urlHash: instance.urlHash,
-    xpath: instance.xpath,
+  return instances.map(({ urlHash, xpath, uuid }) => ({
+    urlHash,
+    xpath,
+    uuid,
   }));
 }
 
 /**
- * Merges site-urls.json into inventory.json with an optimized format
+ * Merges site-urls into inventory with an optimized format
  * @param {Object} siteUrls - The contents of site-urls.json
  * @param {Object} inventory - The contents of inventory.json
  * @returns {Object} The merged inventory data in the new format
@@ -202,4 +199,3 @@ export function buildInventory(siteUrls, inventory, publishUrl) {
     outliers,
   };
 }
-

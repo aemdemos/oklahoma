@@ -1,41 +1,52 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Helper function to extract text content
-  const getTextContent = (el) => el ? el.textContent.trim() : '';
-
-  // Extracting address block
+  // Extract relevant content from the input element
   const addressBlock = element.querySelector('.cmp-agency-footer__address p');
+  const linksBlock = element.querySelector('.cmp-agency-footer__links .cmp-text');
+  const socialShareBlock = element.querySelector('.cmp-social-share');
 
-  // Extracting contact details (cell and email)
-  const contactBlock = element.querySelector('.cmp-agency-footer__links .cmp-text');
+  // Parse address content
+  const addressContent = addressBlock ? addressBlock.innerHTML.trim() : '';
 
-  // Extracting social share link, assuming it exists
-  const socialLink = element.querySelector('.cmp-social-share a');
-
-  // Address block content
-  const addressContent = getTextContent(addressBlock);
-
-  // Contact details content
-  const contactDetails = [];
-  if (contactBlock) {
-    const contactLinks = contactBlock.querySelectorAll('a');
-    contactLinks.forEach((link) => {
-      contactDetails.push(link.cloneNode(true));
+  // Parse links content
+  const links = [];
+  if (linksBlock) {
+    const paragraphs = linksBlock.querySelectorAll('p');
+    paragraphs.forEach((paragraph) => {
+      links.push(paragraph);
     });
   }
 
-  // Social media link content
-  const socialLinkContent = socialLink ? socialLink.cloneNode(true) : null; // Include only if it exists
+  // Parse social share content
+  const socialLinks = [];
+  if (socialShareBlock) {
+    const socialButtons = socialShareBlock.querySelectorAll('a');
+    socialButtons.forEach((button) => {
+      const href = button.getAttribute('href');
+      const title = button.getAttribute('title');
+      if (href && title) {
+        socialLinks.push(`${title}: <a href='${href}'>${href}</a>`);
+      }
+    });
+  }
 
-  // Building table rows
-  const tableContent = [
-    ['Columns'],
-    [addressContent, contactDetails, socialLinkContent]
+  // Create table rows
+  const headerRow = ['Columns block'];
+  const contentRow = [
+    addressContent,
+    links,
+    socialLinks.length > 0 ? socialLinks.join('<br>') : ''
+  ];
+
+  // Ensure all rows have the appropriate number of columns
+  const tableData = [
+    headerRow,
+    contentRow
   ];
 
   // Create the block table
-  const block = WebImporter.DOMUtils.createTable(tableContent, document);
+  const blockTable = WebImporter.DOMUtils.createTable(tableData, document);
 
-  // Replace element with the new block
-  element.replaceWith(block);
+  // Replace the original element with the new block table
+  element.replaceWith(blockTable);
 }

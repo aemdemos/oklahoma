@@ -12,11 +12,15 @@
 
 import { TransformHook } from './transform.js';
 
-export default function transform(hookName, element, { document, params: { originalURL }, inventory }) {
+export default function transform(
+  hookName,
+  element,
+  { document, params: { originalURL }, inventory },
+) {
   if (hookName === TransformHook.beforeTransform) {
     // adjust links
     [...document.querySelectorAll('a')].forEach((a) => {
-      let href = a.getAttribute('href');
+      const href = a.getAttribute('href');
       if (href) {
         try {
           const sourceUrl = new URL(href, inventory.originUrl);
@@ -24,9 +28,9 @@ export default function transform(hookName, element, { document, params: { origi
           if (siteUrl) {
             // use https://main----.aem.page when inventory.publishUrl is localhost
             const publishUrl = inventory.publishUrl.includes('localhost')
-              ? `https://main----.aem.page`
+              ? 'https://main----.aem.page'
               : inventory.publishUrl;
-            // update href with targetPath and publishUrl            
+            // update href with targetPath and publishUrl
             a.href = new URL(siteUrl.targetPath, publishUrl).href;
           }
         } catch (e) {

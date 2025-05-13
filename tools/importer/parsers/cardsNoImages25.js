@@ -1,38 +1,41 @@
 /* global WebImporter */
- export default function parse(element, { document }) {
-  // Create header row for the table
+export default function parse(element, { document }) {
+  // Initialize cells array for the table rows
+  const cells = [];
+
+  // Add the header row with the block name
   const headerRow = ['Cards (no images)'];
+  cells.push(headerRow);
 
-  // Extract the content of each card
-  const cards = [];
-  const cardsContainer = element.querySelectorAll('.cmp-card');
+  // Extract the heading text from the element
+  const cardHeading = element.querySelector('.cmp-card__heading h2')?.textContent.trim();
 
-  cardsContainer.forEach((card) => {
-    const cardContent = [];
+  // Extract list items (text content) from the element
+  const cardListItems = Array.from(element.querySelectorAll('.cmp-card__heading ul li')).map(li => li.textContent.trim());
 
-    // Extract heading if available
-    const heading = card.querySelector('h2');
-    if (heading) {
-      const headingText = document.createElement('strong');
-      headingText.textContent = heading.textContent.trim();
-      cardContent.push(headingText);
-    }
+  // Create a container for the content cell
+  const contentCell = document.createElement('div');
 
-    // Extract description if available
-    const descriptionItems = card.querySelectorAll('ul li');
-    descriptionItems.forEach((item) => {
-      const paragraph = document.createElement('p');
-      paragraph.textContent = item.textContent.trim();
-      cardContent.push(paragraph);
-    });
+  // Add heading to the content cell if it exists
+  if (cardHeading) {
+    const headingElement = document.createElement('strong');
+    headingElement.textContent = cardHeading;
+    contentCell.appendChild(headingElement);
+  }
 
-    cards.push([cardContent]);
+  // Add list items as paragraphs to the content cell
+  cardListItems.forEach(item => {
+    const paragraphElement = document.createElement('p');
+    paragraphElement.textContent = item;
+    contentCell.appendChild(paragraphElement);
   });
 
-  // Construct the table
-  const tableCells = [headerRow, ...cards];
-  const table = WebImporter.DOMUtils.createTable(tableCells, document);
+  // Push the content cell to the table rows
+  cells.push([contentCell]);
 
-  // Replace the original element with the new table
-  element.replaceWith(table);
+  // Create the block table using WebImporter.DOMUtils
+  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+
+  // Replace the original element with the newly created block table
+  element.replaceWith(blockTable);
 }

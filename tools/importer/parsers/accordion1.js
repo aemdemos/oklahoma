@@ -1,46 +1,44 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Ensure correct handling of section metadata and dynamic extraction
+  // Create an HR element for section breaks
   const hr = document.createElement('hr');
 
-  // Extract accordion items
-  const accordionItems = element.querySelectorAll('.cmp-accordion__item');
+  // Define the block header row
+  const headerRow = ['Accordion'];
 
-  // Initialize the table cells
-  const cells = [['Accordion']];
+  // Initialize rows
+  const rows = [headerRow];
 
-  accordionItems.forEach((item) => {
-    // Dynamically extract the title
-    const titleElement = item.querySelector('.cmp-accordion__title');
-    const title = titleElement ? titleElement.textContent.trim() : 'Untitled';
+  // Process each accordion item
+  const items = element.querySelectorAll('.cmp-accordion__item');
+  items.forEach(item => {
+    const titleButton = item.querySelector('.cmp-accordion__button');
+    const title = titleButton ? titleButton.textContent.trim() : '';
 
-    // Extract content from panel
-    const contentContainer = item.querySelector('[data-cmp-hook-accordion="panel"]');
-    const imageElement = contentContainer.querySelector('.cmp-image img');
-    const textElement = contentContainer.querySelector('.cmp-text');
+    const contentPanel = item.querySelector('.cmp-accordion__panel');
+    const contentElements = [];
 
-    const content = [];
+    if (contentPanel) {
+      const images = contentPanel.querySelectorAll('img');
+      images.forEach(img => {
+        const imageElement = document.createElement('img');
+        imageElement.src = img.src;
+        imageElement.alt = img.alt;
+        contentElements.push(imageElement);
+      });
 
-    // Add image dynamically if it exists
-    if (imageElement) {
-      const image = document.createElement('img');
-      image.src = imageElement.src;
-      image.alt = imageElement.alt;
-      content.push(image);
+      const texts = contentPanel.querySelectorAll('p');
+      texts.forEach(p => {
+        contentElements.push(p.cloneNode(true));
+      });
     }
 
-    // Add text dynamically if it exists
-    if (textElement) {
-      content.push(textElement);
-    }
-
-    // Push title and content into cells array
-    cells.push([title, content]);
+    rows.push([title, contentElements]);
   });
 
-  // Create block table dynamically
-  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+  // Create the accordion table
+  const accordionTable = WebImporter.DOMUtils.createTable(rows, document);
 
-  // Replace element with the section break and block table
-  element.replaceWith(hr, blockTable);
+  // Replace the original element with the new block table
+  element.replaceWith(hr, accordionTable);
 }

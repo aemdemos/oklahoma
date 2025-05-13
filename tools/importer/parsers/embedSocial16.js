@@ -1,20 +1,24 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Extract content dynamically from the provided element
-  const titleElement = element.querySelector('.cmp-accordion__title');
-  const titleText = titleElement ? titleElement.textContent.trim() : '';
+  // Extract content from the element
+  const button = element.querySelector('button');
+  const title = button?.querySelector('.cmp-accordion__title')?.textContent.trim();
 
-  // Ensure extracted titleText is dynamically retrieved and no content is hardcoded
+  // Validate extracted content
+  if (!title) {
+    console.warn('No title found in the provided element. Skipping parsing.');
+    return;
+  }
 
-  // Create the table structure for the block
-  const blockTableData = [
-    ['Embed'], // Header row matching example exactly
-    [titleText], // Content row with the extracted title
+  // Prepare table cells
+  const cells = [
+    ['Embed'], // Header row as per the example structure
+    [title],    // Dynamically extracted content
   ];
 
-  // Generate the block table using the helper function
-  const block = WebImporter.DOMUtils.createTable(blockTableData, document);
+  // Create the table block
+  const table = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Replace the original element with the new block
-  element.replaceWith(block);
+  // Replace original element with the new table block
+  element.replaceWith(table);
 }

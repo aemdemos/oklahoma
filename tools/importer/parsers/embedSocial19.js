@@ -1,35 +1,26 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const sharingLinks = [];
+  // Helper to extract src attributes and create links
+  const extractLinkFromIframe = (iframe) => {
+    if (iframe && iframe.src) {
+      const a = document.createElement('a');
+      a.href = iframe.src;
+      a.textContent = iframe.src;
+      return a;
+    }
+    return null;
+  };
 
-  // Extract social sharing links
-  const fbShareButton = element.querySelector('.fb-share-button');
-  if (fbShareButton && fbShareButton.getAttribute('data-href')) {
-    sharingLinks.push(fbShareButton.getAttribute('data-href'));
-  }
+  // Collect relevant iframe sources
+  const iframes = element.querySelectorAll('iframe');
+  const links = Array.from(iframes).map(extractLinkFromIframe).filter(Boolean);
 
-  const twitterIframe = element.querySelector('iframe.twitter-share-button');
-  if (twitterIframe && twitterIframe.src) {
-    sharingLinks.push(twitterIframe.src);
-  }
+  // Create Embed (social) block table
+  const embedSocialTable = WebImporter.DOMUtils.createTable([
+    ['Embed (social)'], // Corrected Header row
+    links // Content row
+  ], document);
 
-  const emailShare = element.querySelector('.cmp-email-share__button');
-  if (emailShare && emailShare.href) {
-    sharingLinks.push(emailShare.href);
-  }
-
-  const downloadLink = element.querySelector('.cmp-download-page');
-  if (downloadLink && downloadLink.href) {
-    sharingLinks.push(downloadLink.href);
-  }
-
-  // Create the content row dynamically based on extracted links
-  const cells = [
-    ['Embed (social)'], // Header row
-    [sharingLinks.join(', ')] // Content row with extracted URLs
-  ];
-
-  const table = WebImporter.DOMUtils.createTable(cells, document);
-
-  element.replaceWith(table);
+  // Replace the original element with the new table
+  element.replaceWith(embedSocialTable);
 }

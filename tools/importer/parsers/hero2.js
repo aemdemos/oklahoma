@@ -1,42 +1,32 @@
 /* global WebImporter */
-export default function parse(element, { document }) { 
-  // Step 1: Extract the relevant content dynamically from the element
-  const heading = element.querySelector('.cmp-alert__text p:first-child');
-  const subheading = element.querySelector('.cmp-alert__text p:nth-child(2)');
-  const location = element.querySelector('.cmp-alert__text p:nth-child(4)');
-  const address = element.querySelector('.cmp-alert__text p:nth-child(5)');
+export default function parse(element, { document }) {
+  // Create a section break with an <hr> element
+  const hr = document.createElement('hr');
 
-  // Ensure fallback values for cases where elements might be missing
-  const headingText = heading ? heading.textContent.trim() : '';
-  const subheadingText = subheading ? subheading.textContent.trim() : '';
-  const locationText = location ? location.textContent.trim() : '';
-  const addressText = address ? address.textContent.trim() : '';
+  // Extract dynamic data from the element for the Hero block
+  const logoImage = element.querySelector('.cmp-agency-header__logo img');
+  const logo = logoImage ? document.createElement('img') : null;
+  if (logoImage) {
+    logo.src = logoImage.src;
+    logo.alt = logoImage.alt;
+  }
 
-  // Create HTML elements for the extracted content
-  const headingElement = document.createElement('h1');
-  headingElement.textContent = headingText;
+  const alertElement = element.querySelector('.cmp-alert__text');
+  const alertContent = alertElement ? document.createElement('div') : null;
+  if (alertElement) {
+    // Remove excessive empty <p> tags and replace '&nbsp;' with space
+    alertContent.innerHTML = alertElement.innerHTML.replace(/&nbsp;/g, ' ').replace(/<p>\s*<\/p>/g, '');
+  }
 
-  const subheadingElement = document.createElement('p');
-  subheadingElement.textContent = subheadingText;
-
-  const locationElement = document.createElement('p');
-  locationElement.textContent = locationText;
-
-  const addressElement = document.createElement('p');
-  addressElement.textContent = addressText;
-
-  // Step 2: Prepare the table data as per the example structure
-  const tableHeader = ['Hero'];
-  const blockContent = [headingElement, subheadingElement, locationElement, addressElement];
-
-  const tableData = [
-    tableHeader,
-    [blockContent],
+  // Build the cells for the Hero block table
+  const cells = [
+    ['Hero'], // Header row matches the example exactly
+    [[logo, alertContent].filter(Boolean)] // Combine logo and alert content into a single cell
   ];
 
-  // Step 3: Create the block table
-  const table = WebImporter.DOMUtils.createTable(tableData, document);
+  // Create the Hero block table dynamically
+  const heroBlock = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Step 4: Replace the original element with the new block table
-  element.replaceWith(table);
+  // Replace the original element with the new block
+  element.replaceWith(hr, heroBlock);
 }

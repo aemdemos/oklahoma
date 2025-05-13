@@ -1,39 +1,49 @@
 /* global WebImporter */
- export default function parse(element, { document }) {
-  // Extract content from the element
-  const cards = [];
+export default function parse(element, { document }) {
+    const rows = [];
 
-  element.querySelectorAll('.newsfeed__list').forEach((newsItem) => {
-    const image = newsItem.querySelector('.newsfeed__image img');
-    const titleLink = newsItem.querySelector('.newsfeed__title a');
-    const date = newsItem.querySelector('.caption');
+    // Add the header row for the Cards block
+    rows.push(['Cards']);
 
-    if (image && titleLink && date) {
-      const imageElement = document.createElement('img');
-      imageElement.src = image.src;
+    // Process the cards
+    const cards = element.querySelectorAll('.newsfeed__list');
+    cards.forEach((card) => {
+        const imageElement = card.querySelector('.newsfeed__image img');
+        const image = imageElement ? document.createElement('img') : null;
+        if (image) {
+            image.src = imageElement.src;
+            image.alt = imageElement.alt || '';
+        }
 
-      const content = document.createElement('div');
+        const titleElement = card.querySelector('.newsfeed__title a');
+        const title = titleElement ? document.createElement('h2') : null;
+        if (title) {
+            title.textContent = titleElement.textContent;
+        }
 
-      const title = document.createElement('h2');
-      const titleAnchor = document.createElement('a');
-      titleAnchor.href = titleLink.href;
-      titleAnchor.textContent = titleLink.textContent;
-      title.appendChild(titleAnchor);
+        const dateElement = card.querySelector('.caption');
+        const date = dateElement ? document.createElement('p') : null;
+        if (date) {
+            date.textContent = dateElement.textContent;
+        }
 
-      const dateElement = document.createElement('div');
-      dateElement.textContent = date.textContent;
+        const linkElement = card.querySelector('.newsfeed__title a');
+        const link = linkElement ? document.createElement('a') : null;
+        if (link) {
+            link.href = linkElement.href;
+            link.textContent = 'Read More';
+        }
 
-      content.appendChild(title);
-      content.appendChild(dateElement);
+        const contentCell = document.createElement('div');
+        if (title) contentCell.appendChild(title);
+        if (date) contentCell.appendChild(date);
+        if (link) contentCell.appendChild(link);
 
-      cards.push([imageElement, content]);
-    }
-  });
+        rows.push([image, contentCell]);
+    });
 
-  const headerRow = ['Cards'];
-  const rows = [headerRow, ...cards];
-  const blockTable = WebImporter.DOMUtils.createTable(rows, document);
+    const block = WebImporter.DOMUtils.createTable(rows, document);
 
-  // Replace the original element with the block table
-  element.replaceWith(blockTable);
+    // Replace the original element with the new block table
+    element.replaceWith(block);
 }
