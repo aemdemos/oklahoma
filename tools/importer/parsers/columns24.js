@@ -1,50 +1,41 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const rows = [];
+  const cells = [];
 
   // Add header row
-  rows.push(['Columns']);
+  cells.push(['Columns']);
 
-  // Extract content rows
-  const contentCells = [];
-  element.querySelectorAll('.cmp-carousel__item').forEach((item) => {
-    const link = item.querySelector('.cmp-teaser__image a');
-    const image = link?.querySelector('img');
-    const title = item.querySelector('.cmp-teaser__title a');
-    const description = item.querySelector('.cmp-teaser__description p');
+  // Collect content from each slide
+  const slides = element.querySelectorAll('.cmp-carousel__item');
+  slides.forEach(slide => {
+    const imageLink = slide.querySelector('.cmp-teaser__image a');
+    const image = slide.querySelector('.cmp-teaser__image img');
+    const titleLink = slide.querySelector('.cmp-teaser__title a');
+    const description = slide.querySelector('.cmp-teaser__description p');
 
-    const cellContent = [];
-
-    // Add the title
-    if (title) {
-      const titleElement = document.createElement('p');
-      titleElement.textContent = title.textContent;
-      cellContent.push(titleElement);
-    }
-
-    // Add the description
-    if (description) {
-      const descriptionElement = document.createElement('p');
-      descriptionElement.innerHTML = description.innerHTML;
-      cellContent.push(descriptionElement);
-    }
-
-    // Add the image
-    if (image) {
+    if (image && titleLink && description) {
       const imageElement = document.createElement('img');
       imageElement.src = image.src;
-      cellContent.push(imageElement);
-    }
+      imageElement.alt = image.alt;
 
-    // Combine and push content for this cell
-    contentCells.push(cellContent);
+      const linkElement = document.createElement('a');
+      linkElement.href = imageLink.href;
+      linkElement.textContent = 'View More';
+
+      const slideContent = [
+        titleLink.cloneNode(true), // Title link
+        description.cloneNode(true), // Description node
+        imageElement, // Image element
+        linkElement // Link element
+      ];
+
+      cells.push(slideContent);
+    }
   });
 
-  rows.push(contentCells);
+  // Create block table
+  const block = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Create table
-  const table = WebImporter.DOMUtils.createTable(rows, document);
-
-  // Replace original element
-  element.replaceWith(table);
+  // Replace element with block
+  element.replaceWith(block);
 }

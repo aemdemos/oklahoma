@@ -1,40 +1,35 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const urlContainers = [];
+  const sharingLinks = [];
 
-  // Find all iframe elements that contain 'src' attributes
-  const iframes = element.querySelectorAll('iframe[src]');
-  iframes.forEach((iframe) => {
-    const url = iframe.getAttribute('src');
-    if (url) {
-      const link = document.createElement('a');
-      link.href = url;
-      link.textContent = url;
-      urlContainers.push(link);
-    }
-  });
+  // Extract social sharing links
+  const fbShareButton = element.querySelector('.fb-share-button');
+  if (fbShareButton && fbShareButton.getAttribute('data-href')) {
+    sharingLinks.push(fbShareButton.getAttribute('data-href'));
+  }
 
-  // Find all 'a' elements with 'href' attributes
-  const links = element.querySelectorAll('a[href]');
-  links.forEach((link) => {
-    const url = link.getAttribute('href');
-    if (url) {
-      const linkElement = document.createElement('a');
-      linkElement.href = url;
-      linkElement.textContent = url;
-      urlContainers.push(linkElement);
-    }
-  });
+  const twitterIframe = element.querySelector('iframe.twitter-share-button');
+  if (twitterIframe && twitterIframe.src) {
+    sharingLinks.push(twitterIframe.src);
+  }
 
-  // Create table cells
+  const emailShare = element.querySelector('.cmp-email-share__button');
+  if (emailShare && emailShare.href) {
+    sharingLinks.push(emailShare.href);
+  }
+
+  const downloadLink = element.querySelector('.cmp-download-page');
+  if (downloadLink && downloadLink.href) {
+    sharingLinks.push(downloadLink.href);
+  }
+
+  // Create the content row dynamically based on extracted links
   const cells = [
-    ['Embed'], // Header row with block name
-    [urlContainers], // Content row with properly formatted links
+    ['Embed (social)'], // Header row
+    [sharingLinks.join(', ')] // Content row with extracted URLs
   ];
 
-  // Create the block table
-  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+  const table = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Replace the original element with the block table
-  element.replaceWith(blockTable);
+  element.replaceWith(table);
 }

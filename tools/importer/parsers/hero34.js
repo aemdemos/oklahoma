@@ -1,44 +1,65 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const rows = [];
+  const hr = document.createElement('hr');
 
-  // Header row
-  rows.push(['Hero']);
-
-  // Extracting the image
-  const imageElement = element.querySelector('img.cmp-image__image');
-  let image = '';
-  if (imageElement) {
-    image = document.createElement('img');
-    image.src = imageElement.src;
-    image.alt = imageElement.alt;
-    image.title = imageElement.title;
-  }
-
-  // Extracting the title
-  const titleElement = element.querySelector('h1.cmp-title__text');
-  const title = titleElement ? document.createElement('h1').appendChild(document.createTextNode(titleElement.textContent)) : '';
-
-  // Extracting the text paragraph
+  // Extracting content dynamically
+  const imageElement = element.querySelector('.cmp-teaser__image img');
+  const titleElement = element.querySelector('.cmp-title__text');
   const textElement = element.querySelector('.cmp-text p');
-  const text = textElement ? document.createElement('p').appendChild(document.createTextNode(textElement.textContent)) : '';
+  const buttonElement = element.querySelector('.cmp-button');
+  const lastModifiedElement = element.querySelector('.cmp-last-modified-date__text span');
 
-  // Extracting the button/link
-  const buttonElement = element.querySelector('a.cmp-button');
-  let button = '';
-  if (buttonElement) {
-    button = document.createElement('a');
-    button.href = buttonElement.href;
-    button.textContent = buttonElement.textContent;
+  // Ensuring header matches example
+  const blockHeader = ['Hero'];
+
+  const blockContent = [];
+
+  // Handling image dynamically
+  if (imageElement) {
+    const img = document.createElement('img');
+    img.src = imageElement.getAttribute('src');
+    img.alt = imageElement.getAttribute('alt');
+    blockContent.push(img);
   }
 
-  // Creating the content row
-  const contentRow = [image, title, text, button].filter(Boolean);
-  rows.push([contentRow]);
+  // Handling title dynamically
+  if (titleElement) {
+    const title = document.createElement('h1');
+    title.textContent = titleElement.textContent;
+    blockContent.push(title);
+  }
 
-  // Creating the table using WebImporter.DOMUtils.createTable
-  const blockTable = WebImporter.DOMUtils.createTable(rows, document);
+  // Handling text dynamically
+  if (textElement) {
+    const text = document.createElement('p');
+    text.innerHTML = textElement.innerHTML;
+    blockContent.push(text);
+  }
 
-  // Replacing the original element with the block table
-  element.replaceWith(blockTable);
+  // Handling button dynamically
+  if (buttonElement) {
+    const buttonLink = document.createElement('a');
+    buttonLink.href = buttonElement.getAttribute('href');
+    buttonLink.target = buttonElement.getAttribute('target');
+    buttonLink.textContent = buttonElement.textContent;
+    blockContent.push(buttonLink);
+  }
+
+  // Handling last modified date dynamically
+  if (lastModifiedElement) {
+    const lastModified = document.createElement('p');
+    lastModified.textContent = `Last Modified: ${lastModifiedElement.textContent}`;
+    blockContent.push(lastModified);
+  }
+
+  // Creating table structure
+  const cells = [
+    blockHeader,
+    [blockContent],
+  ];
+
+  const block = WebImporter.DOMUtils.createTable(cells, document);
+
+  // Replacing the original element
+  element.replaceWith(hr, block);
 }

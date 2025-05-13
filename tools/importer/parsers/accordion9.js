@@ -1,43 +1,35 @@
 /* global WebImporter */
+
 export default function parse(element, { document }) {
-  const cells = [];
-
-  // Adding the header row
-  cells.push(['Accordion']);
-
-  // Processing the accordion items
-  const accordionItems = element.querySelectorAll('.cmp-accordion__item');
-  accordionItems.forEach((item) => {
-    const title = item.querySelector('.cmp-accordion__title')?.textContent.trim();
-
-    const panel = item.querySelector('.cmp-accordion__panel');
-    let contentElement = null;
-
-    if (panel) {
-      // Extracting panel content and ensuring only valid content is used
-      contentElement = document.createElement('div');
-      contentElement.innerHTML = panel.innerHTML.trim();
-    }
-
-    if (title && contentElement) {
-      cells.push([title, contentElement]);
-    }
-  });
-
-  // Create section metadata if required based on example structure
-  const sectionMetadata = element.dataset.metadata;
-  if (sectionMetadata) {
     const hr = document.createElement('hr');
-    const sectionMetadataTable = WebImporter.DOMUtils.createTable([
-      ['Section Metadata'],
-      [sectionMetadata],
-    ], document);
-    element.replaceWith(hr, sectionMetadataTable);
-  }
 
-  // Creating the block table
-  const block = WebImporter.DOMUtils.createTable(cells, document);
+    const cells = [['Accordion']];
 
-  // Replacing the original element
-  element.replaceWith(block);
+    const accordionItems = element.querySelectorAll('.cmp-accordion__item');
+
+    accordionItems.forEach((item) => {
+        const titleElement = item.querySelector('.cmp-accordion__title');
+        const contentElement = item.querySelector('.cmp-accordion__panel');
+
+        if (titleElement && contentElement) {
+            const title = titleElement.textContent.trim();
+            const content = Array.from(contentElement.querySelectorAll('p, table, a')).map(el => {
+                if (el.tagName === 'TABLE') {
+                    return el.cloneNode(true);
+                } else if (el.tagName === 'A') {
+                    const link = document.createElement('a');
+                    link.href = el.href;
+                    link.textContent = el.textContent.trim();
+                    return link;
+                } else {
+                    return el.textContent.trim();
+                }
+            });
+            cells.push([title, content]);
+        }
+    });
+
+    const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+
+    element.replaceWith(hr, blockTable);
 }

@@ -1,40 +1,42 @@
 /* global WebImporter */
-export default function parse(element, { document }) {
-  // Helper function to extract text content from child elements
-  const extractText = (parent) => {
-    return Array.from(parent.querySelectorAll('p')).map((p) => p.textContent.trim()).filter((text) => text !== '');
-  };
+export default function parse(element, { document }) { 
+  // Step 1: Extract the relevant content dynamically from the element
+  const heading = element.querySelector('.cmp-alert__text p:first-child');
+  const subheading = element.querySelector('.cmp-alert__text p:nth-child(2)');
+  const location = element.querySelector('.cmp-alert__text p:nth-child(4)');
+  const address = element.querySelector('.cmp-alert__text p:nth-child(5)');
 
-  // Extract relevant content from the input element
-  const alertText = element.querySelector('.cmp-alert__text');
-  const alertData = alertText ? extractText(alertText) : [];
+  // Ensure fallback values for cases where elements might be missing
+  const headingText = heading ? heading.textContent.trim() : '';
+  const subheadingText = subheading ? subheading.textContent.trim() : '';
+  const locationText = location ? location.textContent.trim() : '';
+  const addressText = address ? address.textContent.trim() : '';
 
-  const logoElement = element.querySelector('.cmp-agency-header__logo img');
-  const logoSrc = logoElement ? logoElement.getAttribute('src') : '';
+  // Create HTML elements for the extracted content
+  const headingElement = document.createElement('h1');
+  headingElement.textContent = headingText;
 
-  // Create the Hero block table
-  const headerRow = ['Hero'];
+  const subheadingElement = document.createElement('p');
+  subheadingElement.textContent = subheadingText;
 
-  const contentRow = [];
-  
-  if (logoSrc) {
-    const logoImg = document.createElement('img');
-    logoImg.setAttribute('src', logoSrc);
-    contentRow.push(logoImg);
-  }
+  const locationElement = document.createElement('p');
+  locationElement.textContent = locationText;
 
-  if (alertData.length > 0) {
-    const alertParagraphs = alertData.map((text) => {
-      const p = document.createElement('p');
-      p.textContent = text;
-      return p;
-    });
-    contentRow.push(...alertParagraphs);
-  }
+  const addressElement = document.createElement('p');
+  addressElement.textContent = addressText;
 
-  const tableData = [headerRow, [contentRow]];
-  const heroTable = WebImporter.DOMUtils.createTable(tableData, document);
+  // Step 2: Prepare the table data as per the example structure
+  const tableHeader = ['Hero'];
+  const blockContent = [headingElement, subheadingElement, locationElement, addressElement];
 
-  // Replace original element with the new block table
-  element.replaceWith(heroTable);
+  const tableData = [
+    tableHeader,
+    [blockContent],
+  ];
+
+  // Step 3: Create the block table
+  const table = WebImporter.DOMUtils.createTable(tableData, document);
+
+  // Step 4: Replace the original element with the new block table
+  element.replaceWith(table);
 }

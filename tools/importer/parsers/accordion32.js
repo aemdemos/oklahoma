@@ -1,44 +1,50 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Add a horizontal rule for section break
-  const hr = document.createElement('hr');
+  const rows = [];
 
-  // Extract all accordion items
-  const accordionItems = Array.from(element.querySelectorAll('.cmp-accordion__item'));
+  // Create header row for the accordion block
+  const headerRow = ['Accordion'];
+  rows.push(headerRow);
 
-  // Initialize table cells with the corrected header row
-  const cells = [
-    ['Accordion'], // Use exact header text from example
-  ];
+  const extractAccordionItems = (accordion) => {
+    const items = accordion.querySelectorAll('.cmp-accordion__item');
+    items.forEach((item) => {
+      const title = item.querySelector('.cmp-accordion__title')?.textContent.trim() || 'Missing Title';
 
-  accordionItems.forEach((item) => {
-    // Extract the title text for the accordion item
-    const titleElement = item.querySelector('.cmp-accordion__title');
-    const title = titleElement ? titleElement.textContent.trim() : '';
+      const contentContainer = item.querySelector('.cmp-accordion__panel');
+      const contentElements = [];
 
-    // Extract the content HTML for the accordion item
-    const contentElement = item.querySelector('.cmp-accordion__panel');
-    const content = contentElement ? contentElement.innerHTML.trim() : '';
+      if (contentContainer) {
+        const paragraphs = contentContainer.querySelectorAll('p');
+        paragraphs.forEach((paragraph) => {
+          contentElements.push(paragraph);
+        });
 
-    if (title && content) {
-      // Create title and content elements dynamically
-      const titleDiv = document.createElement('div');
-      titleDiv.textContent = title;
+        const images = contentContainer.querySelectorAll('img');
+        images.forEach((image) => {
+          const imgElement = document.createElement('img');
+          imgElement.src = image.src;
+          imgElement.alt = image.alt;
+          contentElements.push(imgElement);
+        });
+      } else {
+        contentElements.push('No Content Available');
+      }
 
-      const contentDiv = document.createElement('div');
-      contentDiv.innerHTML = content;
+      rows.push([title, contentElements]);
+    });
+  };
 
-      // Push the row with title and content elements
-      cells.push([
-        titleDiv,
-        contentDiv,
-      ]);
-    }
-  });
+  const accordion = element.querySelector('.cmp-accordion');
+  if (accordion) {
+    extractAccordionItems(accordion);
+  } else {
+    rows.push(['Accordion', 'No accordion items found']);
+  }
 
-  // Create the table using WebImporter helper
-  const accordionTable = WebImporter.DOMUtils.createTable(cells, document);
+  // Create the accordion block table
+  const accordionBlock = WebImporter.DOMUtils.createTable(rows, document);
 
-  // Replace the element with the constructed table
-  element.replaceWith(hr, accordionTable);
+  // Replace the original element with the structured accordion block
+  element.replaceWith(accordionBlock);
 }

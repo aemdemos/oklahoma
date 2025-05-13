@@ -1,21 +1,22 @@
-/* global WebImporter */ 
+/* global WebImporter */
 export default function parse(element, { document }) {
-  // Extract the URL from the given HTML element
-  const dataTemplate = element.querySelector('div[data-template-id="newslisting-data"]');
-  const apiUrl = dataTemplate ? dataTemplate.getAttribute('data-newslistingapiurl') : '';
+  // Extract the URL dynamically from the HTML
+  const queryIndexElement = element.querySelector('.newslist__filter-template');
+  const queryIndexURL = queryIndexElement ? queryIndexElement.getAttribute('data-newslistingapiurl') : '';
 
-  // Correctly define the header row as specified in the example
+  // Create the header row matching the example exactly
   const headerRow = ['Search'];
 
-  // Create cells for the table
+  // Create the content row dynamically using the extracted URL
+  const contentRow = [queryIndexURL];
+
+  // Create the block table using WebImporter.DOMUtils.createTable
   const cells = [
-    headerRow, // Header row
-    [apiUrl],  // Content row
+    headerRow,
+    contentRow,
   ];
+  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Create block table
-  const block = WebImporter.DOMUtils.createTable(cells, document);
-
-  // Replace the original element
-  element.replaceWith(block);
+  // Replace the original element with the new block table
+  element.replaceWith(blockTable);
 }

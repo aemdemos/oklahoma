@@ -1,52 +1,31 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-    // Helper function to create an image element
-    const createImageElement = (imgSrc, altText, titleText) => {
+  // Helper function to get text content of an element
+  const getTextContent = (el) => (el ? el.textContent.trim() : '');
+
+  // Extracting Hero block data
+  const heroImage = element.querySelector('.cmp-teaser__image img');
+  const heroTitle = element.querySelector('.cmp-teaser__content .cmp-teaser__title');
+
+  const heroTableData = [
+    ['Hero'],
+    [
+      heroImage ? (() => {
         const img = document.createElement('img');
-        img.src = imgSrc;
-        img.alt = altText || '';
-        img.title = titleText || '';
+        img.setAttribute('src', heroImage.src);
+        img.setAttribute('alt', heroImage.alt);
         return img;
-    };
+      })() : '',
+      heroTitle ? (() => {
+        const heading = document.createElement('h1');
+        heading.textContent = getTextContent(heroTitle);
+        return heading;
+      })() : ''
+    ]
+  ];
 
-    // Extract image data dynamically
-    const imageContainer = element.querySelector('.cmp-teaser__image img');
-    const imageSrc = imageContainer?.src || '';
-    const imageAlt = imageContainer?.alt || '';
-    const imageTitle = imageContainer?.title || '';
-    const imageElement = createImageElement(imageSrc, imageAlt, imageTitle);
+  const heroTable = WebImporter.DOMUtils.createTable(heroTableData, document);
 
-    // Extract heading dynamically
-    const headingElement = element.querySelector('.cmp-teaser__title');
-    const headingText = headingElement?.textContent.trim() || '';
-
-    // Extract description dynamically
-    const descriptionElement = element.querySelector('.cmp-teaser__description p');
-    const descriptionText = descriptionElement?.textContent.trim() || '';
-
-    // Create table cells
-    const cells = [
-        ['Hero'], // Header row matches the example markdown
-        [
-            [
-                imageElement,
-                (() => {
-                    const heading = document.createElement('h1');
-                    heading.textContent = headingText;
-                    return heading;
-                })(),
-                (() => {
-                    const description = document.createElement('p');
-                    description.textContent = descriptionText;
-                    return description;
-                })()
-            ]
-        ]
-    ];
-
-    // Create block table using the helper function
-    const block = WebImporter.DOMUtils.createTable(cells, document);
-
-    // Replace the original element with the new block table
-    element.replaceWith(block);
+  // Replace element content
+  element.replaceWith(heroTable);
 }

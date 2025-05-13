@@ -1,55 +1,56 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-    // Define the header row that matches the example exactly
+    const cells = [];
+
+    // Define the header row explicitly as per the example
     const headerRow = ['Cards'];
+    cells.push(headerRow);
 
-    // Extract content dynamically from the provided elements
-    const cards = Array.from(element.querySelectorAll('.cmp-card')).map((card) => {
-        const image = card.querySelector('img');
-        const heading = card.querySelector('.cmp-card__heading p');
-        const subheading = card.querySelector('.cmp-card__heading h2');
-        const description = card.querySelector('.cmp-card--expandable__content');
-        const actionButton = card.querySelector('.button .cmp-button__text');
+    // Extracting card details
+    const cards = element.querySelectorAll('.cmp-card');
+    cards.forEach((card) => {
+        const imageElement = card.querySelector('img');
+        const titleElement = card.querySelector('.cmp-card__heading p');
+        const subtitleElement = card.querySelector('.cmp-card__heading h2');
+        const descriptionElement = card.querySelector('.cmp-card--expandable__content p');
+        const buttonElement = card.querySelector('button');
 
-        const imageElement = image ? document.createElement('img') : null;
-        if (imageElement) {
-            imageElement.setAttribute('src', image.src);
-            imageElement.setAttribute('alt', image.alt);
+        const image = imageElement ? document.createElement('img') : null;
+        if (image) {
+            image.src = imageElement.src;
+            image.alt = imageElement.alt;
         }
 
-        // Create structured content for the text cell
-        const textCellContent = [];
-
-        if (heading) {
-            const headingElement = document.createElement('p');
-            headingElement.textContent = heading.textContent;
-            textCellContent.push(headingElement);
+        const title = titleElement ? document.createElement('h3') : null;
+        if (title) {
+            title.textContent = titleElement.textContent;
         }
 
-        if (subheading) {
-            const subheadingElement = document.createElement('h2');
-            subheadingElement.textContent = subheading.textContent;
-            textCellContent.push(subheadingElement);
+        const subtitle = subtitleElement ? document.createElement('h4') : null;
+        if (subtitle) {
+            subtitle.textContent = subtitleElement.textContent;
         }
 
+        const description = descriptionElement ? document.createElement('p') : null;
         if (description) {
-            const descriptionElement = document.createElement('div');
-            descriptionElement.innerHTML = description.innerHTML;
-            textCellContent.push(descriptionElement);
+            description.textContent = descriptionElement.textContent;
         }
 
-        if (actionButton) {
-            const buttonElement = document.createElement('div');
-            buttonElement.textContent = actionButton.textContent;
-            textCellContent.push(buttonElement);
+        const button = buttonElement ? document.createElement('a') : null;
+        if (button) {
+            const hrefValue = buttonElement.getAttribute('href') || buttonElement.getAttribute('aria-label');
+            button.href = hrefValue ? hrefValue : '#';
+            button.textContent = 'Read More';
         }
 
-        return [imageElement, textCellContent.length ? textCellContent : ''];
+        // Ensure no empty rows are created
+        const cardContent = [image, title, subtitle, description, button].filter(Boolean);
+        cells.push([cardContent]);
     });
 
-    // Create the table dynamically using WebImporter.DOMUtils.createTable
-    const structuredTable = WebImporter.DOMUtils.createTable([headerRow, ...cards], document);
+    // Create table
+    const table = WebImporter.DOMUtils.createTable(cells, document);
 
-    // Replace the original element with the newly created table
-    element.replaceWith(structuredTable);
+    // Replace the original element
+    element.replaceWith(table);
 }

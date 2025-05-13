@@ -1,62 +1,58 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const cells = [];
+  // Initialize rows array for the table
+  const rows = [];
 
-  // Header row
-  const headerRow = ['Cards'];
-  cells.push(headerRow);
+  // Add the header row according to the example
+  rows.push(['Cards']);
 
-  // Extract card details
+  // Find all card elements inside the input element
   const cards = element.querySelectorAll('.cmp-card');
+
   cards.forEach((card) => {
+    // Extract the image from the card's front face background
     const frontFace = card.querySelector('.cmp-card__front-face');
-    const backFace = card.querySelector('.cmp-card__back-face');
+    const backgroundImage = frontFace?.style?.backgroundImage;
+    const imageUrl = backgroundImage?.match(/url\("(.*)"\)/)?.[1];
+    const imageElement = imageUrl ? document.createElement('img') : null;
+    if (imageElement) {
+      imageElement.src = imageUrl;
+    }
 
-    // Image extraction
-    const imageUrl = frontFace.style.backgroundImage?.match(/url\("(.*?)"\)/)?.[1];
-    const imageElement = document.createElement('img');
-    imageElement.src = imageUrl;
+    // Extract the title text from the heading
+    const titleElement = card.querySelector('.cmp-card__heading h2');
+    const title = titleElement ? titleElement.textContent.trim() : '';
 
-    // Title extraction
-    const titleElement = frontFace.querySelector('.cmp-card__heading h2');
-    const title = titleElement ? titleElement.textContent : '';
-
-    // Description extraction
-    const descriptionElement = backFace.querySelector('.cmp-card__heading p');
+    // Extract the description text from the back face
+    const descriptionElement = card.querySelector('.cmp-card__back-face p');
     const description = descriptionElement ? descriptionElement.textContent.trim() : '';
 
-    // Call-to-action extraction
-    const button = element.querySelector('.cmp-button a');
-    const ctaText = button ? button.textContent : '';
-    const ctaLink = button ? button.href : '';
-    const cta = ctaLink ? document.createElement('a') : null;
-    if (cta) {
-      cta.href = ctaLink;
-      cta.textContent = ctaText;
+    // Extract the call-to-action link and ensure dynamic URL handling
+    const callToActionElement = card.closest('.aem-Grid').querySelector('.cmp-button');
+    const callToActionLink = callToActionElement ? document.createElement('a') : null;
+    if (callToActionLink) {
+      callToActionLink.href = callToActionElement.href;
+      callToActionLink.textContent = callToActionElement.textContent.trim();
     }
 
-    // Combine into a single cell for text content
-    const textContent = [];
-    if (title) {
-      const titleElement = document.createElement('strong');
-      titleElement.textContent = title;
-      textContent.push(titleElement);
-    }
-    if (description) {
-      const descriptionElement = document.createElement('p');
-      descriptionElement.textContent = description;
-      textContent.push(descriptionElement);
-    }
-    if (cta) {
-      textContent.push(cta);
-    }
+    // Create title and description elements properly
+    const titleStrong = document.createElement('strong');
+    titleStrong.textContent = title;
 
-    // Push row data
-    cells.push([imageElement, textContent]);
+    const descriptionParagraph = document.createElement('p');
+    descriptionParagraph.textContent = description;
+
+    // Create a row for the card in the table
+    const row = [
+      imageElement,
+      [titleStrong, descriptionParagraph, callToActionLink].filter(Boolean)
+    ];
+    rows.push(row);
   });
 
-  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+  // Create the table block using the utility function
+  const table = WebImporter.DOMUtils.createTable(rows, document);
 
-  // Replace the original element
-  element.replaceWith(blockTable);
+  // Replace the original element with the table block
+  element.replaceWith(table);
 }

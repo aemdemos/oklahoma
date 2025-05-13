@@ -1,33 +1,29 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Extract the relevant content dynamically from the given element
-  const buttonGroup = element.querySelector('.button-group');
+  const cells = [];
 
-  if (!buttonGroup) {
-    console.warn('Button group not found in the element. Skipping processing.');
-    return;
-  }
-
-  const label = buttonGroup.querySelector('label');
-  const labelText = label ? label.textContent.trim() : 'No category label';
-
-  const select = buttonGroup.querySelector('select');
-  const options = select ? Array.from(select.options).map(option => option.textContent.trim()).join(', ') : 'No options available';
-
-  // Define rows based on the extracted content
+  // Add the exact header row from the example
   const headerRow = ['Accordion'];
-  const rows = [
-    [labelText],
-    [options],
-  ];
+  cells.push(headerRow);
 
-  const cells = [
-    headerRow,
-    ...rows,
-  ];
+  // Extract accordion items from child elements
+  const childDivs = element.querySelectorAll('div');
 
-  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+  childDivs.forEach((div) => {
+    const label = div.querySelector('label');
+    const select = div.querySelector('select');
 
-  // Replace the original element with the block table
-  element.replaceWith(blockTable);
+    if (label && select) {
+      const title = label.textContent.trim();
+      const options = Array.from(select.querySelectorAll('option')).map(option => option.textContent.trim()).join(', ');
+
+      cells.push([title, options]);
+    }
+  });
+
+  // Create table using WebImporter.DOMUtils.createTable()
+  const table = WebImporter.DOMUtils.createTable(cells, document);
+
+  // Replace original element with the generated table
+  element.replaceWith(table);
 }

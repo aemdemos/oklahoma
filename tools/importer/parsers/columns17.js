@@ -1,51 +1,41 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Extract address content (plain text)
-  const addressDiv = element.querySelector('.cmp-agency-footer__address');
-  const addressContent = addressDiv ? addressDiv.textContent.trim() : '';
+  // Helper function to extract text content
+  const getTextContent = (el) => el ? el.textContent.trim() : '';
 
-  // Extract contact info (plain text with links)
-  const linksDiv = element.querySelector('.cmp-agency-footer__links');
-  const contactInfoDiv = linksDiv ? linksDiv.querySelector('.cmp-text') : null;
-  const contactContent = [];
-  if (contactInfoDiv) {
-    contactInfoDiv.querySelectorAll('p').forEach((p) => {
-      const paragraph = document.createElement('p');
-      paragraph.textContent = p.textContent.trim();
-      contactContent.push(paragraph);
+  // Extracting address block
+  const addressBlock = element.querySelector('.cmp-agency-footer__address p');
+
+  // Extracting contact details (cell and email)
+  const contactBlock = element.querySelector('.cmp-agency-footer__links .cmp-text');
+
+  // Extracting social share link, assuming it exists
+  const socialLink = element.querySelector('.cmp-social-share a');
+
+  // Address block content
+  const addressContent = getTextContent(addressBlock);
+
+  // Contact details content
+  const contactDetails = [];
+  if (contactBlock) {
+    const contactLinks = contactBlock.querySelectorAll('a');
+    contactLinks.forEach((link) => {
+      contactDetails.push(link.cloneNode(true));
     });
   }
 
-  // Extract social media links
-  const socialDiv = element.querySelector('.cmp-social-share');
-  const socialLinks = [];
-  if (socialDiv) {
-    const socialAnchors = socialDiv.querySelectorAll('a');
-    socialAnchors.forEach(anchor => {
-      const href = anchor.getAttribute('href');
-      const title = anchor.getAttribute('title');
-      if (href) {
-        const linkElement = document.createElement('a');
-        linkElement.href = href;
-        linkElement.textContent = title || href;
-        socialLinks.push(linkElement);
-      }
-    });
-  }
+  // Social media link content
+  const socialLinkContent = socialLink ? socialLink.cloneNode(true) : null; // Include only if it exists
 
-  // Create the table cells
-  const cells = [
-    ['Columns'], // Header row
-    [
-      addressContent,
-      contactContent,
-      socialLinks
-    ],
+  // Building table rows
+  const tableContent = [
+    ['Columns'],
+    [addressContent, contactDetails, socialLinkContent]
   ];
 
   // Create the block table
-  const block = WebImporter.DOMUtils.createTable(cells, document);
+  const block = WebImporter.DOMUtils.createTable(tableContent, document);
 
-  // Replace the original element
+  // Replace element with the new block
   element.replaceWith(block);
 }
