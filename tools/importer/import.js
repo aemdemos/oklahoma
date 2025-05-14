@@ -60,6 +60,8 @@ const parsers = {
   cards13: cards13Parser,
   cards22: cards22Parser,
   cardsNoImages25: cardsNoImages25Parser,
+  cardsNoImages40: cardsNoImages25Parser,
+  cardsNoImages41: cardsNoImages25Parser,
   columns6: columns6Parser,
   hero2: hero2Parser,
   embedVideo4: embedVideo4Parser,
