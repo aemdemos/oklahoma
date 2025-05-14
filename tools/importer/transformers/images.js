@@ -20,7 +20,9 @@ function adjustImageUrls(main, url, current) {
         /* eslint-disable no-new */
         new URL(src);
       } catch (e) {
-        src = `./${src}`;
+        if (!src.startsWith('/')) {
+          src = `./${src}`;
+        }
       }
 
       try {
