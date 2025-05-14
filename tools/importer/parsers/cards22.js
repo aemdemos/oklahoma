@@ -1,39 +1,42 @@
 /* global WebImporter */
- export default function parse(element, { document }) {
-  // Extract content from the element
+export default function parse(element, { document }) {
   const cards = [];
 
-  element.querySelectorAll('.newsfeed__list').forEach((newsItem) => {
-    const image = newsItem.querySelector('.newsfeed__image img');
-    const titleLink = newsItem.querySelector('.newsfeed__title a');
-    const date = newsItem.querySelector('.caption');
+  // Extract cards from the HTML element
+  const newsfeedList = element.querySelectorAll('.newsfeed__list');
+  newsfeedList.forEach((item) => {
+    const imageLink = item.querySelector('a.newsfeed__image');
+    const image = imageLink ? imageLink.querySelector('img') : null;
+    const titleLink = item.querySelector('.newsfeed__title a');
+    const title = titleLink ? titleLink.textContent.trim() : '';
+    const caption = item.querySelector('.caption') ? item.querySelector('.caption').textContent.trim() : '';
 
-    if (image && titleLink && date) {
-      const imageElement = document.createElement('img');
+    const imageElement = image ? document.createElement('img') : null;
+    if (imageElement) {
       imageElement.src = image.src;
-
-      const content = document.createElement('div');
-
-      const title = document.createElement('h2');
-      const titleAnchor = document.createElement('a');
-      titleAnchor.href = titleLink.href;
-      titleAnchor.textContent = titleLink.textContent;
-      title.appendChild(titleAnchor);
-
-      const dateElement = document.createElement('div');
-      dateElement.textContent = date.textContent;
-
-      content.appendChild(title);
-      content.appendChild(dateElement);
-
-      cards.push([imageElement, content]);
+      imageElement.alt = image.alt;
     }
+
+    const textContent = document.createElement('div');
+    if (title) {
+      const titleElement = document.createElement('h2');
+      titleElement.textContent = title;
+      textContent.appendChild(titleElement);
+    }
+    if (caption) {
+      const captionElement = document.createElement('p');
+      captionElement.textContent = caption;
+      textContent.appendChild(captionElement);
+    }
+
+    cards.push([imageElement, textContent]);
   });
 
+  // Create the Cards block table
   const headerRow = ['Cards'];
-  const rows = [headerRow, ...cards];
-  const blockTable = WebImporter.DOMUtils.createTable(rows, document);
+  const tableData = [headerRow, ...cards];
+  const table = WebImporter.DOMUtils.createTable(tableData, document);
 
   // Replace the original element with the block table
-  element.replaceWith(blockTable);
+  element.replaceWith(table);
 }
