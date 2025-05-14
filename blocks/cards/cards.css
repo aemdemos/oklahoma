@@ -1,3 +1,4 @@
+
 .cards > ul {
   list-style: none;
   margin: 0;
@@ -24,4 +25,53 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+}
+
+.cards.cards13 > ul {
+  display: flex; /* Use flexbox for horizontal alignment */
+  flex-direction: row; /* Ensure list items are aligned side by side */
+  align-items: flex-start; /* Align items at the top */
+  gap: 20px; /* Add spacing between the image and text */
+}
+
+.cards.cards13 > ul > li {
+  display: flex; /* Apply flexbox for each individual list item */
+  flex-direction: row; /* Ensure image and text are side by side */
+  align-items: flex-start; /* Align image and text at the top */
+  gap: 20px; /* Add spacing between the image and text */
+  border: 1px solid #dadada; /* Retain border styling */
+  background-color: var(--background-color); /* Ensure background color consistency */
+}
+
+.cards.cards13 .cards-card-image {
+  flex: 0 0 40%; /* Ensure the image container takes up 40% of the width */
+  max-width: 300px; /* Increase the width of the image container */
+  height: auto; /* Maintain the natural height */
+  border: 1px solid #CCCCCC; /* Add border around the image */
+  line-height: 0; /* Remove extra line spacing */
+}
+
+.cards.cards13 > ul > li img {
+  width: 100%; /* Ensure the image fits its container */
+  height: auto; /* Maintain the natural height of the image */
+  object-fit: contain; /* Prevent cropping or distortion */
+}
+
+.cards.cards13 .cards-card-body {
+  flex: 1; /* Allocate remaining space for the text container */
+  margin: 0; /* Remove unnecessary margins */
+  padding: 0; /* Ensure consistent spacing */
+  color: #666666; /* Set text color */
+}
+
+.cards.cards13 .cards-card-body p:first-child {
+  font-size: 20px; /* Increase font size for the title */
+  font-weight: bold; /* Bold text for the title */
+  color: #333333; /* Darker color for title */
+  margin-bottom: 10px; /* Add spacing below the title */
+}
+
+.cards.cards13 .cards-card-body p {
+  margin: 0 0 12px; /* Increase spacing between paragraphs for readability */
+  line-height: 1.6; /* Enhance readability */
 }
