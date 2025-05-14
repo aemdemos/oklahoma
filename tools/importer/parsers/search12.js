@@ -1,7 +1,7 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
   // Extract dynamic data from the given element
-  const queryIndexUrl = element.querySelector('.newslist__filter-template')?.getAttribute('data-newslistingapiurl');
+  let queryIndexUrl = element.querySelector('.newslist__filter-template')?.getAttribute('data-newslistingapiurl');
 
   // Validate the extracted URL
   if (!queryIndexUrl || !/^\/.+/.test(queryIndexUrl)) {

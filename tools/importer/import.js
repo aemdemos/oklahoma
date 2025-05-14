@@ -24,12 +24,9 @@ import hero18Parser from './parsers/hero18.js';
 import embedSocial19Parser from './parsers/embedSocial19.js';
 import tableStripedBordered5Parser from './parsers/tableStripedBordered5.js';
 import columns17Parser from './parsers/columns17.js';
-import cards22Parser from './parsers/cards22.js';
 import cards23Parser from './parsers/cards23.js';
 import accordion21Parser from './parsers/accordion21.js';
 import columns24Parser from './parsers/columns24.js';
-import cardsNoImages25Parser from './parsers/cardsNoImages25.js';
-import columns6Parser from './parsers/columns6.js';
 import columns31Parser from './parsers/columns31.js';
 import tableStripedBordered26Parser from './parsers/tableStripedBordered26.js';
 import embedVideo30Parser from './parsers/embedVideo30.js';
@@ -73,12 +70,9 @@ const parsers = {
   embedSocial19: embedSocial19Parser,
   tableStripedBordered5: tableStripedBordered5Parser,
   columns17: columns17Parser,
-  cards22: cards22Parser,
   cards23: cards23Parser,
   accordion21: accordion21Parser,
   columns24: columns24Parser,
-  cardsNoImages25: cardsNoImages25Parser,
-  columns6: columns6Parser,
   columns31: columns31Parser,
   tableStripedBordered26: tableStripedBordered26Parser,
   embedVideo30: embedVideo30Parser,
