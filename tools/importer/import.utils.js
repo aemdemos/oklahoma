@@ -192,7 +192,7 @@ export function buildInventory(siteUrls, inventory, publishUrl) {
 
   return {
     originUrl: siteUrls.originUrl,
-    publishUrl,
+    publishUrl: inventory.publishUrl || publishUrl,
     urls,
     fragments,
     blocks,
