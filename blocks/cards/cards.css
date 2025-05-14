@@ -1,3 +1,4 @@
+
 .cards > ul {
   list-style: none;
   margin: 0;
@@ -24,4 +25,62 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+}
+
+.cards {
+  display: flex; /* Use flexbox layout */
+  justify-content: center; /* Center block horizontally */
+  padding: 40px; /* Outer padding for the block */
+  background-color: #6DA25F; /* Green background */
+  border-radius: 8px; /* Rounded corners */
+}
+
+.cards > ul {
+  display: flex; /* Use flexbox for the inner content */
+  flex-direction: row; /* Ensure elements are side by side */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Align content vertically */
+  gap: 24px; /* Add spacing between elements */
+  width: 100%; /* Ensure full width of the block */
+  margin: 0; /* Reset margins */
+  padding: 20px; /* Inner padding */
+}
+
+.cards > ul > li {
+  display: flex; /* Enable flex for nested content alignment */
+  flex-direction: row; /* Ensure nested elements are side by side */
+  justify-content: flex-start; /* Align nested items to start */
+  align-items: center; /* Align nested items vertically */
+  padding: 20px; /* Add padding inside each item */
+  border: none; /* Remove border */
+  background-color: transparent; /* Ensure transparency */
+}
+
+.cards .cards-card-body {
+  display: flex; /* Use flexbox */
+  flex-direction: row; /* Ensure content within the body is side by side */
+  align-items: flex-start; /* Align content at the top */
+  gap: 16px; /* Add spacing between side-by-side elements */
+  color: #FFFFFF; /* White text color */
+}
+
+.cards .cards-card-body p:first-of-type strong {
+  font-size: 24px; /* Larger font size for title */
+  font-weight: bold; /* Bold style */
+  color: #FFFFFF; /* White title text */
+  margin-bottom: 8px; /* Add space between title and content */
+}
+
+.cards .cards-card-body p:not(:first-of-type) {
+  font-size: 16px; /* Regular font size for paragraphs */
+  line-height: 1.6; /* Adjust line spacing for readability */
+  margin: 0; /* Reset margin */
+  color: #FFFFFF; /* White text color */
+}
+
+.cards .cards-card-body p:not(:first-of-type)::before {
+  content: '•'; /* Simulate bullet points */
+  color: #FFFFFF; /* White color for bullets */
+  font-size: 16px; /* Match bullet size to text */
+  margin-right: 8px; /* Add spacing between bullet and text */
 }
