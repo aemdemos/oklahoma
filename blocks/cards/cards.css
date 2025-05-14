@@ -1,3 +1,4 @@
+
 .cards > ul {
   list-style: none;
   margin: 0;
@@ -24,4 +25,62 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+}
+
+.cards {
+  display: flex; /* Use flexbox for overall block alignment */
+  justify-content: center; /* Center block horizontally */
+  align-items: center; /* Center block vertically */
+  background-color: #D35427; /* Orange background color */
+  padding: 40px; /* Space around the block */
+  max-width: 800px; /* Constrain width */
+  margin: auto; /* Center block on the page */
+  border-radius: 10px; /* Optional: Rounded corners */
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+  position: relative; /* Allow for geometric patterns */
+}
+
+.cards > ul {
+  margin: 0; /* Reset margins */
+  padding: 0; /* Reset padding */
+  list-style: none; /* Remove default list styling */
+  display: flex; /* Use flexbox for layout */
+  flex-direction: row; /* Arrange items side by side */
+  gap: 20px; /* Space between items */
+  width: 100%; /* Ensure full-width utilization */
+  justify-content: center; /* Center items horizontally */
+}
+
+.cards > ul > li {
+  display: flex; /* Use flexbox for internal layout */
+  flex-direction: row; /* Arrange title and body text side by side */
+  align-items: flex-start; /* Align content at the top */
+  width: 100%; /* Ensure block spans full width */
+  padding: 20px; /* Add padding around content */
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.cards-card-body {
+  display: flex; /* Use flexbox for content layout */
+  flex-direction: row; /* Position title and body text side by side */
+  gap: 20px; /* Space between title and body text */
+  align-items: flex-start; /* Align items at the top */
+  width: 100%; /* Ensure full-width utilization */
+}
+
+.cards-card-body > p:first-child {
+  text-align: left; /* Align title to the left */
+  font-size: 24px; /* Larger font size for emphasis */
+  font-weight: bold; /* Bold styling */
+  color: #FFFFFF; /* White text color */
+  margin-right: 20px; /* Add space between title and body text */
+  flex: 0 0 auto; /* Prevent title from stretching */
+}
+
+.cards-card-body > p:not(:first-child) {
+  font-size: 16px; /* Standard font size */
+  color: #FFFFFF; /* White text color */
+  text-align: left; /* Align body text to the left */
+  line-height: 1.5; /* Improve readability */
+  flex: 1; /* Allow body text to take remaining space */
 }
