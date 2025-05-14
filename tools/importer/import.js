@@ -12,6 +12,9 @@
 /* global WebImporter */
 /* eslint-disable no-console */import accordion9Parser from './parsers/accordion9.js';
 import cards13Parser from './parsers/cards13.js';
+import cards22Parser from './parsers/cards22.js';
+import cardsNoImages25Parser from './parsers/cardsNoImages25.js';
+import columns6Parser from './parsers/columns6.js';
 import hero2Parser from './parsers/hero2.js';
 import embedVideo4Parser from './parsers/embedVideo4.js';
 import search12Parser from './parsers/search12.js';
@@ -58,6 +61,9 @@ import {
 const parsers = {
   metadata: metadataParser,  accordion9: accordion9Parser,
   cards13: cards13Parser,
+  cards22: cards22Parser,
+  cardsNoImages25: cardsNoImages25Parser,
+  columns6: columns6Parser,
   hero2: hero2Parser,
   embedVideo4: embedVideo4Parser,
   search12: search12Parser,
