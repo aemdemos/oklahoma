@@ -28,68 +28,48 @@
 }
 
 .cards.cards22 > ul {
-  display: flex; /* Make the list items align side by side */
-  flex-direction: row; /* Horizontal alignment for cards */
-  gap: 20px; /* Add spacing between cards */
-  list-style: none; /* Remove bullet points */
-  margin: 0; /* Reset margin */
-  padding: 0; /* Reset padding */
+  display: flex;
 }
 
 .cards.cards22 > ul > li {
-  display: flex; /* Flexbox for individual cards */
-  flex-direction: row; /* Align image and text side by side */
-  align-items: center; /* Center items vertically */
-  gap: 20px; /* Add spacing between image and text */
-  border: none; /* Remove border around each card */
-  background-color: #FFF; /* White background for cards */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: none;
 }
 
 .cards.cards22 .cards-card-image {
-  flex: 0 0 60px; /* Fixed size for the image container */
-  height: 60px;
-  display: flex; /* Center image within its container */
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #CCC; /* Light gray border around the image */
-  background-color: #FFF; /* Ensure white background */
-  line-height: 0; /* Retain from base CSS */
+  width: 100%;
+}
+
+.cards.cards22 .cards-card-image img {
+  max-width: unset;
+  aspect-ratio: unset;
 }
 
 .cards.cards22 .cards-card-body {
-  flex: 1; /* Text block takes remaining space */
-  display: flex; /* Align text horizontally */
-  flex-flow: row nowrap; /* Ensure text elements are inline side by side */
-  align-items: center; /* Center align text vertically */
-  gap: 10px; /* Add spacing between text elements */ /* Prevent wrapping of text */
-  margin: 16px; /* Retain margin from base CSS */
-}
-
-.cards.cards22 .cards-card-body h2 {
-  font-size: 18px; /* Title font size */
-  color: #0054A6; /* Apply blue color for title */
-  font-weight: bold; /* Bold title */
-  margin: 0; /* Remove unnecessary margins */
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 0;
 }
 
 .cards.cards22 .cards-card-body p {
-  font-size: 14px; /* Body text size */
-  color: #767676; /* Apply gray color for date */
-  margin: 0; /* Remove unnecessary margins */
+  color: #767676;
+  margin: 0; 
 }
 
-.cards.cards22 .cards-card-body p.button-container a {
-  font-size: 14px; /* Font size for link */
-  color: #0054A6; /* Apply blue color for link */
-  text-decoration: none; /* Remove underline */
-  font-weight: normal; /* Normal font weight */
-  margin-left: 10px; /* Add spacing between date and link */
-  padding: 0; /* Remove button-like padding */
-  background: none; /* Remove button-like background */
-  border: none; /* Remove button-like border */
-  white-space: nowrap; /* Prevent wrapping of link */
-}
+@media (width >= 900px) {
+  .cards.cards22 > ul > li {
+    flex-direction: row;
+    gap: 30px;
+  }
 
-.cards.cards22 .cards-card-body p.button-container a:hover {
-  text-decoration: underline; /* Add underline on hover */
+  .cards.cards22 .cards-card-image img {
+    width: 163px;
+  }
+  
+  .cards.cards22 .cards-card-image {
+    width: unset;
+  }
 }
