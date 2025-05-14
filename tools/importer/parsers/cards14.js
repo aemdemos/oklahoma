@@ -1,40 +1,46 @@
 /* global WebImporter */
-
 export default function parse(element, { document }) {
-  // Create the header row with the correct format
+  // Create the section break
+  const hr = document.createElement('hr');
+
+  // Define the header row
   const headerRow = ['Cards'];
 
-  // Parse the rows
-  const rows = Array.from(element.querySelectorAll('div.image')).map((imageDiv) => {
-    const img = imageDiv.querySelector('img');
-    const altText = img.getAttribute('alt') || '';
-    const src = img.getAttribute('src');
-    const title = img.getAttribute('title') || '';
+  // Extract rows dynamically
+  const rows = Array.from(element.querySelectorAll('.cmp-image')).map(imageElement => {
+    const image = imageElement.querySelector('img').cloneNode(true);
 
-    // Create image element
-    const imageElement = document.createElement('img');
-    imageElement.setAttribute('src', src);
-    imageElement.setAttribute('alt', altText);
-    imageElement.setAttribute('title', title);
+    // Extract the text content dynamically
+    const textElement = imageElement.closest('.aem-GridColumn').nextElementSibling;
+    const titleElement = textElement.querySelector('h1, h2, h3');
 
-    // Extract and sanitize text content next to the image
-    const descriptionDiv = imageDiv.nextElementSibling;
-    let sanitizedText = '';
-    if (descriptionDiv) {
-      sanitizedText = descriptionDiv.textContent.trim(); // Extract clean text content only
+    // Create title and description
+    const title = titleElement ? document.createElement('strong') : null;
+    if (titleElement) title.innerText = titleElement.innerText;
+
+    const description = document.createElement('p');
+    description.innerHTML = textElement.querySelector('.cmp-text').innerHTML;
+
+    // Ensure proper HTML structure: multiple <p> tags as direct children of the <div>
+    const wrapper = document.createElement('div');
+    if (title) {
+      wrapper.appendChild(title);
     }
+    description.querySelectorAll('p').forEach(paragraph => {
+      const clonedParagraph = document.createElement('p');
+      clonedParagraph.innerHTML = paragraph.innerHTML;
+      wrapper.appendChild(clonedParagraph);
+    });
 
-    // Create content element
-    const contentElement = document.createElement('div');
-    contentElement.textContent = sanitizedText; // Add extracted text content
-
-    return [imageElement, contentElement];
+    return [image, wrapper];
   });
 
-  // Create block table
-  const cells = [headerRow, ...rows];
-  const table = WebImporter.DOMUtils.createTable(cells, document);
+  // Assemble table data
+  const tableData = [headerRow, ...rows];
 
-  // Replace the original element
-  element.replaceWith(table);
+  // Create the block table
+  const blockTable = WebImporter.DOMUtils.createTable(tableData, document);
+
+  // Replace the original element with the new structure
+  element.replaceWith(hr, blockTable);
 }

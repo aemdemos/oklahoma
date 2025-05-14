@@ -1,29 +1,31 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const cells = [];
+  const tableData = [];
 
-  // Add the exact header row from the example
-  const headerRow = ['Accordion'];
-  cells.push(headerRow);
+  // Add header row exactly as specified in the example
+  tableData.push(['Accordion']);
 
-  // Extract accordion items from child elements
-  const childDivs = element.querySelectorAll('div');
+  // Extract accordion items (titles and content)
+  const rows = element.querySelectorAll('.button-group');
+  rows.forEach((row) => {
+    const titleElement = row.querySelector('label');
+    const title = titleElement ? titleElement.textContent.trim() : null;
 
-  childDivs.forEach((div) => {
-    const label = div.querySelector('label');
-    const select = div.querySelector('select');
+    const contentElement = row.querySelector('select');
+    const content = contentElement ? contentElement.cloneNode(true) : null;
 
-    if (label && select) {
-      const title = label.textContent.trim();
-      const options = Array.from(select.querySelectorAll('option')).map(option => option.textContent.trim()).join(', ');
-
-      cells.push([title, options]);
+    // Combine title and content into a single cell (as specified in the example)
+    if (title || content) {
+      const combinedContent = document.createElement('div');
+      if (title) combinedContent.append(document.createTextNode(title));
+      if (content) combinedContent.append(content);
+      tableData.push([combinedContent]); // Ensure only one column per row
     }
   });
 
-  // Create table using WebImporter.DOMUtils.createTable()
-  const table = WebImporter.DOMUtils.createTable(cells, document);
+  // Create the table using WebImporter.DOMUtils.createTable
+  const blockTable = WebImporter.DOMUtils.createTable(tableData, document);
 
-  // Replace original element with the generated table
-  element.replaceWith(table);
+  // Replace the original element with the block table
+  element.replaceWith(blockTable);
 }

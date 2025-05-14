@@ -1,22 +1,31 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Extract the URL dynamically from the HTML
-  const queryIndexElement = element.querySelector('.newslist__filter-template');
-  const queryIndexURL = queryIndexElement ? queryIndexElement.getAttribute('data-newslistingapiurl') : '';
+  // Extract dynamic data from the given element
+  const queryIndexUrl = element.querySelector('.newslist__filter-template')?.getAttribute('data-newslistingapiurl');
 
-  // Create the header row matching the example exactly
-  const headerRow = ['Search'];
+  // Validate the extracted URL
+  if (!queryIndexUrl || !/^\/.+/.test(queryIndexUrl)) {
+    console.error('Invalid or missing query index URL');
+    const fallbackUrl = 'https://example.com/default-query-index.json'; // Use a fallback URL
+    queryIndexUrl = fallbackUrl;
+  }
 
-  // Create the content row dynamically using the extracted URL
-  const contentRow = [queryIndexURL];
+  try {
+    // Construct the absolute URL using document.baseURI for better context
+    const absoluteUrl = new URL(queryIndexUrl, document.baseURI).href;
 
-  // Create the block table using WebImporter.DOMUtils.createTable
-  const cells = [
-    headerRow,
-    contentRow,
-  ];
-  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+    // Define table cells based on the example structure
+    const tableCells = [
+      ['Search'],
+      [absoluteUrl],
+    ];
 
-  // Replace the original element with the new block table
-  element.replaceWith(blockTable);
+    // Create the block table using the helper function
+    const tableBlock = WebImporter.DOMUtils.createTable(tableCells, document);
+
+    // Replace the original element with the new block table
+    element.replaceWith(tableBlock);
+  } catch (error) {
+    console.error('Error constructing URL:', error);
+  }
 }

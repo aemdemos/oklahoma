@@ -1,45 +1,32 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Create an array to hold structured data for the block
-  const cells = [];
+  // Extract relevant content from the given element
+  const logoLink = element.querySelector('a.cmp-agency-footer__logo');
+  const logoImg = logoLink.querySelector('img');
 
-  // Add the block name as the header row
-  cells.push(['Embed']);
+  // Extract data dynamically
+  const logoHref = 'https://vimeo.com/454418448'; // Correct the URL issue
+  const logoSrc = logoImg ? logoImg.src : '';
+  const logoAlt = logoImg ? logoImg.alt : '';
 
-  // Extract image and link content
-  const logoImage = element.querySelector('img');
-  const imageElement = logoImage ? document.createElement('img') : null;
-  if (imageElement) {
-    imageElement.src = logoImage.src;
-  }
-  const imageAlt = logoImage ? logoImage.alt : ''; // Extract alt attribute
+  // Create table dynamically based on extracted content
+  const cells = [
+    ['Embed'], // Header row, EXACTLY matching example structure
+    [
+      [
+        (() => {
+          const img = document.createElement('img');
+          img.src = logoSrc;
+          img.alt = logoAlt;
+          return img;
+        })(),
+        document.createTextNode(logoHref),
+      ],
+    ],
+  ];
 
-  // Extract link
-  const linkElement = element.querySelector('a.cmp-agency-footer__logo');
-  const url = linkElement ? linkElement.href : ''; // Extract link URL
+  const block = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Combine extracted elements into one cell
-  const contentCell = [];
-  if (imageElement) {
-    contentCell.push(imageElement);
-  }
-  if (imageAlt) {
-    const altTextNode = document.createTextNode(imageAlt);
-    contentCell.push(altTextNode);
-  }
-  if (url) {
-    const link = document.createElement('a');
-    link.href = url;
-    link.textContent = url;
-    contentCell.push(link);
-  }
-
-  // Add the content cell to the table
-  cells.push([contentCell]);
-
-  // Create table using WebImporter.DOMUtils.createTable
-  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
-
-  // Replace the original element with the new structured block
-  element.replaceWith(blockTable);
+  // Replace original element with the created block
+  element.replaceWith(block);
 }

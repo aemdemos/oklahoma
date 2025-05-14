@@ -1,46 +1,40 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const hr = document.createElement('hr');
+  // Extract the main content
+  const heroImage = element.querySelector('.cmp-teaser__image img');
+  const heading = element.querySelector('#title-f08c47e607 h1');
+  const subheading = element.querySelector('#title-34202c804d h2');
+  const author = element.querySelector('#title-1ea9a00b20 h3');
+  const textContent = element.querySelector('.cmp-text');
+  const lastModified = element.querySelector('.cmp-last-modified-date__text span');
 
-  // Extract image
-  const imageElement = element.querySelector('img');
-  const image = imageElement && document.createElement('img');
-  if (image) {
-    image.src = imageElement.src;
-    image.alt = imageElement.alt;
-    image.title = imageElement.title;
-  }
+  // Extract clean plain text from textContent, preserving paragraph structure
+  const extractedText = textContent
+    ? Array.from(textContent.querySelectorAll('p')).map(p => {
+        const paragraph = document.createElement('p');
+        paragraph.textContent = p.textContent.replace(/\s+/g, ' ').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').trim();
+        return paragraph;
+      })
+    : [];
 
-  // Extract titles
-  const h1 = element.querySelector('h1');
-  const h2 = element.querySelector('h2');
-  const h3 = element.querySelector('h3');
-
-  // Extract text content
-  const textElement = element.querySelector('.cmp-text');
-  const paragraphs = textElement ? Array.from(textElement.querySelectorAll('p')) : [];
-
-  // Extract last modified date
-  const lastModifiedElement = element.querySelector('.cmp-last-modified-date__text span');
-  const lastModified = lastModifiedElement ? lastModifiedElement.textContent : '';
-
-  // Combine all content into a single cell
-  const combinedContent = document.createElement('div');
-  if (image) combinedContent.appendChild(image);
-  if (h1) combinedContent.appendChild(document.createElement('h1')).textContent = h1.textContent;
-  if (h2) combinedContent.appendChild(document.createElement('h2')).textContent = h2.textContent;
-  if (h3) combinedContent.appendChild(document.createElement('h3')).textContent = h3.textContent;
-  paragraphs.forEach((p) => combinedContent.appendChild(p.cloneNode(true)));
-  if (lastModified) combinedContent.appendChild(document.createElement('p')).textContent = `Last Modified on ${lastModified}`;
-
-  // Create table rows
-  const cells = [
-    ['Hero'],  // Correct header row as per example
-    [combinedContent],
+  // Create rows for the table
+  const tableRows = [
+    ['Hero'],
+    [
+      [
+        heroImage ? (() => { const img = document.createElement('img'); img.setAttribute('src', heroImage.src); return img; })() : '',
+        heading ? (() => { const h1 = document.createElement('h1'); h1.textContent = heading.textContent.trim(); return h1; })() : '',
+        subheading ? (() => { const h2 = document.createElement('h2'); h2.textContent = subheading.textContent.trim(); return h2; })() : '',
+        author ? (() => { const h3 = document.createElement('h3'); h3.textContent = author.textContent.trim(); return h3; })() : '',
+        ...extractedText,
+        lastModified ? `Last Modified on ${lastModified.textContent.trim()}` : '',
+      ],
+    ],
   ];
 
-  const block = WebImporter.DOMUtils.createTable(cells, document);
+  // Create the table
+  const blockTable = WebImporter.DOMUtils.createTable(tableRows, document);
 
-  // Replace the original element with the new block
-  element.replaceWith(hr, block);
+  // Replace the original element
+  element.replaceWith(blockTable);
 }

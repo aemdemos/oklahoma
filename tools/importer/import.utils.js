@@ -152,3 +152,50 @@ export const TableBuilder = (originalFunc) => {
     restore: () => original,
   };
 };
+
+function reduceInstances(instances) {
+  return instances.map(({ urlHash, xpath, uuid }) => ({
+    urlHash,
+    xpath,
+    uuid,
+  }));
+}
+
+/**
+ * Merges site-urls into inventory with an optimized format
+ * @param {Object} siteUrls - The contents of site-urls.json
+ * @param {Object} inventory - The contents of inventory.json
+ * @returns {Object} The merged inventory data in the new format
+ */
+export function buildInventory(siteUrls, inventory, publishUrl) {
+  // Transform URLs array to remove source property
+  const urls = siteUrls.urls.map(({ url, targetPath, id }) => ({
+    url,
+    targetPath,
+    id,
+  }));
+
+  // Transform fragments to use simplified instance format
+  const fragments = inventory.fragments.map((fragment) => ({
+    ...fragment,
+    instances: reduceInstances(fragment.instances),
+  }));
+
+  // Transform blocks to use simplified instance format
+  const blocks = inventory.blocks.map((block) => ({
+    ...block,
+    instances: reduceInstances(block.instances),
+  }));
+
+  // Transform outliers to use simplified instance format
+  const outliers = reduceInstances(inventory.outliers);
+
+  return {
+    originUrl: siteUrls.originUrl,
+    publishUrl,
+    urls,
+    fragments,
+    blocks,
+    outliers,
+  };
+}

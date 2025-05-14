@@ -1,44 +1,38 @@
 /* global WebImporter */
+
 export default function parse(element, { document }) {
-  // Extract content from the element
-  const blockName = 'Embed';
+  // Dynamically extract content from the element
+  const imageSrc = element.querySelector('img')?.src || '';
+  const videoUrl = element.querySelector('a')?.href || '';
 
-  // Extract image if available
-  let image;
-  const imageElement = element.querySelector('img');
-  if (imageElement && imageElement.src) {
-    image = document.createElement('img');
-    image.src = imageElement.src;
+  // Create the header row for the Embed block
+  const headerRow = ['Embed'];
+
+  // Create the content row dynamically using extracted data
+  const image = document.createElement('img');
+  if (imageSrc) image.src = imageSrc;
+
+  const videoLink = document.createElement('a');
+  if (videoUrl) {
+    videoLink.href = videoUrl;
+    videoLink.textContent = videoUrl;
   }
 
-  // Extract URL if available
-  let url;
-  const linkElement = element.querySelector('a');
-  const videoElement = element.querySelector('video');
-  const videoSrc = linkElement?.href || videoElement?.src;
-  if (videoSrc) {
-    url = document.createElement('a');
-    url.href = videoSrc;
-    url.textContent = videoSrc;
-  }
+  // Combine the image and video link into a single cell
+  const contentCell = document.createElement('div');
+  if (image) contentCell.appendChild(image);
+  if (videoLink) contentCell.appendChild(videoLink);
 
-  // Handle missing content properly
-  const content = [];
-  if (image) content.push(image);
-  if (url) content.push(url);
+  const contentRow = [contentCell];
 
-  // Ensure content row is not empty
-  const contentRow = content.length > 0 ? content : ['No content available'];
-
-  // Construct table data structure
+  // Create the table
   const cells = [
-    [blockName], // Header row exactly as required
-    [contentRow], // Content row with either image or URL
+    headerRow,
+    contentRow,
   ];
 
-  // Create table block using provided helper function
-  const block = WebImporter.DOMUtils.createTable(cells, document);
+  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Replace the original element with the new block
-  element.replaceWith(block);
+  // Replace the original element with the new table
+  element.replaceWith(blockTable);
 }
