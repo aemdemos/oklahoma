@@ -42,7 +42,7 @@
   align-items: center; /* Center items vertically */
   gap: 20px; /* Add spacing between image and text */
   border: none; /* Remove border around each card */
-  background-color: #FFFFFF; /* White background for cards */
+  background-color: #FFF; /* White background for cards */
 }
 
 .cards.cards22 .cards-card-image {
@@ -51,18 +51,17 @@
   display: flex; /* Center image within its container */
   align-items: center;
   justify-content: center;
-  border: 1px solid #CCCCCC; /* Light gray border around the image */
-  background-color: #FFFFFF; /* Ensure white background */
+  border: 1px solid #CCC; /* Light gray border around the image */
+  background-color: #FFF; /* Ensure white background */
   line-height: 0; /* Retain from base CSS */
 }
 
 .cards.cards22 .cards-card-body {
   flex: 1; /* Text block takes remaining space */
   display: flex; /* Align text horizontally */
-  flex-direction: row; /* Ensure text elements are inline side by side */
+  flex-flow: row nowrap; /* Ensure text elements are inline side by side */
   align-items: center; /* Center align text vertically */
-  gap: 10px; /* Add spacing between text elements */
-  flex-wrap: nowrap; /* Prevent wrapping of text */
+  gap: 10px; /* Add spacing between text elements */ /* Prevent wrapping of text */
   margin: 16px; /* Retain margin from base CSS */
 }
 
