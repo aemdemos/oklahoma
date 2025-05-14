@@ -10,33 +10,6 @@ function getBaseName(name) {
   return name.split('(')[0].trim();
 }
 
-// Function to convert block name to camelCase variant
-function toCamelCase(baseName, existingVariants, cluster) {
-  // Remove special characters and convert to camelCase
-  const cleanName = baseName
-    .replace(/[\(\)]/g, '') // Remove parentheses
-    .replace(/[^\w\s]/g, '') // Remove other special characters
-    .trim()
-    .split(/\s+/)
-    .map((word, index) => {
-      if (index === 0) {
-        return word.toLowerCase();
-      }
-      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-    })
-    .join('');
-
-  let concatenatedVariant = cleanName;
-  if (existingVariants.length > 0) {
-    for (let i = 0; i < existingVariants.length; i++) {
-      concatenatedVariant += toUpperCamelCase(existingVariants[i]);
-    }
-  }
-
-  // Append cluster number
-  return `${concatenatedVariant}${cluster}`;
-}
-
 // Function to convert a variant to UpperCamelCase for concatenation
 function toUpperCamelCase(variant) {
   // If the variant is a single word, just uppercase the first letter
@@ -61,6 +34,33 @@ function toUpperCamelCase(variant) {
   return upperCamelCased + number;
 }
 
+// Function to convert block name to camelCase variant
+function toCamelCase(baseName, existingVariants, cluster) {
+  // Remove special characters and convert to camelCase
+  const cleanName = baseName
+    .replace(/[()]/g, '') // Remove parentheses
+    .replace(/[^\w\s]/g, '') // Remove other special characters
+    .trim()
+    .split(/\s+/)
+    .map((word, index) => {
+      if (index === 0) {
+        return word.toLowerCase();
+      }
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    })
+    .join('');
+
+  let concatenatedVariant = cleanName;
+  if (existingVariants.length > 0) {
+    for (let i = 0; i < existingVariants.length; i += 1) {
+      concatenatedVariant += toUpperCamelCase(existingVariants[i]);
+    }
+  }
+
+  // Append cluster number
+  return `${concatenatedVariant}${cluster}`;
+}
+
 // Extract all existing variants from a block name
 function extractVariants(name) {
   // If no parentheses, return empty array
@@ -72,9 +72,7 @@ function extractVariants(name) {
   const variantMatches = name.match(/\(([^)]+)\)/g) || [];
 
   // Process each variant
-  return variantMatches.map((match) =>
-    // Remove parentheses and split by comma
-    match.slice(1, -1).split(',').map((v) => v.trim())).flat().filter(Boolean); // Flatten and remove empty strings
+  return variantMatches.map((match) => match.slice(1, -1).split(',').map((v) => v.trim())).flat().filter(Boolean); // Flatten and remove empty strings
 }
 
 // Process each block
@@ -104,7 +102,7 @@ inventory.blocks = inventory.blocks.map((block) => {
 
   // Update block name: "BaseName (variant1, variant2, ..., concatenatedVariant)"
   block.name = `${baseName} (${allVariants.join(', ')})`;
-  updatedCount++;
+  updatedCount += 1;
 
   return block;
 });
