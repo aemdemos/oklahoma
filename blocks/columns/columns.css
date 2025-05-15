@@ -38,50 +38,50 @@
 .columns.columns24 {
   display: flex;
   flex-direction: row; /* Ensure columns are side by side */
-  gap: 20px; /* Add consistent horizontal spacing between columns */
-  background-color: #F5F5F5; /* Light gray background for the block */
-  padding: 20px; /* Add padding around the block */
-  box-sizing: border-box; /* Ensure padding is included in width calculation */
+  gap: 32px; /* Add consistent spacing between columns */
+  background-color: #f5f5f5; /* Light gray background to match original */
+  padding: 24px; /* Add padding around the block for better layout */
+  box-sizing: border-box; /* Include padding in width calculations */
 }
 
 .columns.columns24 > div {
   display: flex;
-  flex-direction: row; /* Ensure first-level divs are laid out side by side */
+  flex-direction: row; /* Ensure main divs are laid out side by side */
   width: 100%; /* Ensure the block spans the full width */
 }
 
 .columns.columns24 > div > div {
-  flex: 1; /* Ensure equal width for columns */
+  flex: 1; /* Ensure equal column width */
   display: flex;
-  flex-direction: column; /* Stack content vertically within each column */
-  box-sizing: border-box; /* Include padding and borders in width calculation */
-  align-items: stretch; /* Stretch content across the column width */
+  flex-direction: row; /* Align image, title, and description side by side */
+  box-sizing: border-box; /* Include padding in calculations */
+  align-items: flex-start; /* Align content horizontally */
 }
 
-.columns.columns24 > div > div picture {
-  margin-bottom: 10px; /* Add spacing below the images */
-  display: block; /* Ensure images render correctly */
+.columns.columns24 > div > div p:last-of-type {
+  order: -1; /* Reposition images at the top of columns */
+  margin-bottom: 16px; /* Add space below the image */
+  text-align: center; /* Center-align images */
 }
 
-.columns.columns24 > div > div picture img {
-  width: 100%; /* Ensure images span the full width of the column */
-  height: auto; /* Maintain aspect ratio */
-  display: block; /* Ensure proper rendering of images */
+.columns.columns24 > div > div p:last-of-type img {
+  width: 100%; /* Ensure images span full column width */
+  height: auto; /* Maintain proper aspect ratio */
+  display: block; /* Ensure images render properly */
 }
 
 .columns.columns24 > div > div p:first-of-type {
-  font-size: 1.5em; /* Larger font size for titles */
-  font-family: var(--heading-font-family); /* Use heading font for titles */
-  font-weight: 600; /* Bold titles */
-  color: #1E4D9F; /* Blue color for titles */
-  margin-top: 10px; /* Add spacing above titles */
-  margin-bottom: 10px; /* Add spacing below titles */
+  font-size: 18px; /* Adjust font size for titles */
+  font-weight: 600; /* Make titles semi-bold */
+  color: #00479e; /* Match original title color */
+  margin-bottom: 12px; /* Add spacing below titles */
 }
 
 .columns.columns24 > div > div p:nth-of-type(2) {
-  font-size: 1em; /* Standard font size for descriptions */
-  color: var(--text-color); /* Black color for descriptions */
-  margin-bottom: 10px; /* Add spacing below the description */
+  font-size: 14px; /* Adjust font size for descriptions */
+  color: #333333; /* Match original description color */
+  line-height: 1.6; /* Improve readability */
+  margin-bottom: 20px; /* Add spacing below descriptions */
 }
 
 @media (max-width: 768px) {
@@ -90,62 +90,64 @@
   }
 
   .columns.columns24 > div {
-    flex-direction: column; /* Stack first-level divs vertically */
+    flex-direction: column; /* Stack top-level divs vertically */
+    margin-bottom: 24px; /* Add spacing between columns */
   }
 
   .columns.columns24 > div > div {
-    width: 100%; /* Ensure full width for columns on smaller screens */
+    width: 100%; /* Full width columns for smaller screens */
+    flex-direction: column; /* Stack content vertically */
   }
 }
 
-/* Merged CSS for .columns.columns24 */
+/* Clean merged CSS for .columns.columns24 */
 .columns.columns24 {
   display: flex;
   flex-direction: row; /* Ensure columns are side by side */
-  gap: 20px; /* Add consistent horizontal spacing between columns */
-  background-color: #F5F5F5; /* Light gray background for the block */
-  padding: 20px; /* Add padding around the block */
-  box-sizing: border-box; /* Ensure padding is included in width calculation */
+  gap: 32px; /* Add consistent spacing between columns */
+  background-color: #f5f5f5; /* Light gray background to match original */
+  padding: 24px; /* Add padding around the block for better layout */
+  box-sizing: border-box; /* Include padding in width calculations */
 }
 
 .columns.columns24 > div {
   display: flex;
-  flex-direction: row; /* Ensure first-level divs are laid out side by side */
+  flex-direction: row; /* Ensure main divs are laid out side by side */
   width: 100%; /* Ensure the block spans the full width */
 }
 
 .columns.columns24 > div > div {
-  flex: 1; /* Ensure equal width for columns */
+  flex: 1; /* Ensure equal column width */
   display: flex;
-  flex-direction: column; /* Stack content vertically within each column */
-  box-sizing: border-box; /* Include padding and borders in width calculation */
-  align-items: stretch; /* Stretch content across the column width */
+  flex-direction: column; /* Stack content vertically (image, title, description) */
+  box-sizing: border-box; /* Include padding in calculations */
+  align-items: flex-start; /* Align content horizontally */
 }
 
-.columns.columns24 > div > div picture {
-  margin-bottom: 10px; /* Add spacing below the images */
-  display: block; /* Ensure images render correctly */
+.columns.columns24 > div > div p:last-of-type {
+  order: -1; /* Ensure the image is positioned at the top */
+  margin-bottom: 16px; /* Add space below the image */
+  text-align: center; /* Center-align the image */
 }
 
-.columns.columns24 > div > div picture img {
-  width: 100%; /* Ensure images span the full width of the column */
-  height: auto; /* Maintain aspect ratio */
+.columns.columns24 > div > div p:last-of-type img {
+  width: 100%; /* Ensure images span full column width */
+  height: auto; /* Maintain proper aspect ratio */
   display: block; /* Ensure proper rendering of images */
 }
 
 .columns.columns24 > div > div p:first-of-type {
-  font-size: 1.5em; /* Larger font size for titles */
-  font-family: var(--heading-font-family); /* Use heading font for titles */
-  font-weight: 600; /* Bold titles */
-  color: #1E4D9F; /* Blue color for titles */
-  margin-top: 10px; /* Add spacing above titles */
-  margin-bottom: 10px; /* Add spacing below titles */
+  font-size: 18px; /* Adjust font size for titles */
+  font-weight: 600; /* Make titles semi-bold */
+  color: #00479e; /* Match original title color */
+  margin-bottom: 12px; /* Add spacing below titles */
 }
 
 .columns.columns24 > div > div p:nth-of-type(2) {
-  font-size: 1em; /* Standard font size for descriptions */
-  color: var(--text-color); /* Black color for descriptions */
-  margin-bottom: 10px; /* Add spacing below the description */
+  font-size: 14px; /* Adjust font size for descriptions */
+  color: #333333; /* Match original description color */
+  line-height: 1.6; /* Improve readability */
+  margin-bottom: 20px; /* Add spacing below descriptions */
 }
 
 @media (max-width: 768px) {
@@ -154,10 +156,12 @@
   }
 
   .columns.columns24 > div {
-    flex-direction: column; /* Stack first-level divs vertically */
+    flex-direction: column; /* Stack top-level divs vertically */
+    margin-bottom: 24px; /* Add spacing between columns */
   }
 
   .columns.columns24 > div > div {
-    width: 100%; /* Ensure full width for columns on smaller screens */
+    width: 100%; /* Full width columns for smaller screens */
+    flex-direction: column; /* Stack content vertically */
   }
 }
