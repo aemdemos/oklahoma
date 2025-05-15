@@ -34,73 +34,7 @@
   }
 }
 
-/* Generated CSS */
-.columns.columns24 {
-  display: flex;
-  flex-direction: row; /* Ensure columns are side by side */
-  gap: 32px; /* Add consistent spacing between columns */
-  background-color: #f5f5f5; /* Light gray background to match original */
-  padding: 24px; /* Add padding around the block for better layout */
-  box-sizing: border-box; /* Include padding in width calculations */
-}
 
-.columns.columns24 > div {
-  display: flex;
-  flex-direction: row; /* Ensure main divs are laid out side by side */
-  width: 100%; /* Ensure the block spans the full width */
-}
-
-.columns.columns24 > div > div {
-  flex: 1; /* Ensure equal column width */
-  display: flex;
-  flex-direction: row; /* Align image, title, and description side by side */
-  box-sizing: border-box; /* Include padding in calculations */
-  align-items: flex-start; /* Align content horizontally */
-}
-
-.columns.columns24 > div > div p:last-of-type {
-  order: -1; /* Reposition images at the top of columns */
-  margin-bottom: 16px; /* Add space below the image */
-  text-align: center; /* Center-align images */
-}
-
-.columns.columns24 > div > div p:last-of-type img {
-  width: 100%; /* Ensure images span full column width */
-  height: auto; /* Maintain proper aspect ratio */
-  display: block; /* Ensure images render properly */
-}
-
-.columns.columns24 > div > div p:first-of-type {
-  font-size: 18px; /* Adjust font size for titles */
-  font-weight: 600; /* Make titles semi-bold */
-  color: #00479e; /* Match original title color */
-  margin-bottom: 12px; /* Add spacing below titles */
-}
-
-.columns.columns24 > div > div p:nth-of-type(2) {
-  font-size: 14px; /* Adjust font size for descriptions */
-  color: #333333; /* Match original description color */
-  line-height: 1.6; /* Improve readability */
-  margin-bottom: 20px; /* Add spacing below descriptions */
-}
-
-@media (max-width: 768px) {
-  .columns.columns24 {
-    flex-direction: column; /* Stack columns vertically on smaller screens */
-  }
-
-  .columns.columns24 > div {
-    flex-direction: column; /* Stack top-level divs vertically */
-    margin-bottom: 24px; /* Add spacing between columns */
-  }
-
-  .columns.columns24 > div > div {
-    width: 100%; /* Full width columns for smaller screens */
-    flex-direction: column; /* Stack content vertically */
-  }
-}
-
-/* Clean merged CSS for .columns.columns24 */
 .columns.columns24 {
   display: flex;
   flex-direction: row; /* Ensure columns are side by side */
