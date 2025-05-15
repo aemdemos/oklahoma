@@ -165,3 +165,17 @@
     flex-direction: column; /* Stack content vertically */
   }
 }
+
+.columns.history p {
+  margin-bottom: 0.8em;
+  margin-top: 0.25em;
+}
+
+.columns.history > div {
+  align-items: unset;
+}
+
+.columns.history > div > .columns-img-col {
+  flex: 0 0 25%;
+  padding-top: 0.6em;
+}
