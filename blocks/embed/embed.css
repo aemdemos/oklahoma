@@ -1,14 +1,14 @@
 
 .embed {
-  width: 100% !important;
-  text-align: unset !important;
-  max-width: none !important;
-  margin: 0 0 40px !important;
+  width: unset;
+  text-align: center;
+  max-width: 800px;
+  margin: 32px auto;
 }
 
 .embed > div {
-  display: block !important;
-  justify-content: unset !important;
+  display: flex;
+  justify-content: center;
 }
 
 .embed.embed-twitter .twitter-tweet-rendered {
@@ -60,4 +60,19 @@
   border-left: 6px solid;
   top: 4px;
   left: 7px;
+}
+
+.embed.embedvideo37 {
+  max-width: unset;
+}
+
+.embed.embedvideo37 > div {
+  padding-bottom: 0 !important;
+  position: unset !important;
+  height: unset !important;
+}
+
+.embed.embedvideo37 iframe {
+  height: 390px !important;
+  position: unset !important;
 }
