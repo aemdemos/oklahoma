@@ -93,12 +93,12 @@
 
 .columns.columns24 > div > div p:nth-of-type(2) {
   font-size: 14px; /* Adjust font size for descriptions */
-  color: #333333; /* Match original description color */
+  color: #333; /* Match original description color */
   line-height: 1.6; /* Improve readability */
   margin-bottom: 20px; /* Add spacing below descriptions */
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .columns.columns24 {
     flex-direction: column; /* Stack columns vertically on smaller screens */
   }
