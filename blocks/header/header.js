@@ -197,9 +197,10 @@ export default async function decorate(block) {
   translationWrapper.innerHTML = `
   <div>
     <span class="icon icon-logo-small"></span>
-    <div class="translate-group">
+    <div class="translate-group" style="cursor: pointer;">
       <span class="icon icon-translate"></span>
       <div>Translate</div>
+      <div id="google-translate-element"></div>
     </div>
     <div>
       State Agencies
@@ -207,6 +208,46 @@ export default async function decorate(block) {
   </div>
   `;
   navWrapper.append(translationWrapper);
+
+  // Initialize Google Translate
+  const script = document.createElement('script');
+  script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+  script.async = true;
+  document.body.appendChild(script);
+
+  // Google Translate initialization callback
+  window.googleTranslateElementInit = function () {
+    /* global google */
+    const translator = new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      layout: google.translate.TranslateElement.InlineLayout.DROPDOWN,
+      autoDisplay: false,
+    }, 'google-translate-element');
+    return translator;
+  };
+
+  // Add click handler to show/hide the translation dropdown
+  const translateGroup = translationWrapper.querySelector('.translate-group');
+  translateGroup.addEventListener('click', () => {
+    const translateElement = document.getElementById('google-translate-element');
+    const selectElement = document.querySelector('.goog-te-combo');
+
+    if (translateElement && selectElement) {
+      translateElement.style.display = 'block';
+      selectElement.click();
+    }
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!translateGroup.contains(e.target)) {
+      const translateElement = document.getElementById('google-translate-element');
+      if (translateElement) {
+        translateElement.style.display = 'none';
+      }
+    }
+  });
+
   decorateIcons(translationWrapper);
   navWrapper.append(nav);
   block.append(navWrapper);
