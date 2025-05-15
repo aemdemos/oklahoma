@@ -1,3 +1,4 @@
+
 .accordion details {
   border: 1px solid #dadada;
 }
@@ -120,4 +121,48 @@
   .accordion.accordion1 details[open] details[open] .accordion-item-body {
     flex-direction: column;
   }
+}
+
+/* Generated CSS (EXCEPT .accordion.accordion33, which will be merged below) */
+
+.accordion.accordion33 summary.accordion-item-label {
+  font-size: 1.08rem;
+  font-weight: 600;
+}
+
+.accordion.accordion33 summary.accordion-item-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 0;
+  padding-right: 32px;
+  margin: 0;
+}
+
+.accordion.accordion33 summary.accordion-item-label p {
+  margin: 0;
+  flex: 1 1 auto;
+}
+
+.accordion.accordion33 summary.accordion-item-label::after {
+  right: 12px;
+}
+
+@media (max-width: 900px) {
+  .accordion.accordion33 {
+    max-width: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
+/* Merged .accordion.accordion33 block below */
+.accordion.accordion33 {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 28px;
+  padding-right: 28px;
+  box-sizing: border-box;
 }
