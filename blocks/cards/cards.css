@@ -40,7 +40,7 @@
   align-items: center; /* Vertically center image and text */
   gap: 10px; /* Reduce spacing between image and text */
   border: 1px solid #dadada; /* Light border for the card */
-  background-color: #FFFFFF; /* White background for the card */
+  background-color: #FFF; /* White background for the card */
   padding: 10px; /* Add padding inside the card */
 }
 
