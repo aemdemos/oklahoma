@@ -110,3 +110,14 @@
   gap: 30px;
   flex: 0 0 100%;
 }
+
+@media (width < 900px) {
+  .accordion.accordion1 details[open] .accordion-item-body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .accordion.accordion1 details[open] details[open] .accordion-item-body {
+    flex-direction: column;
+  }
+}
