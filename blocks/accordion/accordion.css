@@ -1,3 +1,4 @@
+
 .accordion details {
   border: 1px solid #dadada;
 }
@@ -58,4 +59,70 @@
 .accordion details[open] .accordion-item-body {
   border-top: 1px solid #dadada;
   background-color: var(--background-color);
+}
+
+.accordion.accordion1 details[open] > .accordion-item-body {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  gap: 32px !important;
+  padding: 32px 32px !important;
+  background: #fff !important;
+  border-top: none !important;
+  min-height: 220px !important;
+  box-sizing: border-box !important;
+}
+
+.accordion.accordion1 details[open] > .accordion-item-body > p:first-child {
+  flex-shrink: 0 !important;
+  width: 220px !important;
+  min-width: 180px !important;
+  max-width: 240px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+}
+
+.accordion.accordion1 details[open] > .accordion-item-body > p:first-child picture,
+.accordion.accordion1 details[open] > .accordion-item-body > p:first-child img {
+  width: 100% !important;
+  max-width: 220px !important;
+  height: auto !important;
+  display: block !important;
+}
+
+.accordion.accordion1 details[open] > .accordion-item-body > p:not(:first-child) {
+  margin-top: 0 !important;
+  margin-bottom: 0.5em !important;
+  color: #444 !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+  max-width: 820px !important;
+}
+
+.accordion.accordion1 details[open] > .accordion-item-body > p:nth-child(2) strong {
+  display: block !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  color: #222 !important;
+  margin-bottom: 0.25em !important;
+}
+
+@media (max-width: 700px) {
+  .accordion.accordion1 details[open] > .accordion-item-body {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 16px !important;
+    padding: 16px 8px !important;
+    min-height: 0 !important;
+  }
+  .accordion.accordion1 details[open] > .accordion-item-body > p:first-child {
+    width: 100% !important;
+    max-width: 320px !important;
+    margin-bottom: 16px !important;
+    justify-content: flex-start !important;
+  }
 }
