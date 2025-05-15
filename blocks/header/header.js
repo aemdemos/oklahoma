@@ -1,8 +1,8 @@
-import { getMetadata } from '../../scripts/aem.js';
+import { decorateIcons, getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 // media query match that indicates mobile/tablet width
-const isDesktop = window.matchMedia('(min-width: 900px)');
+const isDesktop = window.matchMedia('(min-width: 1024px)');
 
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
@@ -125,6 +125,7 @@ export default async function decorate(block) {
     if (section) section.classList.add(`nav-${c}`);
   });
 
+  // Setup nav brand
   const navBrand = nav.querySelector('.nav-brand');
   const brandLink = navBrand.querySelector('.button');
   if (brandLink) {
@@ -132,17 +133,46 @@ export default async function decorate(block) {
     brandLink.closest('.button-container').className = '';
   }
 
+  // Setup nav tools (search)
+  const navTools = nav.querySelector('.nav-tools');
+  if (navTools) {
+    const searchWrapperParent = navTools.querySelector('.default-content-wrapper');
+    searchWrapperParent.className = 'search-wrapper-parent';
+
+    const searchWrapper = document.createElement('div');
+    searchWrapper.className = 'search-wrapper';
+
+    // Create input
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = 'Search';
+
+    // Move existing icon into the new wrapper
+    const iconSpan = searchWrapperParent.querySelector('.icon-search');
+    if (iconSpan) {
+      searchWrapper.appendChild(input);
+      searchWrapper.appendChild(iconSpan);
+      searchWrapperParent.innerHTML = ''; // clear old content
+      searchWrapperParent.appendChild(searchWrapper);
+    }
+  }
+
+  // Setup nav sections
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
-      if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
-      navSection.addEventListener('click', () => {
+      if (navSection.querySelector('ul')) {
+        navSection.classList.add('nav-drop');
         if (isDesktop.matches) {
-          const expanded = navSection.getAttribute('aria-expanded') === 'true';
-          toggleAllNavSections(navSections);
-          navSection.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+          navSection.addEventListener('mouseenter', () => {
+            toggleAllNavSections(navSections);
+            navSection.setAttribute('aria-expanded', 'true');
+          });
+          navSection.addEventListener('mouseleave', () => {
+            navSection.setAttribute('aria-expanded', 'false');
+          });
         }
-      });
+      }
     });
   }
 
@@ -161,6 +191,23 @@ export default async function decorate(block) {
 
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
+
+  const translationWrapper = document.createElement('div');
+  translationWrapper.className = 'translation-wrapper';
+  translationWrapper.innerHTML = `
+  <div>
+    <span class="icon icon-logo-small"></span>
+    <div class="translate-group">
+      <span class="icon icon-translate"></span>
+      <div>Translate</div>
+    </div>
+    <div>
+      State Agencies
+    </div>
+  </div>
+  `;
+  navWrapper.append(translationWrapper);
+  decorateIcons(translationWrapper);
   navWrapper.append(nav);
   block.append(navWrapper);
 }
