@@ -169,3 +169,29 @@
   }
 }
 
+
+.cards.no-images.cardsnoimages25 .cards-card-body p:not(:first-child)::before {
+  content: '';
+  display: inline-block;
+  width: 0.6em;
+  height: 0.6em;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  top: 0.35em;
+}
+
+.cards.no-images.cardsnoimages25 .cards-card-body p:not(:first-child) {
+  padding-left: 16px;
+}
+
+.cards.no-images.cardsnoimages25 {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  min-height: 100vh !important;
+  width: 100vw !important;
+  background: transparent !important;
+}
