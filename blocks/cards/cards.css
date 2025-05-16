@@ -143,10 +143,10 @@
 .cards.no-images.cardsnoimages40 .cards-card-body p:first-child {
   text-align: center;
   font-size: 2rem;
-  font-family: var(--heading-font-family), 'Montserrat', Arial, sans-serif;
+  font-family: var(--heading-font-family), Montserrat, Arial, sans-serif;
   font-weight: 600;
   color: #fff;
-  margin: 0 0 32px 0;
+  margin: 0 0 32px;
   letter-spacing: 0.01em;
   align-self: center;
 }
@@ -159,7 +159,7 @@
 /* Left-align all body text and bullets */
 .cards.no-images.cardsnoimages40 .cards-card-body p:not(:first-child) {
   text-align: left;
-  margin: 0 0 16px 0;
+  margin: 0 0 16px;
   padding-left: 32px;
   font-size: 1.125rem;
   line-height: 1.5;
