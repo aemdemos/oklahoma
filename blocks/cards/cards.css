@@ -233,3 +233,22 @@
   }
 }
 
+
+.cards.no-images.cardsnoimages41 {
+  max-width: 900px;
+  padding-top: 80px;
+  padding-bottom: 56px;
+  padding-left: 48px;
+  padding-right: 48px;
+  margin: 60px auto 0 auto;
+  background: #D16937 !important;
+  position: relative;
+  box-shadow: none !important;
+  border: none !important;
+  min-height: 420px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+}
+
