@@ -1,6 +1,5 @@
 
 
-
 .cards > ul {
   list-style: none;
   margin: 0;
@@ -75,19 +74,6 @@
   .cards.cards22 .cards-card-image {
     width: unset;
   }
-}
-
-.cards.no-images.cardsnoimages25 {
-  background: #DE9436;
-  background-image: url('data:image/svg+xml;utf8,<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><polygon fill="%23e5a24d" opacity="0.12" points="90,0 150,60 90,120 30,60"/><polygon fill="%23e5a24d" opacity="0.10" points="370,100 400,140 370,180 340,140"/><polygon fill="%23e5a24d" opacity="0.10" points="160,300 200,350 160,400 120,350"/></svg>');
-  background-size: cover;
-  background-position: center;
-  border: none;
-  margin: 32px auto 24px auto;
-  max-width: 1100px;
-  padding: 38px 48px;
-  display: block;
-  box-sizing: border-box;
 }
 
 .cards.no-images.cardsnoimages25 > ul {
@@ -191,15 +177,16 @@
 }
 
 .cards.no-images.cardsnoimages25 {
-  background: #DE9436;
+  display: block;
+  background: #de9631;
   background-image: url('data:image/svg+xml;utf8,<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><polygon fill="%23e5a24d" opacity="0.12" points="90,0 150,60 90,120 30,60"/><polygon fill="%23e5a24d" opacity="0.10" points="370,100 400,140 370,180 340,140"/><polygon fill="%23e5a24d" opacity="0.10" points="160,300 200,350 160,400 120,350"/></svg>');
   background-size: cover;
   background-position: center;
   border: none;
-  margin: 32px auto 24px auto;
-  max-width: 1100px;
-  padding: 38px 48px;
-  display: block;
+  box-shadow: none;
+  margin: 32px auto;
+  max-width: 700px;
+  padding: 24px 32px;
   box-sizing: border-box;
 }
 
@@ -280,3 +267,17 @@
   }
 }
 
+
+.cards.no-images.cardsnoimages25 {
+  display: block;
+  background: #de9631;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><polygon fill="%23e5a24d" opacity="0.12" points="90,0 150,60 90,120 30,60"/><polygon fill="%23e5a24d" opacity="0.10" points="370,100 400,140 370,180 340,140"/><polygon fill="%23e5a24d" opacity="0.10" points="160,300 200,350 160,400 120,350"/></svg>');
+  background-size: cover;
+  background-position: center;
+  border: none;
+  box-shadow: none;
+  margin: 32px auto;
+  max-width: 700px;
+  padding: 24px 32px;
+  box-sizing: border-box;
+}
