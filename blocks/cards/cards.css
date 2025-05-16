@@ -28,7 +28,6 @@
   object-fit: cover;
 }
 
-/* Merged selector starts here */
 .cards.no-images.cardsnoimages25 {
   display: block !important;
   flex-direction: row !important;
@@ -46,7 +45,6 @@
   border: none !important;
   border-radius: 0 !important;
 }
-/* Merged selector ends here */
 
 .cards.no-images.cardsnoimages25 > ul {
   display: flex !important;
@@ -91,7 +89,7 @@
 .cards.no-images.cardsnoimages25 .cards-card-body p:first-child strong {
   display: block;
   text-align: center;
-  font-size: 2.18rem;
+  font-size: 2.3rem;
   font-family: 'Montserrat', var(--heading-font-family), Arial, sans-serif;
   font-weight: 700;
   letter-spacing: 0.01em;
@@ -102,38 +100,29 @@
 
 .cards.no-images.cardsnoimages25 .cards-card-body p:not(:first-child) {
   position: relative;
-  padding-left: 1.9em;
+  padding-left: 0.82em;
   color: #fff !important;
   font-size: 19px;
   font-family: 'Montserrat', Arial, sans-serif;
   font-weight: 400;
-  margin-bottom: 14px;
-  line-height: 1.6;
+  margin-bottom: 10px;
+  line-height: 1.3;
   text-align: left !important;
-  text-indent: -1.1em;
+  text-indent: 0;
 }
 
 .cards.no-images.cardsnoimages25 .cards-card-body p:not(:first-child)::before {
   content: '•';
   position: absolute;
-  left: 0.12em;
+  left: 0;
   color: #fff;
-  font-size: 1.2em;
+  font-size: 1em;
   line-height: 1;
-  top: 0.22em;
+  top: 0.15em;
 }
 
 .cards.no-images.cardsnoimages25 .cards-card-body p:last-child {
   margin-bottom: 0 !important;
-}
-
-.cards.no-images.cardsnoimages25 {
-  max-width: 600px;
-  margin: 48px auto !important;
-  padding: 48px 42px 48px 42px !important;
-  background-color: #db922f !important;
-  box-sizing: border-box;
-  display: block !important;
 }
 
 .cards.no-images.cardsnoimages25 > ul {
@@ -166,7 +155,7 @@
 }
 
 .cards.no-images.cardsnoimages25 .cards-card-body p:first-child strong {
-  font-size: 2.18rem;
+  font-size: 2.3rem;
   font-weight: 700;
   margin-top: 0;
   margin-bottom: 0;
@@ -178,10 +167,10 @@
   font-weight: 400;
   color: #fff !important;
   font-family: 'Montserrat', Arial, sans-serif;
-  margin-bottom: 14px;
-  line-height: 1.6;
-  padding-left: 1.9em;
-  text-indent: -1.1em;
+  margin-bottom: 10px;
+  line-height: 1.3;
+  padding-left: 0.82em;
+  text-indent: 0;
   text-align: left !important;
   position: relative;
 }
@@ -189,11 +178,11 @@
 .cards.no-images.cardsnoimages25 .cards-card-body p:not(:first-child)::before {
   content: '•';
   position: absolute;
-  left: 0.12em;
+  left: 0;
   color: #fff;
-  font-size: 1.2em;
+  font-size: 1em;
   line-height: 1;
-  top: 0.22em;
+  top: 0.15em;
 }
 
 .cards.no-images.cardsnoimages25 .cards-card-body p:last-child {
