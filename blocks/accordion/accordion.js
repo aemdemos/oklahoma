@@ -27,6 +27,33 @@ export default async function decorate(block) {
       }
     }
 
+    if (block.classList.contains('accordion9')) {
+      const rows = [['', '', '']];
+      const cells = [...body.querySelectorAll('li')];
+      let i = 0;
+      for (; i < cells.length; i += 3) {
+        const rowDiv = [];
+
+        // Add up to 3 cells to this row
+        const rowCells = cells.slice(i, i + 3);
+        rowCells.forEach((cell) => rowDiv.push(cell.textContent));
+
+        rows.push(rowDiv);
+      }
+      while (rows[rows.length - 1].length % 3 !== 0) {
+        rows[rows.length - 1].push('');
+      }
+      const table = buildBlock('table', rows);
+      body.remove();
+      row.append(table);
+      body = table;
+      decorateBlock(table);
+      table.classList.add('no-header');
+      table.classList.add('striped');
+      table.classList.add('bordered');
+      await loadBlock(table);
+    }
+
     body.className = 'accordion-item-body';
     // decorate accordion item
     const details = document.createElement('details');
