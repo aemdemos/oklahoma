@@ -90,6 +90,7 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+
 .cards.no-images.cardsnoimages41 > ul {
   flex: 1 1 auto;
   display: flex;
@@ -102,6 +103,7 @@
   position: relative;
   z-index: 1;
 }
+
 .cards.no-images.cardsnoimages41 > ul > li {
   width: 100%;
   background: none !important;
@@ -113,6 +115,7 @@
   justify-content: flex-start;
   align-items: stretch;
 }
+
 .cards.no-images.cardsnoimages41 .cards-card-body {
   width: 100%;
   max-width: 100%;
@@ -123,10 +126,11 @@
   justify-content: flex-start;
   align-items: stretch;
 }
+
 .cards.no-images.cardsnoimages41 .cards-card-body > p {
   color: #fff;
   font-size: 18px;
-  font-family: "Montserrat", "Montserrat SemiBold", "Montserrat SemiBold Fallback", Arial, sans-serif;
+  font-family: Montserrat, "Montserrat SemiBold", "Montserrat SemiBold Fallback", Arial, sans-serif;
   font-weight: 500;
   margin-bottom: 18px;
   margin-top: 0;
@@ -136,6 +140,7 @@
   width: 100%;
   max-width: 100%;
 }
+
 .cards.no-images.cardsnoimages41 .cards-card-body > p:first-child {
   font-size: 32px;
   font-weight: 700;
@@ -146,9 +151,11 @@
   color: #fff;
   width: 100%;
 }
+
 .cards.no-images.cardsnoimages41 .cards-card-body > p:not(:first-child) {
   padding-left: 18px;
 }
+
 .cards.no-images.cardsnoimages41 .cards-card-body > p:not(:first-child)::before {
   content: '•';
   position: absolute;
@@ -159,17 +166,17 @@
   font-weight: normal;
   line-height: 1;
 }
-@media (max-width: 900px) {
+
+@media (width <= 900px) {
   .cards.no-images.cardsnoimages41 {
     max-width: 99vw;
-    padding-left: 8px;
-    padding-right: 8px;
-    padding-top: 26px;
-    padding-bottom: 26px;
+    padding: 26px 8px;
   }
+
   .cards.no-images.cardsnoimages41 .cards-card-body > p {
     font-size: 16px;
   }
+
   .cards.no-images.cardsnoimages41 .cards-card-body > p:first-child {
     font-size: 22px;
   }
@@ -183,8 +190,8 @@
   box-shadow: none !important;
   border: none !important;
   max-width: 650px;
-  margin: 60px auto 0 auto;
-  padding: 68px 44px 68px 44px;
+  margin: 60px auto 0;
+  padding: 68px 44px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -192,13 +199,10 @@
   min-height: 420px;
 }
 
-@media (max-width: 900px) {
+@media (width <= 900px) {
   .cards.no-images.cardsnoimages41 {
     max-width: 99vw;
-    padding-left: 8px;
-    padding-right: 8px;
-    padding-top: 26px;
-    padding-bottom: 26px;
+    padding: 26px 8px;
   }
 }
 
