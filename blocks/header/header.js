@@ -163,15 +163,30 @@ export default async function decorate(block) {
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
       if (navSection.querySelector('ul')) {
         navSection.classList.add('nav-drop');
+
+        // Wrap text in title div
+        const text = navSection.firstChild.textContent.trim();
+        if (text) {
+          const titleDiv = document.createElement('div');
+          titleDiv.className = 'title';
+          titleDiv.textContent = text;
+          navSection.replaceChild(titleDiv, navSection.firstChild);
+        }
+
         if (isDesktop.matches) {
           navSection.addEventListener('mouseenter', () => {
             toggleAllNavSections(navSections);
-            navSection.setAttribute('aria-expanded', 'true');
-          });
-          navSection.addEventListener('mouseleave', () => {
-            navSection.setAttribute('aria-expanded', 'false');
           });
         }
+        // Add click handler for mobile submenu toggle
+        navSection.addEventListener('click', function (e) {
+          if ((!isDesktop.matches && e.target === this) || e.target.className === 'title') {
+            const submenu = this.querySelector('ul');
+            if (submenu) {
+              submenu.classList.toggle('show');
+            }
+          }
+        });
       }
     });
   }
@@ -182,12 +197,24 @@ export default async function decorate(block) {
   hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
       <span class="nav-hamburger-icon"></span>
     </button>`;
-  hamburger.addEventListener('click', () => toggleMenu(nav, navSections));
+  hamburger.addEventListener('click', () => {
+    const expanded = nav.getAttribute('aria-expanded') === 'true';
+    nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+  });
   nav.prepend(hamburger);
   nav.setAttribute('aria-expanded', 'false');
-  // prevent mobile nav behavior on window resize
-  toggleMenu(nav, navSections, isDesktop.matches);
-  isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
+
+  // Reset nav expanded state when switching to desktop
+  isDesktop.addEventListener('change', (e) => {
+    if (e.matches) {
+      nav.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // prevent menu from closing when clicking inside nav
+  nav.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
 
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
