@@ -1,4 +1,5 @@
 
+
 .cards > ul {
   list-style: none;
   margin: 0;
@@ -74,3 +75,130 @@
     width: unset;
   }
 }
+
+
+/* Generated CSS (original, except .cards.no-images.cardsnoimages41 will be merged below) */
+
+.cards.no-images.cardsnoimages41::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.055;
+  pointer-events: none;
+  background: url('data:image/svg+xml;utf8,<svg width="650" height="420" viewBox="0 0 650 420" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="24,26 180,44 86,142" fill="white" fill-opacity="0.21"/><polygon points="320,80 570,20 650,210" fill="white" fill-opacity="0.13"/><polygon points="540,340 690,320 650,430" fill="white" fill-opacity="0.09"/><polygon points="220,310 370,390 260,430" fill="white" fill-opacity="0.12"/></svg>');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.cards.no-images.cardsnoimages41 > ul {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+.cards.no-images.cardsnoimages41 > ul > li {
+  width: 100%;
+  background: none !important;
+  border: none !important;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+.cards.no-images.cardsnoimages41 .cards-card-body {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+.cards.no-images.cardsnoimages41 .cards-card-body > p {
+  color: #fff;
+  font-size: 18px;
+  font-family: "Montserrat", "Montserrat SemiBold", "Montserrat SemiBold Fallback", Arial, sans-serif;
+  font-weight: 500;
+  margin-bottom: 18px;
+  margin-top: 0;
+  text-align: left;
+  line-height: 1.52;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+}
+.cards.no-images.cardsnoimages41 .cards-card-body > p:first-child {
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 42px;
+  margin-top: 0;
+  letter-spacing: 0.01em;
+  color: #fff;
+  width: 100%;
+}
+.cards.no-images.cardsnoimages41 .cards-card-body > p:not(:first-child) {
+  padding-left: 18px;
+}
+.cards.no-images.cardsnoimages41 .cards-card-body > p:not(:first-child)::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  top: 0.26em;
+  color: #fff;
+  font-size: 1.17em;
+  font-weight: normal;
+  line-height: 1;
+}
+@media (max-width: 900px) {
+  .cards.no-images.cardsnoimages41 {
+    max-width: 99vw;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 26px;
+    padding-bottom: 26px;
+  }
+  .cards.no-images.cardsnoimages41 .cards-card-body > p {
+    font-size: 16px;
+  }
+  .cards.no-images.cardsnoimages41 .cards-card-body > p:first-child {
+    font-size: 22px;
+  }
+}
+
+
+/* Merged selector for .cards.no-images.cardsnoimages41 */
+.cards.no-images.cardsnoimages41 {
+  background: #D16937 !important;
+  position: relative;
+  box-shadow: none !important;
+  border: none !important;
+  max-width: 650px;
+  margin: 60px auto 0 auto;
+  padding: 68px 44px 68px 44px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  min-height: 420px;
+}
+
+@media (max-width: 900px) {
+  .cards.no-images.cardsnoimages41 {
+    max-width: 99vw;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 26px;
+    padding-bottom: 26px;
+  }
+}
+
