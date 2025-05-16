@@ -99,12 +99,12 @@
 }
 
 .cards.no-images.cardsnoimages25 > ul > li {
-  background: #dd9933 !important;
+  background: #d93 !important;
   border: none !important;
   border-radius: 0 !important;
   box-shadow: none !important;
   margin: 0 !important;
-  padding: 64px 56px 56px 56px !important;
+  padding: 64px 56px 56px !important;
   min-width: 0 !important;
   max-width: 750px !important;
   width: 100% !important;
@@ -138,7 +138,7 @@
   color: #fff !important;
   font-size: 17px !important;
   line-height: 1.6 !important;
-  margin: 0 0 22px 0 !important;
+  margin: 0 0 22px !important;
   padding-left: 36px !important;
   position: relative !important;
   text-align: left !important;
@@ -157,11 +157,12 @@
   top: 0.8em !important;
 }
 
-@media (max-width: 900px) {
+@media (width <= 900px) {
   .cards.no-images.cardsnoimages25 > ul > li {
-    padding: 28px 8px 20px 8px !important;
+    padding: 28px 8px 20px !important;
     max-width: 99vw !important;
   }
+
   .cards.no-images.cardsnoimages25 .cards-card-body {
     max-width: 99vw !important;
     padding: 0 !important;
