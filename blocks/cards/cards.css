@@ -79,7 +79,6 @@
 .cards.no-images.cardsnoimages40 {
   background: #7CB05A;
   position: relative;
-  padding: 48px 0;
   max-width: 980px;
   margin: 40px auto;
   border: none !important;
@@ -89,9 +88,9 @@
   display: flex;
   justify-content: center;
   align-items: stretch;
+  padding: 72px 0;
 }
 
-/* Background pattern overlay */
 .cards.no-images.cardsnoimages40::before {
   content: '';
   position: absolute;
@@ -186,3 +185,34 @@
   margin-bottom: 0;
 }
 
+
+.cards.no-images.cardsnoimages40 .cards-card-body {
+  max-width: 770px; /* Slightly wider to match original */
+}
+
+.cards.no-images.cardsnoimages40 .cards-card-body p:not(:first-child) {
+  padding-left: 22px; /* Reduce indent */
+}
+
+.cards.no-images.cardsnoimages40 .cards-card-body p:not(:first-child)::before {
+  left: 3px; /* Bring bullet closer to text */
+}
+
+.cards.no-images.cardsnoimages40 {
+  padding: 72px 0; /* Slightly reduced vertical padding for balance */
+}
+
+.cards.no-images.cardsnoimages40 {
+  background: #7CB05A;
+  position: relative;
+  max-width: 980px;
+  margin: 40px auto;
+  border: none !important;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  padding: 72px 0;
+}
