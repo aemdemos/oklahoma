@@ -84,11 +84,15 @@ header nav .nav-hamburger button {
   border: 0;
   border-radius: 0;
   padding: 0;
-  background-color: #EFEFEF;
+  background-color: var(--light-color);
   color: inherit;
   overflow: initial;
   text-overflow: initial;
   white-space: initial;
+}
+
+header nav[aria-expanded='true'] .nav-hamburger button {
+  background-color: #EFEFEF;
 }
 
 header nav .nav-hamburger-icon,
@@ -258,17 +262,27 @@ header nav[aria-expanded='true'] .nav-sections .nav-drop ul li {
   width: 100%;
 }
 
-/* Optional: add dropdown arrow indication */
-header nav[aria-expanded='true'] .nav-sections .nav-drop::after {
-  content: "▼";
-  float: right;
-  margin-right: 8px;
-  transform: rotate(0deg);
+.nav-drop .title {
+  position: relative;
+  padding-right: 24px; /* space for arrow */
+}
+
+.nav-drop .title::after {
+  content: "";
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid currentcolor;
+  border-bottom: 2px solid currentcolor;
+  transform: translateY(-70%) rotate(45deg);
   transition: transform 0.3s ease;
 }
 
-header nav[aria-expanded='true'] .nav-sections .nav-drop[aria-expanded="true"]::after {
-  transform: rotate(180deg);
+/* Add rotation when expanded */
+.nav-drop[aria-expanded="true"] .title::after {
+  transform: translateY(-30%) rotate(-135deg);
 }
 
 /* tools */
@@ -288,6 +302,7 @@ header .nav-wrapper nav[aria-expanded='true'] .nav-hamburger {
 header .nav-wrapper nav[aria-expanded='true'] .nav-sections li.nav-drop {
   padding-right: 0;
   padding-left: 0;
+  padding-bottom: 0;
 }
 
 header .nav-wrapper .translation-wrapper {
@@ -514,6 +529,15 @@ header .nav-wrapper .translation-wrapper > div {
     color: white;
   }
 
+  .nav-drop .title {
+    padding-right: 0;
+  }
+
+  .nav-drop .title::after {
+    content: "";
+    right: 0;
+  }
+
   .translate-group {
     display: flex;
     align-items: center;
@@ -573,13 +597,6 @@ header .nav-wrapper .translation-wrapper > div {
   background: white;
 }
 
-/* Hide submenu by default in mobile view */
-header nav[aria-expanded='true'] .nav-sections .nav-drop ul {
-  display: none;
-  margin: 0;
-  padding-left: 1rem;
-}
-
 /* Show submenu when both nav and nav-drop are expanded */
 header nav[aria-expanded='true'] .nav-sections .nav-drop[aria-expanded='true'] ul {
   display: block;
@@ -595,6 +612,9 @@ header nav[aria-expanded='true'] .nav-sections .default-content-wrapper > ul > l
 
 header nav[aria-expanded='true'] .nav-sections .nav-drop .title {
   padding: 12px 22px;
+}
+
+header nav[aria-expanded='true'] .nav-sections .nav-drop:has(.show) .title {
   border-bottom: 1px solid #ccc;
 }
 

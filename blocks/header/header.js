@@ -163,6 +163,30 @@ export default async function decorate(block) {
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
       if (navSection.querySelector('ul')) {
         navSection.classList.add('nav-drop');
+        // Set initial aria-expanded state
+        navSection.setAttribute('aria-expanded', 'false');
+
+        // Function to handle mobile wrapper
+        const handleMobileWrapper = (isMobile) => {
+          const existingWrapper = navSection.closest('.nav-drop-wrapper');
+          if (isMobile && !existingWrapper) {
+            const wrapperDiv = document.createElement('div');
+            wrapperDiv.className = 'nav-drop-wrapper';
+            navSection.parentNode.insertBefore(wrapperDiv, navSection);
+            wrapperDiv.appendChild(navSection);
+          } else if (!isMobile && existingWrapper) {
+            existingWrapper.parentNode.insertBefore(navSection, existingWrapper);
+            existingWrapper.remove();
+          }
+        };
+
+        // Initial setup
+        handleMobileWrapper(!isDesktop.matches);
+
+        // Add resize listener
+        isDesktop.addEventListener('change', (e) => {
+          handleMobileWrapper(!e.matches);
+        });
 
         // Wrap text in title div
         const text = navSection.firstChild.textContent.trim();
@@ -171,6 +195,18 @@ export default async function decorate(block) {
           titleDiv.className = 'title';
           titleDiv.textContent = text;
           navSection.replaceChild(titleDiv, navSection.firstChild);
+
+          // Add click handler for title div
+          titleDiv.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent event bubbling
+            const isExpanded = navSection.getAttribute('aria-expanded') === 'true';
+            navSection.setAttribute('aria-expanded', !isExpanded ? 'true' : 'false');
+
+            const submenu = navSection.querySelector('ul');
+            if (submenu) {
+              submenu.classList.toggle('show');
+            }
+          });
         }
 
         if (isDesktop.matches) {
