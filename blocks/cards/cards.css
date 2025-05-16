@@ -1,4 +1,5 @@
 
+
 .cards > ul {
   list-style: none;
   margin: 0;
@@ -74,3 +75,96 @@
     width: unset;
   }
 }
+
+.cards.no-images.cardsnoimages25 {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  min-height: 100vh !important;
+  width: 100vw !important;
+  background: transparent !important;
+}
+
+.cards.no-images.cardsnoimages25 > ul {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  list-style: none !important;
+}
+
+.cards.no-images.cardsnoimages25 > ul > li {
+  background: #dd9933 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 64px 56px 56px 56px !important;
+  min-width: 0 !important;
+  max-width: 750px !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.cards.no-images.cardsnoimages25 .cards-card-body {
+  width: 100% !important;
+  max-width: 640px !important;
+}
+
+.cards.no-images.cardsnoimages25 .cards-card-body p:first-child {
+  width: 100% !important;
+}
+
+.cards.no-images.cardsnoimages25 .cards-card-body p:first-child strong {
+  display: block !important;
+  text-align: center !important;
+  color: #fff !important;
+  font-size: 2.5em !important;
+  font-family: var(--heading-font-family, "Montserrat", Arial, sans-serif) !important;
+  font-weight: bold !important;
+  margin-bottom: 38px !important;
+  letter-spacing: 0.02em !important;
+}
+
+.cards.no-images.cardsnoimages25 .cards-card-body p:not(:first-child) {
+  color: #fff !important;
+  font-size: 17px !important;
+  line-height: 1.6 !important;
+  margin: 0 0 22px 0 !important;
+  padding-left: 36px !important;
+  position: relative !important;
+  text-align: left !important;
+  max-width: 600px !important;
+}
+
+.cards.no-images.cardsnoimages25 .cards-card-body p:not(:first-child)::before {
+  content: '';
+  display: inline-block !important;
+  width: 9px !important;
+  height: 9px !important;
+  background: #fff !important;
+  border-radius: 50% !important;
+  position: absolute !important;
+  left: 14px !important;
+  top: 0.8em !important;
+}
+
+@media (max-width: 900px) {
+  .cards.no-images.cardsnoimages25 > ul > li {
+    padding: 28px 8px 20px 8px !important;
+    max-width: 99vw !important;
+  }
+  .cards.no-images.cardsnoimages25 .cards-card-body {
+    max-width: 99vw !important;
+    padding: 0 !important;
+  }
+}
+
