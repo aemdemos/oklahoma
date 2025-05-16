@@ -56,12 +56,32 @@
 }
 
 /* striped variant */
-.table.block.striped tbody tr:nth-child(odd) {
+.table.block.striped tbody tr:nth-child(even) {
   background-color: var(--overlay-background-color);
 }
 
 /* bordered variant */
+.table.block.bordered table thead {
+  background-color: #464646;
+  color: white;
+  font-family: "Open Sans SemiBold";
+  text-transform: uppercase;
+}
+
 .table.block.bordered table th,
 .table.block.bordered table td {
-  border: 1px solid;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  border-right: 1px solid;
 }
+
+.table.block.bordered table th:first-child,
+.table.block.bordered table td:first-child {
+  border-left: none;
+}
+
+.table.block.bordered table th:last-child,
+.table.block.bordered table td:last-child {
+  border-right: none;
+}
+
