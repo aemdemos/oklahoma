@@ -179,7 +179,10 @@ export default async function decorate(block) {
 
       // Add click handler for search icon
       iconSpan.addEventListener('click', () => {
-        toggleSearch(true);
+        const isTabletOrAbove = window.matchMedia('(min-width: 768px)').matches;
+        if (!isTabletOrAbove) {
+          toggleSearch(true);
+        }
       });
 
       // Close search on escape key
