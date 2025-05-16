@@ -106,7 +106,7 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
 async function buildBreadcrumbsFromNavTree(nav, currentUrl) {
   const { pathname } = new URL(currentUrl);
 
-  if (!pathname.startsWith('/ocsw')) {
+  if (!pathname.startsWith('/ocsw') || pathname === '/ocsw') {
     return [];
   }
 
@@ -114,6 +114,14 @@ async function buildBreadcrumbsFromNavTree(nav, currentUrl) {
 
   // For OCSW pages, first crumb should be "Oklahoma Commission on the Status of Women"
   crumbs.push({ title: 'Oklahoma Commission on the Status of Women', url: '/ocsw' });
+
+  // Add section name if we're in a section
+  const pathParts = pathname.split('/').filter(Boolean);
+  if (pathParts.length >= 3) {
+    const section = pathParts[1];
+    const capitalizedSection = section.charAt(0).toUpperCase() + section.slice(1);
+    crumbs.push({ title: capitalizedSection, url: `/ocsw/${section}` });
+  }
 
   // Add the current page title from metadata or document title
   // But only if we're not on the OCSW home page

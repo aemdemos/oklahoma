@@ -753,10 +753,9 @@ header .nav-wrapper .translation-wrapper > div {
 
   .breadcrumbs li:not(:last-child)::after {
     content: "›";
-    margin: 0 10px;
+    margin: -5px 10px 0;
     font-size: 30px;
     line-height: 1;
-    vertical-align: middle;
   }
 
   .breadcrumbs a {
