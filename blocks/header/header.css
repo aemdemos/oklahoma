@@ -7,6 +7,168 @@ header .nav-wrapper {
   border-bottom: 3px solid;
 }
 
+/* brand */
+header .nav-brand {
+  grid-area: brand;
+  flex-basis: 128px;
+  font-size: var(--heading-font-size-s);
+  font-weight: 700;
+  line-height: 1;
+}
+
+header nav .nav-brand img {
+  padding-top: 20px;
+  width: 200px;
+  height: 55px;
+  padding-left: 0;
+}
+
+/* Search styles - Base */
+.search-wrapper .icon-search {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.search-wrapper .icon-search img {
+  width: 30px;
+  height: 30px;
+  transform: scaleX(-1);
+}
+
+/* Mobile search styles */
+@media (width < 768px) {
+  .search-wrapper input {
+    display: none;
+  }
+
+  .search-wrapper.expanded .icon-search {
+    display: none;
+  }
+
+  .nav-brand.search-active {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0;
+  }
+
+  .nav-brand.search-active .default-content-wrapper {
+    display: none;
+  }
+
+  .nav-brand.search-active input {
+    display: block;
+    width: 100%;
+    height: 40px;
+    padding: 0 10px;
+    border: none;
+    background: transparent;
+    font-size: var(--body-font-size-m);
+    color: var(--text-color);
+  }
+
+  .nav-brand.search-active input:focus {
+    outline: none;
+  }
+
+  /* Hamburger close button styles */
+  .nav-hamburger-icon.search-close {
+    height: 22px;
+    width: 22px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-hamburger-icon.search-close::before,
+  .nav-hamburger-icon.search-close::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 1px;
+    background-color: currentcolor;
+    top: 50%;
+    left: 50%;
+  }
+
+  .nav-hamburger-icon.search-close::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  .nav-hamburger-icon.search-close::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
+  /* Search wrapper expanded state */
+  .search-wrapper.expanded {
+    position: absolute;
+    top: 0;
+    left: -22px;
+    right: -22px;
+    height: 100%;
+    background: var(--background-color);
+    z-index: 1000;
+    padding: 0 22px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* Tablet/Desktop search styles */
+@media (width >= 768px) {
+  .search-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 3px solid;
+  }
+
+  .search-wrapper input {
+    display: block;
+    width: 160px;
+    height: 32px;
+    padding: 4px 0;
+    font-size: 18px;
+    color: #464646;
+    font-weight: 700;
+    padding-left: 5px;
+    border: none;
+    background: transparent;
+    border-radius: 0;
+  }
+
+  .search-wrapper input:focus {
+    outline: none;
+  }
+
+  /* Reset any mobile search styles */
+  .nav-brand.search-active {
+    position: static;
+    flex: initial;
+    display: block;
+    padding: 0;
+  }
+
+  .nav-brand.search-active .default-content-wrapper {
+    display: block;
+  }
+
+  .search-wrapper.expanded {
+    position: static;
+    background: none;
+    padding: 0;
+  }
+
+  .search-wrapper.expanded .icon-search {
+    display: flex;
+  }
+}
+
+/* Rest of header styles */
 header nav {
   box-sizing: border-box;
   display: grid;
@@ -155,32 +317,6 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
   }
 }
 
-/* brand */
-header .nav-brand {
-  grid-area: brand;
-  flex-basis: 128px;
-  font-size: var(--heading-font-size-s);
-  font-weight: 700;
-  line-height: 1;
-}
-
-header nav .nav-brand img {
-  padding-top: 20px;
-  width: 200px;
-  height: 55px;
-  padding-left: 0;
-}
-
-.search-wrapper .icon-search img {
-  width: 30px;
-  height: 30px;
-  transform: scaleX(-1);
-}
-
-header nav[aria-expanded='true'] .nav-brand img {
-  padding-left: 22px;
-}
-
 /* sections */
 header nav .nav-sections {
   grid-area: sections;
@@ -288,6 +424,7 @@ header nav[aria-expanded='true'] .nav-sections .nav-drop ul li {
 /* tools */
 header nav .nav-tools {
   grid-area: tools;
+  position: relative;
 }
 
 header .nav-wrapper nav[aria-expanded='true'] {
@@ -362,15 +499,6 @@ header .nav-wrapper .translation-wrapper > div {
   height: 35px;
   width: 35px;
   margin-top: -2px; /* Adjust vertical alignment */
-}
-
-.search-wrapper .icon-search {
-  display: flex;
-  align-items: center;
-}
-
-.search-wrapper input {
-  display: none;
 }
 
 @media (width >= 768px) {
@@ -536,6 +664,7 @@ header .nav-wrapper .translation-wrapper > div {
   .nav-drop .title::after {
     content: "";
     right: 0;
+    display: none;
   }
 
   .translate-group {

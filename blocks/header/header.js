@@ -154,6 +154,52 @@ export default async function decorate(block) {
       searchWrapper.appendChild(iconSpan);
       searchWrapperParent.innerHTML = ''; // clear old content
       searchWrapperParent.appendChild(searchWrapper);
+
+      // Function to toggle search state
+      const toggleSearch = (show) => {
+        const brandSection = nav.querySelector('.nav-brand');
+        const hamburgerIcon = nav.querySelector('.nav-hamburger-icon');
+
+        if (show) {
+          // Move only input to brand section when search is active
+          searchWrapper.classList.add('expanded');
+          brandSection.classList.add('search-active');
+          hamburgerIcon.classList.add('search-close');
+          brandSection.appendChild(input);
+          input.focus();
+        } else {
+          // Move input back to search wrapper when search is inactive
+          searchWrapper.classList.remove('expanded');
+          brandSection.classList.remove('search-active');
+          hamburgerIcon.classList.remove('search-close');
+          searchWrapper.insertBefore(input, iconSpan);
+          input.value = '';
+        }
+      };
+
+      // Add click handler for search icon
+      iconSpan.addEventListener('click', () => {
+        toggleSearch(true);
+      });
+
+      // Close search on escape key
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          toggleSearch(false);
+        }
+      });
+
+      // Add click handler for hamburger button when in search mode
+      nav.addEventListener('click', (e) => {
+        const hamburgerButton = e.target.closest('.nav-hamburger button');
+        if (hamburgerButton && searchWrapper.classList.contains('expanded')) {
+          e.stopPropagation();
+          e.preventDefault();
+          toggleSearch(false);
+          return false;
+        }
+        return true;
+      }, true); // Use capture phase to handle event before mobile nav
     }
   }
 
@@ -244,6 +290,34 @@ export default async function decorate(block) {
   isDesktop.addEventListener('change', (e) => {
     if (e.matches) {
       nav.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Create media query for tablet and above
+  const isTabletOrAbove = window.matchMedia('(min-width: 768px)');
+
+  // Function to reset search state
+  const resetSearchState = () => {
+    const brandSection = nav.querySelector('.nav-brand');
+    const searchWrapper = nav.querySelector('.search-wrapper');
+    const hamburgerIcon = nav.querySelector('.nav-hamburger-icon');
+    const input = nav.querySelector('input');
+
+    if (brandSection && brandSection.classList.contains('search-active')) {
+      brandSection.classList.remove('search-active');
+      searchWrapper.classList.remove('expanded');
+      hamburgerIcon.classList.remove('search-close');
+      if (input) {
+        searchWrapper.insertBefore(input, searchWrapper.querySelector('.icon-search'));
+        input.value = '';
+      }
+    }
+  };
+
+  // Add listener for viewport changes
+  isTabletOrAbove.addEventListener('change', (e) => {
+    if (e.matches) {
+      resetSearchState();
     }
   });
 
