@@ -1,10 +1,10 @@
 
-
 .accordion details {
   border: 1px solid #dadada;
 }
 
 .accordion.accordion1 details,
+.accordion.accordion7 details,
 .accordion.accordion33 details {
   border: none;
   border-top: 1px solid #787878;
@@ -12,6 +12,7 @@
 }
 
 .accordion.accordion1:last-child,
+.accordion.accordion7:last-child,
 .accordion.accordion33:last-child {
   border-bottom: 1px solid #787878;
 }
@@ -97,7 +98,8 @@
   grid-column-gap: 30px;
 }
 
-.accordion.accordion33 details[open] .accordion-item-body {
+.accordion.accordion33 details[open] .accordion-item-body,
+.accordion.accordion7 details[open] .accordion-item-body {
   padding-top: 10px;
   padding-bottom: 20px;
   border-bottom: 5px solid #787878;
@@ -146,121 +148,4 @@
     display: flex;
     flex-direction: column;
   }
-}
-
-/* Generated CSS as provided except for .accordion.accordion7, which will be replaced with the merged version below */
-
-.accordion.accordion7 details {
-  border: none !important;
-  border-bottom: 1px solid #f3f3f3 !important;
-  margin-top: 0 !important;
-  background: #fff;
-}
-
-.accordion.accordion7 details:last-child {
-  border-bottom: none !important;
-}
-
-.accordion.accordion7 summary,
-.accordion.accordion7 .accordion-item-label {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  min-height: 84px;
-  cursor: pointer;
-  font-family: 'Montserrat', var(--heading-font-family), Arial, sans-serif;
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: #222;
-  background: transparent;
-  border: none;
-  padding: 18px 20px;
-  margin: 0;
-  line-height: 1.3;
-  position: relative;
-  outline: none;
-  transition: background 0.2s;
-  letter-spacing: 0.022em;
-}
-
-.accordion.accordion7 summary:focus,
-.accordion.accordion7 summary:hover {
-  background: #f8f8f8;
-}
-
-.accordion.accordion7 .accordion-item-label p {
-  margin: 0;
-  padding: 0;
-  font-size: inherit;
-  font-weight: inherit;
-  color: inherit;
-}
-
-.accordion.accordion7 summary::after {
-  content: '';
-  display: inline-block;
-  margin-left: auto;
-  width: 10px;
-  height: 10px;
-  border: solid #222;
-  border-width: 0 1px 1px 0;
-  padding: 2px;
-  transform: translateY(-50%) rotate(45deg);
-  transition: transform 0.2s;
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  background: none;
-  box-sizing: content-box;
-}
-
-.accordion.accordion7 details[open] summary::after {
-  transform: translateY(-50%) rotate(135deg);
-}
-
-.accordion.accordion7 .accordion-item-body {
-  padding: 40px 18px 40px 18px;
-  font-size: 1.13rem;
-  color: #444;
-  background: #fff;
-  line-height: 1.76;
-}
-
-.accordion.accordion7 .accordion-item-body ul {
-  margin: 20px 0 20px 32px;
-  padding: 0 0 0 14px;
-}
-
-.accordion.accordion7 .accordion-item-body li {
-  margin-bottom: 10px;
-  font-size: 1.13rem;
-}
-
-@media (max-width: 700px) {
-  .accordion.accordion7 {
-    padding: 0 1vw;
-    max-width: 100vw;
-  }
-  .accordion.accordion7 summary,
-  .accordion.accordion7 .accordion-item-label {
-    font-size: 1.09rem;
-    min-height: 54px;
-    padding: 10px 6px;
-  }
-  .accordion.accordion7 summary::after {
-    right: 6px;
-  }
-  .accordion.accordion7 .accordion-item-body {
-    padding: 16px 4px;
-  }
-}
-
-/* Merged .accordion.accordion7 selector */
-.accordion.accordion7 {
-  max-width: 1140px;
-  margin: 56px auto 100px auto;
-  padding: 0 12px;
-  background: #fff;
-  border-radius: 5px;
-  box-shadow: 0 4px 22px rgba(60,60,60,0.05);
 }
