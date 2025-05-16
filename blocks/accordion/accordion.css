@@ -4,6 +4,7 @@
 }
 
 .accordion.accordion1 details,
+.accordion.accordion7 details,
 .accordion.accordion33 details {
   border: none;
   border-top: 1px solid #787878;
@@ -11,6 +12,7 @@
 }
 
 .accordion.accordion1:last-child,
+.accordion.accordion7:last-child,
 .accordion.accordion33:last-child {
   border-bottom: 1px solid #787878;
 }
@@ -96,7 +98,8 @@
   grid-column-gap: 30px;
 }
 
-.accordion.accordion33 details[open] .accordion-item-body {
+.accordion.accordion33 details[open] .accordion-item-body,
+.accordion.accordion7 details[open] .accordion-item-body {
   padding-top: 10px;
   padding-bottom: 20px;
   border-bottom: 5px solid #787878;
