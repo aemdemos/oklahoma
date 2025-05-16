@@ -726,7 +726,7 @@ header .nav-wrapper .translation-wrapper > div {
 }
 
 /* Show breadcrumbs only on larger screens */
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .breadcrumbs {
     display: block;
     padding: 30px 16px;
@@ -739,7 +739,6 @@ header .nav-wrapper .translation-wrapper > div {
 
   .breadcrumbs ol {
     list-style: none;
-    margin: 0;
     padding: 0;
     display: flex;
     flex-wrap: wrap;

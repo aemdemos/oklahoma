@@ -127,12 +127,9 @@ async function buildBreadcrumbsFromNavTree(nav, currentUrl) {
 
       // Remove any site name suffix (e.g., " | Oklahoma.gov")
       const siteNameSeparators = [' | ', ' - ', ' — ', ' – '];
-      for (const separator of siteNameSeparators) {
-        const parts = pageTitle.split(separator);
-        if (parts.length > 1) {
-          pageTitle = parts[0].trim();
-          break;
-        }
+      const separator = siteNameSeparators.find((sep) => pageTitle.includes(sep));
+      if (separator) {
+        pageTitle = pageTitle.split(separator)[0].trim();
       }
     }
 
@@ -478,28 +475,10 @@ export default async function decorate(block) {
 
     // Only add breadcrumbs if we're on an OCSW page
     if (isOcswPage) {
-      try {
-        const breadcrumbs = await buildBreadcrumbs();
+      const breadcrumbs = await buildBreadcrumbs();
 
-        if (breadcrumbs) {
-          // Append breadcrumbs at the bottom of the header (after navWrapper)
-          block.append(breadcrumbs);
-
-          // Optional fallback to ensure breadcrumbs appear even if there's an issue with the header structure
-          setTimeout(() => {
-            if (!document.querySelector('.breadcrumbs')) {
-              const header = document.querySelector('header');
-              if (header) {
-                const fallbackBreadcrumbs = breadcrumbs.cloneNode(true);
-                fallbackBreadcrumbs.className = 'breadcrumbs breadcrumbs-fallback';
-                header.parentNode.insertBefore(fallbackBreadcrumbs, header.nextSibling);
-              }
-            }
-          }, 500);
-        }
-      } catch (err) {
-        console.error('Error building breadcrumbs:', err);
-        // Continue without breadcrumbs if there's an error
+      if (breadcrumbs) {
+        block.append(breadcrumbs);
       }
     }
   } catch (err) {
