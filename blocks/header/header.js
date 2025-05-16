@@ -154,6 +154,52 @@ export default async function decorate(block) {
       searchWrapper.appendChild(iconSpan);
       searchWrapperParent.innerHTML = ''; // clear old content
       searchWrapperParent.appendChild(searchWrapper);
+
+      // Function to toggle search state
+      const toggleSearch = (show) => {
+        const brandSection = nav.querySelector('.nav-brand');
+        const hamburgerIcon = nav.querySelector('.nav-hamburger-icon');
+
+        if (show) {
+          // Move only input to brand section when search is active
+          searchWrapper.classList.add('expanded');
+          brandSection.classList.add('search-active');
+          hamburgerIcon.classList.add('search-close');
+          brandSection.appendChild(input);
+          input.focus();
+        } else {
+          // Move input back to search wrapper when search is inactive
+          searchWrapper.classList.remove('expanded');
+          brandSection.classList.remove('search-active');
+          hamburgerIcon.classList.remove('search-close');
+          searchWrapper.insertBefore(input, iconSpan);
+          input.value = '';
+        }
+      };
+
+      // Add click handler for search icon
+      iconSpan.addEventListener('click', () => {
+        toggleSearch(true);
+      });
+
+      // Close search on escape key
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          toggleSearch(false);
+        }
+      });
+
+      // Add click handler for hamburger button when in search mode
+      nav.addEventListener('click', (e) => {
+        const hamburgerButton = e.target.closest('.nav-hamburger button');
+        if (hamburgerButton && searchWrapper.classList.contains('expanded')) {
+          e.stopPropagation();
+          e.preventDefault();
+          toggleSearch(false);
+          return false;
+        }
+        return true;
+      }, true); // Use capture phase to handle event before mobile nav
     }
   }
 
@@ -163,15 +209,66 @@ export default async function decorate(block) {
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
       if (navSection.querySelector('ul')) {
         navSection.classList.add('nav-drop');
+        // Set initial aria-expanded state
+        navSection.setAttribute('aria-expanded', 'false');
+
+        // Function to handle mobile wrapper
+        const handleMobileWrapper = (isMobile) => {
+          const existingWrapper = navSection.closest('.nav-drop-wrapper');
+          if (isMobile && !existingWrapper) {
+            const wrapperDiv = document.createElement('div');
+            wrapperDiv.className = 'nav-drop-wrapper';
+            navSection.parentNode.insertBefore(wrapperDiv, navSection);
+            wrapperDiv.appendChild(navSection);
+          } else if (!isMobile && existingWrapper) {
+            existingWrapper.parentNode.insertBefore(navSection, existingWrapper);
+            existingWrapper.remove();
+          }
+        };
+
+        // Initial setup
+        handleMobileWrapper(!isDesktop.matches);
+
+        // Add resize listener
+        isDesktop.addEventListener('change', (e) => {
+          handleMobileWrapper(!e.matches);
+        });
+
+        // Wrap text in title div
+        const text = navSection.firstChild.textContent.trim();
+        if (text) {
+          const titleDiv = document.createElement('div');
+          titleDiv.className = 'title';
+          titleDiv.textContent = text;
+          navSection.replaceChild(titleDiv, navSection.firstChild);
+
+          // Add click handler for title div
+          titleDiv.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent event bubbling
+            const isExpanded = navSection.getAttribute('aria-expanded') === 'true';
+            navSection.setAttribute('aria-expanded', !isExpanded ? 'true' : 'false');
+
+            const submenu = navSection.querySelector('ul');
+            if (submenu) {
+              submenu.classList.toggle('show');
+            }
+          });
+        }
+
         if (isDesktop.matches) {
           navSection.addEventListener('mouseenter', () => {
             toggleAllNavSections(navSections);
-            navSection.setAttribute('aria-expanded', 'true');
-          });
-          navSection.addEventListener('mouseleave', () => {
-            navSection.setAttribute('aria-expanded', 'false');
           });
         }
+        // Add click handler for mobile submenu toggle
+        navSection.addEventListener('click', function (e) {
+          if ((!isDesktop.matches && e.target === this) || e.target.className === 'title') {
+            const submenu = this.querySelector('ul');
+            if (submenu) {
+              submenu.classList.toggle('show');
+            }
+          }
+        });
       }
     });
   }
@@ -182,12 +279,52 @@ export default async function decorate(block) {
   hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
       <span class="nav-hamburger-icon"></span>
     </button>`;
-  hamburger.addEventListener('click', () => toggleMenu(nav, navSections));
+  hamburger.addEventListener('click', () => {
+    const expanded = nav.getAttribute('aria-expanded') === 'true';
+    nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+  });
   nav.prepend(hamburger);
   nav.setAttribute('aria-expanded', 'false');
-  // prevent mobile nav behavior on window resize
-  toggleMenu(nav, navSections, isDesktop.matches);
-  isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
+
+  // Reset nav expanded state when switching to desktop
+  isDesktop.addEventListener('change', (e) => {
+    if (e.matches) {
+      nav.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Create media query for tablet and above
+  const isTabletOrAbove = window.matchMedia('(min-width: 768px)');
+
+  // Function to reset search state
+  const resetSearchState = () => {
+    const brandSection = nav.querySelector('.nav-brand');
+    const searchWrapper = nav.querySelector('.search-wrapper');
+    const hamburgerIcon = nav.querySelector('.nav-hamburger-icon');
+    const input = nav.querySelector('input');
+
+    if (brandSection && brandSection.classList.contains('search-active')) {
+      brandSection.classList.remove('search-active');
+      searchWrapper.classList.remove('expanded');
+      hamburgerIcon.classList.remove('search-close');
+      if (input) {
+        searchWrapper.insertBefore(input, searchWrapper.querySelector('.icon-search'));
+        input.value = '';
+      }
+    }
+  };
+
+  // Add listener for viewport changes
+  isTabletOrAbove.addEventListener('change', (e) => {
+    if (e.matches) {
+      resetSearchState();
+    }
+  });
+
+  // prevent menu from closing when clicking inside nav
+  nav.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
 
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
@@ -197,9 +334,10 @@ export default async function decorate(block) {
   translationWrapper.innerHTML = `
   <div>
     <span class="icon icon-logo-small"></span>
-    <div class="translate-group">
+    <div class="translate-group" style="cursor: pointer;">
       <span class="icon icon-translate"></span>
       <div>Translate</div>
+      <div id="google-translate-element"></div>
     </div>
     <div>
       State Agencies
@@ -207,6 +345,46 @@ export default async function decorate(block) {
   </div>
   `;
   navWrapper.append(translationWrapper);
+
+  // Initialize Google Translate
+  const script = document.createElement('script');
+  script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+  script.async = true;
+  document.body.appendChild(script);
+
+  // Google Translate initialization callback
+  window.googleTranslateElementInit = function () {
+    /* global google */
+    const translator = new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      layout: google.translate.TranslateElement.InlineLayout.DROPDOWN,
+      autoDisplay: false,
+    }, 'google-translate-element');
+    return translator;
+  };
+
+  // Add click handler to show/hide the translation dropdown
+  const translateGroup = translationWrapper.querySelector('.translate-group');
+  translateGroup.addEventListener('click', () => {
+    const translateElement = document.getElementById('google-translate-element');
+    const selectElement = document.querySelector('.goog-te-combo');
+
+    if (translateElement && selectElement) {
+      translateElement.style.display = 'block';
+      selectElement.click();
+    }
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!translateGroup.contains(e.target)) {
+      const translateElement = document.getElementById('google-translate-element');
+      if (translateElement) {
+        translateElement.style.display = 'none';
+      }
+    }
+  });
+
   decorateIcons(translationWrapper);
   navWrapper.append(nav);
   block.append(navWrapper);
