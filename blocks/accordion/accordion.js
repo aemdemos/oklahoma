@@ -3,16 +3,30 @@
  * Recreate an accordion
  * https://www.hlx.live/developer/block-collection/accordion
  */
+import { buildBlock, decorateBlock, loadBlock } from '../../scripts/aem.js';
 
-export default function decorate(block) {
-  function decorateAccordionRow(row, name) {
+export default async function decorate(block) {
+  async function decorateAccordionRow(row, name) {
     // decorate accordion item label
     const label = row.children[0];
     const summary = document.createElement('summary');
     summary.className = 'accordion-item-label';
     summary.append(...label.childNodes);
     // decorate accordion item body
-    const body = row.children[1];
+    let body = row.children[1];
+
+    if (block.classList.contains('video')) {
+      const link = body.querySelector('a');
+      if (link) {
+        const embed = buildBlock('embed', link);
+        body.remove();
+        row.append(embed);
+        body = embed;
+        decorateBlock(embed);
+        await loadBlock(embed);
+      }
+    }
+
     body.className = 'accordion-item-body';
     // decorate accordion item
     const details = document.createElement('details');
@@ -22,7 +36,7 @@ export default function decorate(block) {
     row.replaceWith(details);
   }
   let groupCount = 1;
-  [...block.children].map((child) => {
+  return Promise.all((await Promise.all([...block.children].map(async (child) => {
     let h4 = child.children[1].querySelector('h4');
     if (!h4) {
       return child;
@@ -42,8 +56,8 @@ export default function decorate(block) {
       h4 = child.children[1].querySelector('h4');
     } while (h4);
     child.children[1].append(...groups);
-    [...child.children[1].children].forEach((row) => decorateAccordionRow(row, `group-${groupCount}`));
+    await Promise.all([...child.children[1].children].map((row) => decorateAccordionRow(row, `group-${groupCount}`)));
     groupCount += 1;
     return child;
-  }).forEach((row) => decorateAccordionRow(row, 'group-0'));
+  }))).map(async (row) => decorateAccordionRow(row, 'group-0')));
 }

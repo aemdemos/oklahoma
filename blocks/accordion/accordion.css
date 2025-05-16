@@ -3,6 +3,7 @@
   border: 1px solid #dadada;
 }
 
+.accordion.video details,
 .accordion.accordion1 details,
 .accordion.accordion7 details,
 .accordion.accordion33 details {
@@ -11,6 +12,7 @@
   flex: 0 0 100%;
 }
 
+.accordion.video:last-child,
 .accordion.accordion1:last-child,
 .accordion.accordion7:last-child,
 .accordion.accordion33:last-child {
@@ -98,6 +100,7 @@
   grid-column-gap: 30px;
 }
 
+.accordion.video details[open] .accordion-item-body,
 .accordion.accordion33 details[open] .accordion-item-body,
 .accordion.accordion7 details[open] .accordion-item-body {
   padding-top: 10px;
@@ -141,6 +144,10 @@
   display: flex;
   gap: 30px;
   flex: 0 0 100%;
+}
+
+.accordion.video .embed {
+  max-width: unset;
 }
 
 @media (width < 900px) {
