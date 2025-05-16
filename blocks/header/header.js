@@ -1,8 +1,8 @@
 import { decorateIcons, getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
-// media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 1024px)');
+const isTabletOrAbove = window.matchMedia('(min-width: 768px)');
 
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
@@ -179,8 +179,7 @@ export default async function decorate(block) {
 
       // Add click handler for search icon
       iconSpan.addEventListener('click', () => {
-        const isTabletOrAbove = window.matchMedia('(min-width: 768px)').matches;
-        if (!isTabletOrAbove) {
+        if (!isTabletOrAbove.matches) {
           toggleSearch(true);
         }
       });
@@ -295,9 +294,6 @@ export default async function decorate(block) {
       nav.setAttribute('aria-expanded', 'false');
     }
   });
-
-  // Create media query for tablet and above
-  const isTabletOrAbove = window.matchMedia('(min-width: 768px)');
 
   // Function to reset search state
   const resetSearchState = () => {
