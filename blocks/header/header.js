@@ -268,8 +268,10 @@ export default async function decorate(block) {
 
           // Add click handler for search icon
           iconSpan.addEventListener('click', () => {
-            if (!isTabletOrAbove.matches) {toggleSearch(true);
-          }});
+            if (!isTabletOrAbove.matches) {
+              toggleSearch(true);
+            }
+          });
 
           // Close search on escape key
           input.addEventListener('keydown', (e) => {
