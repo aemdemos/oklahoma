@@ -19,16 +19,16 @@
   --link-hover-color: #1d3ecf;
   --body-font-family: "Open Sans", "Open Sans Fallback";
   --heading-font-family: "Montserrat SemiBold", "Montserrat SemiBold Fallback";
-  --body-font-size-m: 42px;
-  --body-font-size-s: 18px;
-  --body-font-size-xs: 18px;
-  --heading-font-size-xxl: 42px;
-  --heading-font-size-xl: 42px;
+  --body-font-size-m: 16px;
+  --body-font-size-s: 16px;
+  --body-font-size-xs: 16px;
+  --heading-font-size-xxl: 32px;
+  --heading-font-size-xl: 21px;
   --heading-font-size-l: 21px;
-  --heading-font-size-m: 42px;
+  --heading-font-size-m: 21px;
   --heading-font-size-s: 18px;
   --heading-font-size-xs: 18px;
-  --nav-height: 64px;
+  --nav-height: 210px;
   --header-height: var(--nav-height);
 }
 
@@ -79,13 +79,13 @@
   }
   
   :root {
-    --body-font-size-m: 42px;
+    --body-font-size-m: 18px;
     --body-font-size-s: 18px;
     --body-font-size-xs: 18px;
     --heading-font-size-xxl: 42px;
-    --heading-font-size-xl: 42px;
-    --heading-font-size-l: 21px;
-    --heading-font-size-m: 42px;
+    --heading-font-size-xl: 24px;
+    --heading-font-size-l: 24px;
+    --heading-font-size-m: 24px;
     --heading-font-size-s: 18px;
     --heading-font-size-xs: 18px;
   }
@@ -105,9 +105,9 @@ body.appear {
   display: block;
 }
 
-header {
+/* header {
   height: var(--nav-height);
-}
+} */
 
 header .header, footer .footer {
   visibility: hidden;

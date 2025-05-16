@@ -880,7 +880,7 @@
   ],
   "blocks": [
     {
-      "name": "Accordion (accordion1)",
+      "name": "Accordion",
       "cluster": 1,
       "instances": [
         {
@@ -892,7 +892,7 @@
       ]
     },
     {
-      "name": "Hero (hero2)",
+      "name": "Hero",
       "cluster": 2,
       "instances": [
         {
@@ -1042,7 +1042,7 @@
       ]
     },
     {
-      "name": "Embed (video, embedVideo4)",
+      "name": "Embed (video)",
       "cluster": 4,
       "instances": [
         {
@@ -1192,7 +1192,7 @@
       ]
     },
     {
-      "name": "Table (striped & bordered, tableStripedBordered5)",
+      "name": "Table (striped & bordered)",
       "cluster": 5,
       "instances": [
         {
@@ -1342,7 +1342,7 @@
       ]
     },
     {
-      "name": "Columns (columns6)",
+      "name": "Columns",
       "cluster": 6,
       "instances": [
         {
@@ -1420,7 +1420,7 @@
       ]
     },
     {
-      "name": "Accordion (accordion7)",
+      "name": "Accordion",
       "cluster": 7,
       "instances": [
         {
@@ -1432,7 +1432,7 @@
       ]
     },
     {
-      "name": "Accordion (accordion9)",
+      "name": "Accordion",
       "cluster": 9,
       "instances": [
         {
@@ -1444,7 +1444,7 @@
       ]
     },
     {
-      "name": "Cards (cards11)",
+      "name": "Cards",
       "cluster": 11,
       "instances": [
         {
@@ -1456,7 +1456,7 @@
       ]
     },
     {
-      "name": "Search (search12)",
+      "name": "Search",
       "cluster": 12,
       "instances": [
         {
@@ -1468,7 +1468,7 @@
       ]
     },
     {
-      "name": "Cards (cards13)",
+      "name": "Cards",
       "cluster": 13,
       "instances": [
         {
@@ -1498,7 +1498,7 @@
       ]
     },
     {
-      "name": "Cards (cards14)",
+      "name": "Cards",
       "cluster": 14,
       "instances": [
         {
@@ -1510,7 +1510,7 @@
       ]
     },
     {
-      "name": "Hero (hero15)",
+      "name": "Hero",
       "cluster": 15,
       "instances": [
         {
@@ -1522,7 +1522,7 @@
       ]
     },
     {
-      "name": "Embed (social, embedSocial16)",
+      "name": "Embed (social)",
       "cluster": 16,
       "instances": [
         {
@@ -1534,7 +1534,7 @@
       ]
     },
     {
-      "name": "Columns (columns17)",
+      "name": "Columns",
       "cluster": 17,
       "instances": [
         {
@@ -1684,7 +1684,7 @@
       ]
     },
     {
-      "name": "Hero (hero18)",
+      "name": "Hero",
       "cluster": 18,
       "instances": [
         {
@@ -1696,7 +1696,7 @@
       ]
     },
     {
-      "name": "Embed (social, embedSocial19)",
+      "name": "Embed (social)",
       "cluster": 19,
       "instances": [
         {
@@ -1708,7 +1708,7 @@
       ]
     },
     {
-      "name": "Accordion (accordion21)",
+      "name": "Accordion",
       "cluster": 21,
       "instances": [
         {
@@ -1720,19 +1720,19 @@
       ]
     },
     {
-      "name": "Cards (cards22)",
+      "name": "Cards",
       "cluster": 22,
       "instances": [
         {
           "url": "https://oklahoma.gov/ocsw.html",
           "urlHash": "55439134da1131bb03c10d9acf1b67ed89ee3f03",
           "uuid": "55439134-12-44b7d47962214936f14c77eb548d537ecb4d022a",
-          "xpath": "/html[1]/body[1]/main[1]/div[2]/div[1]/div[3]/div[1]/div[1]/div[11]/div[1]/div[1]"
+          "xpath": "/html[1]/body[1]/main[1]/div[2]/div[1]/div[3]/div[1]/div[1]/div[11]/div[1]"
         }
       ]
     },
     {
-      "name": "Cards (cards23)",
+      "name": "Cards",
       "cluster": 23,
       "instances": [
         {
@@ -1744,7 +1744,7 @@
       ]
     },
     {
-      "name": "Columns (columns24)",
+      "name": "Columns",
       "cluster": 24,
       "instances": [
         {
@@ -1756,7 +1756,7 @@
       ]
     },
     {
-      "name": "Cards (no images, cardsNoImages25)",
+      "name": "Cards (no images)",
       "cluster": 25,
       "instances": [
         {
@@ -1768,7 +1768,7 @@
       ]
     },
     {
-      "name": "Table (striped & bordered, tableStripedBordered26)",
+      "name": "Table (striped & bordered)",
       "cluster": 26,
       "instances": [
         {
@@ -1780,7 +1780,7 @@
       ]
     },
     {
-      "name": "Hero (hero27)",
+      "name": "Hero",
       "cluster": 27,
       "instances": [
         {
@@ -1792,7 +1792,7 @@
       ]
     },
     {
-      "name": "Hero (hero29)",
+      "name": "Hero",
       "cluster": 29,
       "instances": [
         {
@@ -1804,7 +1804,7 @@
       ]
     },
     {
-      "name": "Embed (video, embedVideo30)",
+      "name": "Embed (video)",
       "cluster": 30,
       "instances": [
         {
@@ -1816,7 +1816,7 @@
       ]
     },
     {
-      "name": "Columns (columns31)",
+      "name": "Columns",
       "cluster": 31,
       "instances": [
         {
@@ -1828,7 +1828,7 @@
       ]
     },
     {
-      "name": "Accordion (accordion32)",
+      "name": "Accordion",
       "cluster": 32,
       "instances": [
         {
@@ -1840,7 +1840,7 @@
       ]
     },
     {
-      "name": "Accordion (accordion33)",
+      "name": "Accordion",
       "cluster": 33,
       "instances": [
         {
@@ -1852,7 +1852,7 @@
       ]
     },
     {
-      "name": "Hero (hero34)",
+      "name": "Hero",
       "cluster": 34,
       "instances": [
         {
@@ -1864,7 +1864,7 @@
       ]
     },
     {
-      "name": "Cards (no images, cardsNoImages35)",
+      "name": "Cards (no images)",
       "cluster": 35,
       "instances": [
         {
@@ -1876,7 +1876,7 @@
       ]
     },
     {
-      "name": "Hero (hero36)",
+      "name": "Hero",
       "cluster": 36,
       "instances": [
         {
@@ -1888,7 +1888,7 @@
       ]
     },
     {
-      "name": "Embed (video, embedVideo37)",
+      "name": "Embed (video)",
       "cluster": 37,
       "instances": [
         {
@@ -1900,7 +1900,7 @@
       ]
     },
     {
-      "name": "Events (events38)",
+      "name": "Events",
       "cluster": 38,
       "instances": [
         {
@@ -1912,7 +1912,7 @@
       ]
     },
     {
-      "name": "Form (form39)",
+      "name": "Form",
       "cluster": 39,
       "instances": [
         {
@@ -1924,7 +1924,7 @@
       ]
     },
     {
-      "name": "Cards (no images, cardsNoImages40)",
+      "name": "Cards (no images)",
       "cluster": 40,
       "instances": [
         {
@@ -1936,7 +1936,7 @@
       ]
     },
     {
-      "name": "Cards (no images, cardsNoImages41)",
+      "name": "Cards (no images)",
       "cluster": 41,
       "instances": [
         {
