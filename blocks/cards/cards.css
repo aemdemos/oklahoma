@@ -70,12 +70,22 @@
   justify-content: center;
 }
 
+.cards.cardsnoimages25 .cards-card-body h2{
+  text-align: center;
+  word-break: break-all;
+  padding-bottom: 30px;
+  margin-bottom: 0;
+}
+  
 .cardsnoimages25 .cards-card-body ul li {
   list-style: disc;
+  word-break: break-all;
 } 
 
 .section.columns-2.cards-container {
   display: flex;
+  max-width: 1176px;
+    margin: auto;
 }
 
 .section.columns-2.cards-container .cards-wrapper {
@@ -97,7 +107,7 @@
 }
 
 .section.columns-2.cards-container .cards-wrapper .cards > ul > li {
-  background-color: #DE8F27;
+  background-image: url(https://main--oklahoma--aemdemos.aem.live/images/media_1b3cc3f7501cc76378184b1dff753243bed2dc5a8.png);
   color: #fff;
 }
 
