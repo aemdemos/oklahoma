@@ -79,7 +79,7 @@
   
 .cardsnoimages25 .cards-card-body ul li {
   list-style: disc;
-  word-break: break-all;
+  overflow-wrap: break-word;
 } 
 
 .section.columns-2.cards-container {
