@@ -1,3 +1,4 @@
+
 .embed {
   width: unset;
   text-align: center;
@@ -59,4 +60,22 @@
   border-left: 6px solid;
   top: 4px;
   left: 7px;
+}
+
+.accordion.video .embed,
+.embed.embedvideo37 {
+  max-width: unset;
+}
+
+.embed.embedvideo37 > div,
+.accordion.video .embed > div {
+  padding-bottom: 0 !important;
+  position: unset !important;
+  height: unset !important;
+}
+
+.embed.embedvideo37 iframe,
+.accordion.video .embed iframe {
+  height: 390px !important;
+  position: unset !important;
 }

@@ -12,8 +12,28 @@ export default function parse(element, { document }) {
 
     let content;
     if (contentElement) {
-      const clonedContent = contentElement.cloneNode(true);
-      content = clonedContent.children.length > 0 ? [...clonedContent.children] : clonedContent.textContent.trim();
+      // Check if the content has a table
+      const tableElement = contentElement.querySelector('table');
+      if (tableElement) {
+        // Create a new ul element for the names
+        const namesList = document.createElement('ul');
+        
+        // Get all table cells that are not empty and not in the header row
+        const cells = tableElement.querySelectorAll('tbody tr:not(:first-child) td');
+        cells.forEach(cell => {
+          const cellText = cell.textContent.trim();
+          if (cellText && cellText !== '&nbsp;') {
+            const listItem = document.createElement('li');
+            listItem.textContent = cellText;
+            namesList.appendChild(listItem);
+          }
+        });
+        
+        content = namesList;
+      } else {
+        const clonedContent = contentElement.cloneNode(true);
+        content = clonedContent.children.length > 0 ? [...clonedContent.children] : clonedContent.textContent.trim();
+      }
     } else {
       content = document.createTextNode('');
     }
@@ -23,21 +43,5 @@ export default function parse(element, { document }) {
   });
 
   const accordionTable = WebImporter.DOMUtils.createTable(accordionTableArray, document);
-
-  // Check if 'Section Metadata' exists from the Example Markdown Structure
-  const metadataExists = element.querySelector('.cmp-last-modified-date');
-
-  if (metadataExists) {
-    const hr = document.createElement('hr');
-
-    const sectionMetadataTableArray = [
-      ['Section Metadata'],
-      ['Name', 'Accordion'],
-    ];
-    const sectionMetadataTable = WebImporter.DOMUtils.createTable(sectionMetadataTableArray, document);
-
-    element.replaceWith(hr, sectionMetadataTable, accordionTable);
-  } else {
-    element.replaceWith(accordionTable);
-  }
+  element.replaceWith(accordionTable);
 }
