@@ -84,21 +84,21 @@
   overflow-wrap: break-word;
 } 
 
-.section.columns-2.cards-container {
+.section.columns-section.cards-container {
   display: flex;
   max-width: 1176px;
     margin: auto;
 }
 
-.section.columns-2.cards-container .cards-wrapper {
+.section.columns-section.cards-container .cards-wrapper {
   margin-top: 10px;
 }
 
-.section.columns-2.cards-container .default-content-wrapper, .section.columns-2.cards-container .cards-wrapper {
+.section.columns-section.cards-container .default-content-wrapper, .section.columns-section.cards-container .cards-wrapper {
   width: 50%;
 }
 
-.section.columns-2.cards-container .default-content-wrapper p {
+.section.columns-section.cards-container .default-content-wrapper p {
   font: 18px / 27px sans-serif;
   letter-spacing: 0.43px;
 }
@@ -129,11 +129,11 @@
 }
         
 
-.section.columns-2.cards-container .cards-wrapper .cards > ul {
+.section.columns-section.cards-container .cards-wrapper .cards > ul {
   display: block;
 }
 
-.section.columns-2.cards-container .cards-wrapper .cards > ul > li {
+.section.columns-section.cards-container .cards-wrapper .cards > ul > li {
   background-image: url('https://main--oklahoma--aemdemos.aem.live/images/media_1b3cc3f7501cc76378184b1dff753243bed2dc5a8.png');
   color: #fff;
 }
