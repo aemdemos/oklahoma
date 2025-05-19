@@ -240,8 +240,7 @@
 
 
 /* Merged selector for .cards.no-images.cardsnoimages41 */
-.cards.no-images.cardsnoimages41 {
-  background: #ce5d2a !important;
+.cards.no-images.cardsnoimages41, .cards.no-images.cardsnoimages25 {
   max-width: 820px;
   margin: 56px auto;
   padding: 34px 38px 58px;
@@ -256,19 +255,12 @@
   min-height: 420px;
 }
 
+.cards.no-images.cardsnoimages41 {
+  background-image: url('../../images/box-redclay-light-wide2c.png')
+}
+
 .cards.no-images.cardsnoimages25 {
   background-image: url('https://main--oklahoma--aemdemos.aem.live/images/media_1b3cc3f7501cc76378184b1dff753243bed2dc5a8.png');
-  max-width: 820px;
-  padding: 34px 38px 58px;
-  box-sizing: border-box;
-  border: none !important;
-  box-shadow: none !important;
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 420px;
 }
 
 
