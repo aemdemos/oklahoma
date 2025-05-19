@@ -15,4 +15,32 @@ export default function decorate(block) {
       }
     });
   });
+
+  // Move h2 for text-image variation on larger screens
+  if (block.classList.contains('text-image')) {
+    const handleResize = () => {
+      const h2 = block.closest('.section').querySelector('.default-content-wrapper h2');
+      const textDiv = block.querySelector('div > div:not(.columns-img-col)');
+
+      if (window.innerWidth >= 768 && h2 && textDiv) {
+        if (!textDiv.querySelector('h2')) {
+          const firstDiv = textDiv.querySelector('div');
+          if (firstDiv) {
+            firstDiv.insertBefore(h2.cloneNode(true), firstDiv.firstChild);
+            h2.style.display = 'none';
+          }
+        }
+      } else if (h2) {
+        h2.style.display = '';
+        const movedH2 = textDiv?.querySelector('h2');
+        if (movedH2) {
+          movedH2.remove();
+        }
+      }
+    };
+
+    // Run on load and window resize
+    handleResize();
+    window.addEventListener('resize', handleResize);
+  }
 }
