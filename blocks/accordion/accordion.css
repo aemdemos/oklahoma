@@ -1,16 +1,21 @@
-
 .accordion details {
   border: 1px solid #dadada;
 }
 
+.accordion.video details,
 .accordion.accordion1 details,
+.accordion.accordion7 details,
+.accordion.accordion9 details,
 .accordion.accordion33 details {
   border: none;
   border-top: 1px solid #787878;
   flex: 0 0 100%;
 }
 
+.accordion.video:last-child,
 .accordion.accordion1:last-child,
+.accordion.accordion7:last-child,
+.accordion.accordion9:last-child,
 .accordion.accordion33:last-child {
   border-bottom: 1px solid #787878;
 }
@@ -96,7 +101,10 @@
   grid-column-gap: 30px;
 }
 
-.accordion.accordion33 details[open] .accordion-item-body {
+.accordion.video details[open] .accordion-item-body,
+.accordion.accordion9 details[open] .accordion-item-body,
+.accordion.accordion33 details[open] .accordion-item-body,
+.accordion.accordion7 details[open] .accordion-item-body {
   padding-top: 10px;
   padding-bottom: 20px;
   border-bottom: 5px solid #787878;
@@ -138,6 +146,38 @@
   display: flex;
   gap: 30px;
   flex: 0 0 100%;
+}
+
+.accordion.accordion9 table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border-spacing: 0;
+}
+
+/* Remove all default borders first */
+.accordion.accordion9 table td {
+  padding: 15px;
+  text-align: left;
+  border: none;
+  height: 60px; /* Fixed consistent height for all rows */
+  box-sizing: border-box;
+  vertical-align: middle; /* Center content vertically */
+}
+
+/* Add borders only between columns */
+.accordion.accordion9 table td:not(:last-child) {
+  border-right: 1px solid black;
+}
+
+/* Add bottom borders to all cells for row separation */
+.accordion.accordion9 table tr:last-of-type td {
+  border-bottom: 1px solid black;
+}
+
+/* Retain the black background for odd-numbered rows */
+.accordion.accordion9 table tr:nth-child(odd) td {
+  background-color: #EFEFEF;
 }
 
 @media (width < 900px) {
