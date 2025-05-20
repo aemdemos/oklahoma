@@ -19,6 +19,14 @@ export default function decorate(block) {
   block.textContent = '';
   block.append(ul);
 
+  // Add 'multiple' class to cards-card-image divs with multiple images
+  block.querySelectorAll('.cards-card-image').forEach((div) => {
+    const images = div.querySelectorAll('img');
+    if (images.length > 1) {
+      div.classList.add('multiple');
+    }
+  });
+
   // Add Read More functionality for cards23
   if (block.classList.contains('cards23')) {
     const cardBodies = block.querySelectorAll('.cards-card-body');

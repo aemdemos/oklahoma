@@ -14,8 +14,8 @@
   --light-color: #f8f8f8;
   --dark-color: #505050;
   --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
+  --link-color: #004E9A;
+  --link-hover-color: #187BC0;
   --body-font-family: "Open Sans", "Open Sans Fallback";
   --heading-font-family: "Montserrat SemiBold", "Montserrat SemiBold Fallback";
   --body-font-size-m: 16px;
@@ -331,3 +331,15 @@ main .section.grey-bg a:hover {
 .section.grey-bg h2 {
   padding-top: 30px;
 }
+
+main .default-content-wrapper p strong {
+  font-weight: 700;
+  font-family: "Open Sans SemiBold", "Open Sans", sans-serif;
+}
+
+main .default-content-wrapper p:has(strong) {
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+
