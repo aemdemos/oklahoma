@@ -1,5 +1,6 @@
 
 
+
 .cards > ul {
   list-style: none;
   margin: 0;
@@ -273,9 +274,12 @@
   min-height: 420px;
 }
 
+/* Merged selector for .cards.cards23 */
 .cards.cards23 {
   /* merged properties from both snippets, giving precedence to the generated CSS values */
 }
+
+/* Generated CSS (original, except .cards.no-images.cardsnoimages41 will be merged below) */
 
 .cards.cards23 > ul {
   display: flex;
@@ -283,41 +287,114 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: stretch;
-  gap: 2.5rem;
+  gap: 32px 28px;
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 
+/* Make all cards in a row equal height */
 .cards.cards23 > ul > li {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  background: #374151;
-  color: #fff;
-  border-radius: 13px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.09);
+  background: #fff;
+  color: #222;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.13);
   overflow: hidden;
-  width: calc(33.333% - 1.67rem);
-  min-width: 260px;
   margin: 0;
-  flex: 1 1 calc(33.333% - 1.67rem);
-  min-height: 540px;
+  width: 355px;
+  min-width: 355px;
+  max-width: 355px;
+  flex: 0 0 355px;
   height: 100%;
   transition: box-shadow 0.18s;
 }
 
-.cards.cards23 > ul > li:hover {
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+.cards.cards23 > ul {
+  align-items: stretch; /* Ensure uniform height across rows */
 }
 
+@media (max-width: 1150px) {
+  .cards.cards23 > ul > li {
+    width: 48%;
+    min-width: 290px;
+    max-width: 100%;
+    flex: 1 1 48%;
+  }
+}
+@media (max-width: 800px) {
+  .cards.cards23 > ul > li {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    flex: 1 1 100%;
+  }
+  .cards.cards23 > ul {
+    gap: 16px 0;
+  }
+}
+
+/* Slightly reduce padding for a denser look */
+.cards.cards23 .cards-card-body {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 22px 18px 22px 18px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  background: #fff;
+  min-height: 0;
+}
+
+.cards.cards23 .cards-card-body > *:first-child {
+  margin-top: 4px;
+}
+
+.cards.cards23 .cards-card-body > * {
+  width: 100%;
+}
+
+.cards.cards23 .cards-card-body p:first-of-type {
+  font-size: 1.13rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #232323;
+  margin: 0 0 10px 0;
+  font-family: "Montserrat SemiBold", "Montserrat", sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.cards.cards23 .cards-card-body h2 {
+  font-size: 1.03rem;
+  font-weight: 600;
+  color: #535353;
+  margin: 0 0 14px 0;
+  text-transform: none;
+  font-family: "Open Sans", sans-serif;
+  letter-spacing: 0.01em;
+}
+
+.cards.cards23 .cards-card-body p:not(:first-of-type) {
+  color: #444;
+  font-size: 1.01rem;
+  margin: 0 0 1em 0;
+  text-align: left;
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.65;
+}
+
+/* Image area: slightly taller, maintains dominance */
 .cards.cards23 .cards-card-image {
   width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  aspect-ratio: 4 / 3;
-  background: #222;
+  aspect-ratio: 4 / 3.1;
+  background: #e5e5e5;
   display: block;
   overflow: hidden;
+  min-height: 140px;
+  max-height: 230px;
 }
 
 .cards.cards23 .cards-card-image img {
@@ -328,71 +405,7 @@
   border: none;
 }
 
-.cards.cards23 .cards-card-body {
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 2.1rem 1.7rem 2.1rem 1.7rem;
+/* Merged selector for .cards.cards23 */
+.cards.cards23 {
+  /* merged properties from both snippets, giving precedence to the generated CSS values */
 }
-
-.cards.cards23 .cards-card-body p:first-of-type {
-  font-size: 1.26rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #fff;
-  margin: 0 0 0.8em 0;
-  font-family: "Montserrat SemiBold", "Montserrat", sans-serif;
-}
-
-.cards.cards23 .cards-card-body h2 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin: 0 0 1.3em 0;
-  color: #e5e5e5;
-  letter-spacing: 0.02em;
-  text-transform: capitalize;
-  font-family: "Open Sans", sans-serif;
-}
-
-.cards.cards23 .cards-card-body p:not(:first-of-type) {
-  color: #d1d5db;
-  font-size: 1.03rem;
-  margin: 0 0 1em 0;
-  text-align: left;
-  font-family: "Open Sans", sans-serif;
-}
-
-@media (max-width: 900px) {
-  .cards.cards23 > ul > li {
-    width: calc(50% - 1.25rem);
-    flex: 1 1 calc(50% - 1.25rem);
-    min-width: 220px;
-    min-height: 440px;
-  }
-  .cards.cards23 .cards-card-image {
-    aspect-ratio: 16 / 11;
-  }
-  .cards.cards23 .cards-card-body {
-    padding: 1.5rem 1.2rem 1.7rem 1.2rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .cards.cards23 > ul > li {
-    width: 100%;
-    flex: 1 1 100%;
-    min-width: 0;
-    min-height: 360px;
-  }
-  .cards.cards23 {
-    padding: 0.7rem 0.4rem;
-  }
-  .cards.cards23 .cards-card-image {
-    aspect-ratio: 16 / 12;
-  }
-  .cards.cards23 .cards-card-body {
-    padding: 1rem 0.8rem 1.2rem 0.8rem;
-  }
-}
-
