@@ -85,9 +85,25 @@
   border-right: 1px solid;
 }
 
+.table.block.bordered.columnar table th,
+.table.block.bordered.columnar table td {
+  border-top: none;
+  border-bottom: none;
+}
+
+/* Columnar variant */
+.table.block.bordered.columnar table tbody tr {
+  border-bottom: none;
+}
+
+.table.block.bordered.columnar table tr:last-child {
+  border-bottom: 1px solid;
+}
+
 .table.block.bordered table th:first-child,
 .table.block.bordered table td:first-child {
   border-left: none;
+  height: 40px;
 }
 
 .table.block.bordered table th:last-child,
@@ -95,3 +111,6 @@
   border-right: none;
 }
 
+.table.block.bordered.columnar table tr th {
+  border-right: none;
+}
