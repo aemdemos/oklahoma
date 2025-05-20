@@ -272,7 +272,7 @@
   background: #7CB05A;
   max-width: 1060px;
   margin: 48px auto;
-  padding: 80px 64px 50px 64px;
+  padding: 80px 64px 50px;
   box-sizing: border-box;
   border: none !important;
   box-shadow: none !important;
@@ -319,7 +319,7 @@
   font-family: 'Open Sans', 'Open Sans Fallback', Arial, sans-serif;
   font-size: 1.18em;
   color: #fff;
-  margin: 0 0 12px 0;
+  margin: 0 0 12px;
   padding-left: 14px;
   position: relative;
   text-align: left;
@@ -340,21 +340,24 @@
   border-radius: 50%;
 }
 
-@media (max-width: 900px) {
+@media (width <= 900px) {
   .cards.no-images.cardsnoimages40 {
     max-width: 99vw;
     padding: 32px 8px;
   }
+
   .cards.no-images.cardsnoimages40 .cards-card-body p:first-child {
     font-size: 1.6em;
     margin-bottom: 20px;
   }
+
   .cards.no-images.cardsnoimages40 .cards-card-body p:not(:first-child) {
     font-size: 1em;
     margin-bottom: 9px;
     padding-left: 10px;
     line-height: 1.5;
   }
+
   .cards.no-images.cardsnoimages40 .cards-card-body p:not(:first-child)::before {
     width: 8px;
     height: 8px;
