@@ -275,7 +275,8 @@ main .section.light, main .section.highlight {
   display: none;
 }
 
-main .default-content-wrapper a.button.primary {
+main .default-content-wrapper a.button.primary,
+main .default-content-wrapper p em a.button.secondary {
   color: #004E9A;
   line-height: 27px;
   font-family: "Montserrat SemiBold", sans-serif;
@@ -296,7 +297,8 @@ main .default-content-wrapper a.button.primary {
   letter-spacing: 1.8px;
 }
 
-main .default-content-wrapper a.button.primary::after {
+main .default-content-wrapper a.button.primary::after,
+main .default-content-wrapper p em a.button.secondary::after {
   content: "";
   background-image: url("../icons/arrow-right.svg");
   width: 14px;
@@ -307,8 +309,13 @@ main .default-content-wrapper a.button.primary::after {
   display: inline-block;
   position: absolute;
   right: 0;
-  top: 58%;
+  top: 60%;
   transform: translateY(-50%);
+}
+
+main .default-content-wrapper p a,
+main .default-content-wrapper p u {
+  color: #004E9A;
 }
 
 main .default-content-wrapper a.button.primary:hover,
