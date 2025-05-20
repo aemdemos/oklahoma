@@ -1,3 +1,4 @@
+
 .columns > div {
   display: flex;
   flex-direction: column;
@@ -44,4 +45,127 @@
 .columns.history > div > .columns-img-col {
   flex: 0 0 25%;
   padding-top: 0.6em;
+}
+
+.columns.columns6 {
+  /* Merged styles from both base and generated CSS (latest values kept) */
+}
+
+.columns.columns6 > div {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.columns.columns6 .columns-img-col {
+  background: none;
+  flex: 0 0 320px;
+  max-width: 320px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.columns.columns6 .columns-img-col picture {
+  display: flex;
+  background: #e0e0e0;
+  padding: 12px 0;
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.columns.columns6 .columns-img-col img {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  margin: 0 auto;
+  background: #e0e0e0;
+}
+
+.columns.columns6 > div > div:not(.columns-img-col) {
+  flex: 1 1 0;
+  padding: 40px 12px 40px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background: #fff;
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 900px;
+}
+
+.columns.columns6 strong {
+  color: #444444;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.columns.columns6 p {
+  color: #444444;
+  font-size: 16px;
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+
+.columns.columns6 ul {
+  margin: 0;
+  margin-top: 4px;
+  padding-left: 24px;
+}
+
+.columns.columns6 ul li {
+  position: relative;
+  padding-left: 18px;
+  color: #444444;
+  font-size: 16px;
+  margin-bottom: 8px;
+  line-height: 1.5;
+  list-style: none;
+}
+
+.columns.columns6 ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 7px;
+  height: 7px;
+  background: #1976d2;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.columns.columns6-wrapper {
+  border-bottom: 3px solid #888888;
+  margin-bottom: 32px;
+  padding-bottom: 8px;
+  background: #fff;
+}
+
+@media (max-width: 900px) {
+  .columns.columns6 > div {
+    flex-direction: column;
+  }
+  .columns.columns6 .columns-img-col {
+    max-width: none;
+    width: 100%;
+    padding: 0;
+    justify-content: center;
+  }
+  .columns.columns6 .columns-img-col picture {
+    padding: 8px 0;
+  }
+  .columns.columns6 > div > div:not(.columns-img-col) {
+    padding: 24px 10px;
+    max-width: 100%;
+  }
 }
