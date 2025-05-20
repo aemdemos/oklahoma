@@ -60,6 +60,16 @@
   background-color: var(--overlay-background-color);
 }
 
+.table.block.striped .button {
+  border: none;
+  color: #004E9A;
+  text-decoration: underline;
+}
+
+.table.block.striped .button:hover {
+  color: #187BC0;
+}
+
 /* bordered variant */
 .table.block.bordered table thead {
   background-color: #464646;
