@@ -19,9 +19,56 @@
   display: block;
 }
 
+.grey-bg .columns-wrapper {
+  padding-top: 35px;
+}
+
+.columns.text-image p {
+  font-family: "Open Sans", sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0.38px;
+  padding-top: 20px;
+}
+
+main .section.grey-bg .columns.text-image a {
+  color: black;
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: 0.38px;
+  font-family: "Open Sans SemiBold", "Open Sans", sans-serif;
+  background: none;
+  border: none;
+  padding-left: 0;
+}
+
+main .section.grey-bg .columns.text-image .button-container a.button {
+  position: relative;
+  display: inline-block;
+  padding-right: 20px;
+  border-radius: 0;
+}
+
+main .section.grey-bg .columns.text-image .button-container a.button::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-top: 3px solid black;
+  border-right: 3px solid black;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+main .section.grey-bg .columns.text-image .button-container a.button:hover {
+  color: #666;
+}
+
 @media (width >= 768px) {
   .columns > div {
-    align-items: center;
+    align-items: flex-start;
     flex-direction: unset;
     gap: 24px;
   }
@@ -30,6 +77,38 @@
     flex: 1;
     order: unset;
   }
+
+  .columns.text-image h2 {
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  .columns.text-image p {
+    letter-spacing: 0.43px;
+  }
+
+  .columns.text-image .columns-img-col {
+    align-items: flex-start;
+    margin-top: 0;
+  }
+}
+
+@media (width >= 1024px) {
+  .columns.text-image > div > div:not(.columns-img-col) {
+    flex: 0 0 60%;  /* Takes up 60% of space */
+    order: unset;
+  }
+
+  .columns.text-image > div > .columns-img-col {
+    flex: 0 0 40%;  /* Takes up remaining 40% */
+    align-items: flex-start;
+    margin-top: 0;
+  }
+
+  .columns.text-image p {
+    letter-spacing: 0.43px;
+    line-height: 28px;
+  }
 }
 
 .columns.history p {
@@ -37,11 +116,21 @@
   margin-top: 0.25em;
 }
 
+.columns.history p strong {
+  font-weight: 700;
+  font-family: "Open Sans SemiBold", "Open Sans", sans-serif;
+}
+
+.columns.history p:has(strong) {
+  margin-top: 0;
+}
+
 .columns.history > div {
   align-items: unset;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 .columns.history > div > .columns-img-col {
   flex: 0 0 25%;
-  padding-top: 0.6em;
 }
