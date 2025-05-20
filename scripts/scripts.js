@@ -72,6 +72,23 @@ function buildAutoBlocks() {
   }
 }
 
+function decorateColumnssection() {
+  const container = document.querySelector('.cards-container.columns-section');
+  const children = container.querySelectorAll(':scope > div');
+  const childArray = Array.from(children);
+  container.innerHTML = '';
+
+  for (let i = 0; i < childArray.length; i += 2) {
+    const rowWrapper = document.createElement('div');
+    rowWrapper.classList.add('row-container');
+    rowWrapper.appendChild(childArray[i]);
+    if (childArray[i + 1]) {
+      rowWrapper.appendChild(childArray[i + 1]);
+    }
+    container.appendChild(rowWrapper);
+  }
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -85,6 +102,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  // decorateColumnssection();
 }
 
 /**
@@ -147,3 +165,4 @@ async function loadPage() {
 }
 
 loadPage();
+decorateColumnssection();
