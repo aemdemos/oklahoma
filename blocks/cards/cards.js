@@ -18,4 +18,55 @@ export default function decorate(block) {
   });
   block.textContent = '';
   block.append(ul);
+
+  // Add Read More functionality for cards23
+  if (block.classList.contains('cards23')) {
+    const cardBodies = block.querySelectorAll('.cards-card-body');
+    cardBodies.forEach((cardBody) => {
+      // Get all content
+      const content = Array.from(cardBody.children);
+
+      // Find the h2 and first p
+      const title = content.find((child) => child.tagName === 'H2');
+      const firstParagraph = content.find((child) => child.tagName === 'P');
+
+      // Get remaining content to be wrapped (everything except title and first p)
+      const contentToWrap = content.filter((child) => child !== title && child !== firstParagraph);
+
+      // Create wrapper for remaining content
+      const wrapper = document.createElement('div');
+      wrapper.className = 'content-wrapper';
+
+      // Move remaining content into wrapper
+      contentToWrap.forEach((element) => {
+        wrapper.appendChild(element);
+      });
+
+      // Create toggle button
+      const toggleButton = document.createElement('button');
+      toggleButton.className = 'toggle-button';
+      toggleButton.textContent = 'Read More';
+
+      // Ensure correct order: first p, h2, wrapper, button
+      cardBody.innerHTML = '';
+      if (firstParagraph) cardBody.appendChild(firstParagraph);
+      if (title) cardBody.appendChild(title);
+      cardBody.appendChild(wrapper);
+      cardBody.appendChild(toggleButton);
+
+      // Add click handler
+      toggleButton.addEventListener('click', () => {
+        const isExpanded = wrapper.classList.contains('expanded');
+        if (!isExpanded) {
+          wrapper.classList.add('expanded');
+          toggleButton.textContent = 'Less Details';
+          toggleButton.classList.add('expanded');
+        } else {
+          wrapper.classList.remove('expanded');
+          toggleButton.textContent = 'Read More';
+          toggleButton.classList.remove('expanded');
+        }
+      });
+    });
+  }
 }
