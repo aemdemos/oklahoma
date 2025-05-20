@@ -310,6 +310,16 @@ main .default-content-wrapper a.button.primary::after {
   transform: translateY(-50%);
 }
 
-main .default-content-wrapper a.button.primary:hover {
+main .default-content-wrapper a.button.primary:hover,
+main .section.grey-bg a:hover {
   text-decoration: underline;
+}
+
+.section.grey-bg {
+  background-color: #EFEFEF;
+  margin-bottom: 0;
+}
+
+.section.grey-bg h2 {
+  padding-top: 30px;
 }
