@@ -1,3 +1,4 @@
+
 .cards > ul {
   list-style: none;
   margin: 0;
@@ -265,4 +266,98 @@
   align-items: flex-start;
   min-height: 420px;
 }
+}
+
+.cards.no-images.cardsnoimages40 {
+  background: #7CB05A;
+  max-width: 1060px;
+  margin: 48px auto;
+  padding: 80px 64px 50px 64px;
+  box-sizing: border-box;
+  border: none !important;
+  box-shadow: none !important;
+  position: relative;
+  display: block;
+  background-image: url('/path/to/your/geometric-overlay.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.cards.no-images.cardsnoimages40 ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: block;
+}
+
+.cards.no-images.cardsnoimages40 ul > li {
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cards.no-images.cardsnoimages40 .cards-card-body {
+  margin: 0;
+  padding: 0;
+}
+
+.cards.no-images.cardsnoimages40 .cards-card-body p:first-child {
+  font-family: 'Montserrat SemiBold', 'Montserrat SemiBold Fallback', Arial, sans-serif;
+  font-size: 2.7em;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 40px;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  padding-top: 0;
+}
+
+.cards.no-images.cardsnoimages40 .cards-card-body p:not(:first-child) {
+  font-family: 'Open Sans', 'Open Sans Fallback', Arial, sans-serif;
+  font-size: 1.18em;
+  color: #fff;
+  margin: 0 0 12px 0;
+  padding-left: 14px;
+  position: relative;
+  text-align: left;
+  line-height: 1.62;
+  font-weight: 400;
+  max-width: 97%;
+}
+
+.cards.no-images.cardsnoimages40 .cards-card-body p:not(:first-child)::before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0.95em;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+@media (max-width: 900px) {
+  .cards.no-images.cardsnoimages40 {
+    max-width: 99vw;
+    padding: 32px 8px;
+  }
+  .cards.no-images.cardsnoimages40 .cards-card-body p:first-child {
+    font-size: 1.6em;
+    margin-bottom: 20px;
+  }
+  .cards.no-images.cardsnoimages40 .cards-card-body p:not(:first-child) {
+    font-size: 1em;
+    margin-bottom: 9px;
+    padding-left: 10px;
+    line-height: 1.5;
+  }
+  .cards.no-images.cardsnoimages40 .cards-card-body p:not(:first-child)::before {
+    width: 8px;
+    height: 8px;
+    top: 0.8em;
+  }
 }
