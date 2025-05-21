@@ -16,6 +16,14 @@ export default function decorate(block) {
     });
   });
 
+  // Add class to section containing columns-2-1
+  if (block.classList.contains('columns-2-1')) {
+    const section = block.closest('.section');
+    if (section) {
+      section.classList.add('has-columns-2-1');
+    }
+  }
+
   // Move h2 for text-image variation on larger screens
   if (block.classList.contains('text-image')) {
     const handleResize = () => {
