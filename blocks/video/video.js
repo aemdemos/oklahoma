@@ -117,18 +117,14 @@ export default async function decorate(block) {
     block.classList.add('placeholder');
     const wrapper = document.createElement('div');
     wrapper.className = 'video-placeholder';
-    wrapper.append(placeholder);
 
-    if (!autoplay) {
-      wrapper.insertAdjacentHTML(
-        'beforeend',
-        '<div class="video-placeholder-play"><button type="button" title="Play"></button></div>',
-      );
-      wrapper.addEventListener('click', () => {
-        wrapper.remove();
-        loadVideoEmbed(block, link, true, false);
-      });
-    }
+    // Create an anchor tag that wraps the placeholder
+    const linkWrapper = document.createElement('a');
+    linkWrapper.href = link;
+    linkWrapper.rel = 'noopener noreferrer';
+    linkWrapper.append(placeholder);
+
+    wrapper.append(linkWrapper);
     block.append(wrapper);
   }
 
