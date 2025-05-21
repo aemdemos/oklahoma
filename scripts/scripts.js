@@ -113,6 +113,7 @@ function decorateColumnsSection(main) {
 
     container.appendChild(row);
   }
+}
 
 function decorateExternalLinks(main) {
   main.querySelectorAll('a').forEach((a) => {
