@@ -31,13 +31,13 @@
 }
 
 @media (width >= 768px) {
-  .hero-container .default-content-wrapper {
+  .homepage .hero-container .default-content-wrapper {
     width: 60%;
   }
 }
 
 @media (width >= 1200px) {
-  .hero-container .default-content-wrapper {
+  .homepage .hero-container .default-content-wrapper {
     width: 45%;
   }
 }
