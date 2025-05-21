@@ -76,6 +76,31 @@ function decorateColumnssection(main) {
   const container = main.querySelector('.cards-container.columns-section');
   if (!container) return;
 
+  const wrappers = Array.from(container.querySelectorAll('.default-content-wrapper'));
+
+  wrappers.forEach((wrapper) => {
+    const paragraphs = Array.from(wrapper.querySelectorAll('p'));
+    let firstPictureKept = false;
+
+    const newWrapper = document.createElement('div');
+    newWrapper.classList.add('default-content-wrapper');
+
+    paragraphs.forEach((p) => {
+      const hasPicture = p.querySelector('picture') !== null;
+
+      if (hasPicture && !firstPictureKept) {
+        firstPictureKept = true;
+      } else {
+        newWrapper.appendChild(p);
+      }
+    });
+
+    if (newWrapper.children.length > 0) {
+      wrapper.insertAdjacentElement('afterend', newWrapper);
+    }
+  });
+
+  // Regroup all direct children into pairs wrapped in row-container
   const children = Array.from(container.querySelectorAll(':scope > div'));
   container.innerHTML = '';
 
@@ -88,51 +113,6 @@ function decorateColumnssection(main) {
 
     container.appendChild(row);
   }
-
-  const rows = Array.from(container.querySelectorAll('.row-container'));
-
-  rows.forEach((row, index) => {
-    const wrappers = row.querySelectorAll('.default-content-wrapper');
-
-    if (wrappers.length === 0) return;
-
-    const firstWrapper = wrappers[0];
-    let secondWrapper;
-
-    if (wrappers.length >= 2) {
-      [, secondWrapper] = wrappers;
-    } else {
-      const nextRow = rows[index + 1];
-      if (!nextRow) return;
-
-      secondWrapper = nextRow.querySelector('.default-content-wrapper');
-
-      if (!secondWrapper) {
-        secondWrapper = document.createElement('div');
-        secondWrapper.classList.add('default-content-wrapper');
-
-        const cardsWrapper = nextRow.querySelector('.cards-wrapper');
-        if (cardsWrapper) {
-          nextRow.insertBefore(secondWrapper, cardsWrapper);
-        } else {
-          nextRow.appendChild(secondWrapper);
-        }
-      }
-    }
-
-    const paragraphs = Array.from(firstWrapper.querySelectorAll('p'));
-    let firstPictureKept = false;
-
-    paragraphs.forEach((p) => {
-      const hasPicture = p.querySelector('picture') !== null;
-
-      if (hasPicture && !firstPictureKept) {
-        firstPictureKept = true;
-      } else {
-        secondWrapper.appendChild(p);
-      }
-    });
-  });
 }
 
 /**
