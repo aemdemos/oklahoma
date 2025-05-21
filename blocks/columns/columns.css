@@ -134,3 +134,7 @@ main .section.grey-bg .columns.text-image .button-container a.button:hover {
 .columns.history > div > .columns-img-col {
   flex: 0 0 25%;
 }
+
+main .section.speaker-col .columns.history > div > div > ul > li::marker {
+  color: #004E9A; /* blue bullet points only for the speaker-bureau page */
+}
