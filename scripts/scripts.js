@@ -72,6 +72,26 @@ function buildAutoBlocks() {
   }
 }
 
+function decorateExternalLinks(main) {
+  main.querySelectorAll('a').forEach((a) => {
+    const href = a.getAttribute('href');
+    if (!href) return;
+
+    try {
+      const url = new URL(href, window.location.href);
+
+      // Check if the link points to a different origin
+      if (url.origin !== window.location.origin) {
+        a.setAttribute('target', '_blank');
+        a.setAttribute('rel', 'noopener noreferrer');
+      }
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn(`Invalid URL found: ${href}`);
+    }
+  });
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -85,6 +105,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  decorateExternalLinks(main);
 }
 
 /**
