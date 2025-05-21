@@ -72,6 +72,49 @@ function buildAutoBlocks() {
   }
 }
 
+function decorateColumnsSection(main) {
+  const container = main.querySelector('.cards-container.columns-section');
+  if (!container) return;
+
+  const wrappers = Array.from(container.querySelectorAll('.default-content-wrapper'));
+
+  wrappers.forEach((wrapper) => {
+    const paragraphs = Array.from(wrapper.querySelectorAll('p'));
+    let firstPictureKept = false;
+
+    const newWrapper = document.createElement('div');
+    newWrapper.classList.add('default-content-wrapper');
+
+    paragraphs.forEach((p) => {
+      const hasPicture = p.querySelector('picture') !== null;
+
+      if (hasPicture && !firstPictureKept) {
+        firstPictureKept = true;
+      } else {
+        newWrapper.appendChild(p);
+      }
+    });
+
+    if (newWrapper.children.length > 0) {
+      wrapper.insertAdjacentElement('afterend', newWrapper);
+    }
+  });
+
+  // Regroup all direct children into pairs wrapped in row-container
+  const children = Array.from(container.querySelectorAll(':scope > div'));
+  container.innerHTML = '';
+
+  for (let i = 0; i < children.length; i += 2) {
+    const row = document.createElement('div');
+    row.classList.add('row-container');
+
+    if (children[i]) row.appendChild(children[i]);
+    if (children[i + 1]) row.appendChild(children[i + 1]);
+
+    container.appendChild(row);
+  }
+}
+
 function decorateExternalLinks(main) {
   main.querySelectorAll('a').forEach((a) => {
     const href = a.getAttribute('href');
@@ -105,6 +148,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  decorateColumnsSection(main);
   decorateExternalLinks(main);
 }
 
