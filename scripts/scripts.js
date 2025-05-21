@@ -72,8 +72,8 @@ function buildAutoBlocks() {
   }
 }
 
-function decorateColumnssection() {
-  const container = document.querySelector('.cards-container.columns-section');
+function decorateColumnssection(main) {
+  const container = main.querySelector('.cards-container.columns-section');
   const children = container.querySelectorAll(':scope > div');
   const childArray = Array.from(children);
   container.innerHTML = '';
@@ -102,7 +102,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
-  // decorateColumnssection();
+  decorateColumnssection(main);
 }
 
 /**
@@ -165,4 +165,3 @@ async function loadPage() {
 }
 
 loadPage();
-decorateColumnssection();
