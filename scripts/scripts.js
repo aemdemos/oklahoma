@@ -72,7 +72,7 @@ function buildAutoBlocks() {
   }
 }
 
-function decorateColumnssection(main) {
+function decorateColumnsSection(main) {
   const container = main.querySelector('.cards-container.columns-section');
   if (!container) return;
 
@@ -128,7 +128,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
-  decorateColumnssection(main);
+  decorateColumnsSection(main);
 }
 
 /**
