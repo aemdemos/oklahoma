@@ -190,3 +190,10 @@ main .section.grey-bg .columns.text-image .button-container a.button:hover {
 main .section.speaker-col .columns.history > div > div > ul > li::marker {
   color: #004E9A; /* blue bullet points only for the speaker-bureau page */
 }
+
+main .section.speaker-col .columns.history > div {
+  border-top-width: 5px;
+  border-top-color: #787878;
+  border-top-style: solid;
+  padding-top: 40px;
+}
