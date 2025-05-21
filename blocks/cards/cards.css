@@ -525,10 +525,6 @@
       flex-direction: row;
     }
   
-    .section.columns-section.cards-container .row-container:nth-child(2) {
-      flex-direction: row-reverse;
-    }
-
     .section.columns-section.cards-container .row-container .cards-wrapper {
       margin-top: 10px;
     }

@@ -74,19 +74,66 @@ function buildAutoBlocks() {
 
 function decorateColumnssection(main) {
   const container = main.querySelector('.cards-container.columns-section');
-  const children = container.querySelectorAll(':scope > div');
-  const childArray = Array.from(children);
+  if (!container) return;
+
+  const children = Array.from(container.querySelectorAll(':scope > div'));
   container.innerHTML = '';
 
-  for (let i = 0; i < childArray.length; i += 2) {
-    const rowWrapper = document.createElement('div');
-    rowWrapper.classList.add('row-container');
-    rowWrapper.appendChild(childArray[i]);
-    if (childArray[i + 1]) {
-      rowWrapper.appendChild(childArray[i + 1]);
-    }
-    container.appendChild(rowWrapper);
+  // Step 1: Group every two divs into a .row-container
+  for (let i = 0; i < children.length; i += 2) {
+    const row = document.createElement('div');
+    row.classList.add('row-container');
+
+    if (children[i]) row.appendChild(children[i]);
+    if (children[i + 1]) row.appendChild(children[i + 1]);
+
+    container.appendChild(row);
   }
+
+  const rows = Array.from(container.querySelectorAll('.row-container'));
+
+  rows.forEach((row, index) => {
+    const wrappers = row.querySelectorAll('.default-content-wrapper');
+
+    if (wrappers.length === 0) return;
+
+    const firstWrapper = wrappers[0];
+    let secondWrapper;
+
+    if (wrappers.length >= 2) {
+      [, secondWrapper] = wrappers;
+    } else {
+      const nextRow = rows[index + 1];
+      if (!nextRow) return;
+
+      secondWrapper = nextRow.querySelector('.default-content-wrapper');
+
+      if (!secondWrapper) {
+        secondWrapper = document.createElement('div');
+        secondWrapper.classList.add('default-content-wrapper');
+
+        const cardsWrapper = nextRow.querySelector('.cards-wrapper');
+        if (cardsWrapper) {
+          nextRow.insertBefore(secondWrapper, cardsWrapper);
+        } else {
+          nextRow.appendChild(secondWrapper);
+        }
+      }
+    }
+
+    const paragraphs = Array.from(firstWrapper.querySelectorAll('p'));
+    let firstPictureKept = false;
+
+    paragraphs.forEach((p) => {
+      const hasPicture = p.querySelector('picture') !== null;
+
+      if (hasPicture && !firstPictureKept) {
+        firstPictureKept = true;
+      } else {
+        secondWrapper.appendChild(p);
+      }
+    });
+  });
 }
 
 /**
