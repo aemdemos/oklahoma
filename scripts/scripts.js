@@ -79,7 +79,6 @@ function decorateColumnssection(main) {
   const children = Array.from(container.querySelectorAll(':scope > div'));
   container.innerHTML = '';
 
-  // Step 1: Group every two divs into a .row-container
   for (let i = 0; i < children.length; i += 2) {
     const row = document.createElement('div');
     row.classList.add('row-container');
