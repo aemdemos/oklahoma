@@ -109,6 +109,11 @@ main .section.grey-bg .columns.text-image .button-container a.button:hover {
     letter-spacing: 0.43px;
     line-height: 28px;
   }
+
+  main .section.speaker-col .columns.history.columns-img-col {
+      max-width: 264px;
+      max-height: 209px;
+  }
 }
 
 .columns.history p {
