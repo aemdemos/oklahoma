@@ -3,7 +3,7 @@ header .nav-wrapper {
   background-color: var(--background-color);
   width: 100%;
   z-index: 999;
-  position: static;
+  position: relative;
   border-bottom: 3px solid;
 }
 
@@ -21,7 +21,6 @@ header nav .nav-brand img {
   width: 200px;
   height: 55px;
   padding-left: 0;
-  aspect-ratio: 280/70; /* Maintain aspect ratio */
 }
 
 .search-wrapper .icon-search img {
@@ -150,11 +149,6 @@ header nav[aria-expanded='true'] .nav-brand img {
   .search-wrapper.expanded .icon-search {
     display: flex;
   }
-
-  header nav .nav-brand img {
-    width: 280px;
-    height: 70px;
-  }
 }
 
 /* Rest of header styles */
@@ -168,10 +162,10 @@ header nav {
   gap: 0 24px;
   margin: auto;
   max-width: 1248px;
+  height: auto;
   padding: 0 22px;
   font-family: var(--body-font-family);
   padding-bottom: 10px;
-  position: static;
 }
 
 header nav[aria-expanded='true'] {
@@ -464,7 +458,7 @@ header .nav-wrapper nav[aria-expanded='true'] .nav-sections li.nav-drop {
 }
 
 header .nav-wrapper .translation-wrapper {
-  padding: 0 32px;
+  padding: 0 22px;
   height: 50px;
   background-color: #464646;
   display: flex;
@@ -523,6 +517,13 @@ header .nav-wrapper .translation-wrapper > div {
 }
 
 @media (width >= 768px) {
+  header nav .nav-brand img {
+    padding-top: 20px;
+    width: 280px;
+    height: 70px;
+    padding-left: 0;
+  }
+
   .search-wrapper {
     display: flex;
     align-items: center;
@@ -729,7 +730,7 @@ header .nav-wrapper .translation-wrapper > div {
 @media (width >= 768px) {
   .breadcrumbs {
     display: block;
-    padding: 30px 32px;
+    padding: 30px 45px;
     font-size: 16px;
     width: 100%;
     box-sizing: border-box;
@@ -829,15 +830,6 @@ header nav[aria-expanded='true'] .nav-sections .nav-drop ul li:last-child {
 
 /* Desktop submenu state */
 @media (width >= 1024px) {
-  .translation-wrapper > div {
-    max-width: 1264px;
-    padding: 0;
-  }
-
-  .breadcrumbs {
-    padding: 30px 45px;
-  }
-
   header nav .nav-sections .default-content-wrapper > ul > li:hover > ul {
     display: flex;
     flex-wrap: wrap;
