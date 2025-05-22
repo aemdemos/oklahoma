@@ -1,3 +1,8 @@
+.accordion-container .default-content-wrapper h2 {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
 .accordion details {
   border: 1px solid #dadada;
 }
@@ -29,13 +34,18 @@
   margin-top: 0;
 }
 
+.accordion.video details + details,
+.accordion.accordion7 details + details {
+  margin-top: 0;
+}
+
 .accordion details p {
   margin-bottom: 0.8em;
 }
 
 .accordion details summary {
   position: relative;
-  padding: 0 16px;
+  padding: 0 7px;
   padding-right: 46px;
   cursor: pointer;
   list-style: none;
@@ -47,9 +57,8 @@
   background-color: var(--light-color);
 }
 
-.accordion details summary:focus,
-.accordion details summary:hover {
-  background-color: var(--light-color);
+.accordion details summary:focus {
+  border: 2px solid #1DA6DF;
 }
 
 .accordion details summary::-webkit-details-marker {
@@ -108,6 +117,8 @@
   padding-top: 10px;
   padding-bottom: 20px;
   border-bottom: 5px solid #787878;
+  margin-bottom: 0;
+  margin-top: 0;
 }
 
 .accordion.accordion33 details[open] .accordion-item-body a {
