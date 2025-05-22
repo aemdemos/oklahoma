@@ -135,6 +135,24 @@ function decorateExternalLinks(main) {
   });
 }
 
+function wrapMultipleLinks(main) {
+  const wrapper = main.querySelector('.hero-container > .default-content-wrapper');
+  const strongParagraphs = [...wrapper?.querySelectorAll('p:has(strong)') || []];
+
+  if (strongParagraphs.length <= 1) return;
+
+  const multipleLinksDiv = document.createElement('div');
+  multipleLinksDiv.className = 'multiple-links';
+
+  wrapper.insertBefore(multipleLinksDiv, strongParagraphs[0]);
+  strongParagraphs.forEach((p) => {
+    if (p.parentElement?.tagName === 'EM') {
+      p.parentElement.replaceWith(p);
+    }
+    multipleLinksDiv.appendChild(p);
+  });
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -150,6 +168,7 @@ export function decorateMain(main) {
   decorateBlocks(main);
   decorateColumnsSection(main);
   decorateExternalLinks(main);
+  wrapMultipleLinks(main);
 }
 
 /**
