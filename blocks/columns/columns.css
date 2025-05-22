@@ -101,6 +101,11 @@ main .section.grey-bg .columns.text-image .button-container a.button:hover {
   padding-right: 20%;
 }
 
+.columns.history.multi-border > div {
+  border-top: #787878 solid 5px;
+  padding-top: 40px;
+}
+
 .columns.columns-2-1 > div > div:first-child {
   flex: 0 0 65%;
   padding-right: 0;
@@ -166,6 +171,10 @@ main .section.grey-bg .columns.text-image .button-container a.button:hover {
   .section.has-columns-2-1 > .default-content-wrapper {
     padding-left: 24px;
   }
+
+  .columns.columns.history.multi-border > div > div:not(.columns-img-col) {
+    padding-top: 25px;
+  }
 }
 
 @media (width >= 1024px) {
@@ -184,6 +193,11 @@ main .section.grey-bg .columns.text-image .button-container a.button:hover {
     letter-spacing: 0.43px;
     line-height: 28px;
   }
+
+  .columns.history.multi-border > div > .columns-img-col {
+      max-width: 264px;
+      max-height: 209px;
+  }
 }
 
 .columns.history p strong {
@@ -193,4 +207,8 @@ main .section.grey-bg .columns.text-image .button-container a.button:hover {
 
 .columns.history > div > .columns-img-col {
   flex: 0 0 25%;
+}
+
+.columns.history.multi-border > div > div > ul > li::marker {
+  color: #004E9A; /* blue bullet points only for the speaker-bureau page */
 }
