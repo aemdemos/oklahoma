@@ -35,7 +35,8 @@
 }
 
 .accordion.video details + details,
-.accordion.accordion7 details + details {
+.accordion.accordion7 details + details,
+.accordion.accordion9 details + details {
   margin-top: 0;
 }
 
@@ -168,12 +169,15 @@
 
 /* Remove all default borders first */
 .accordion.accordion9 table td {
-  padding: 15px;
+  padding: 0 15px; /* Change to horizontal padding only */
   text-align: left;
   border: none;
-  height: 60px; /* Fixed consistent height for all rows */
+  height: 50px;
+  font-size: 18px;
+  letter-spacing: 0.43px;
+  line-height: 27px;
   box-sizing: border-box;
-  vertical-align: middle; /* Center content vertically */
+  vertical-align: middle;
 }
 
 /* Add borders only between columns */

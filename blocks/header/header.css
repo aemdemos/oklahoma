@@ -458,7 +458,7 @@ header .nav-wrapper nav[aria-expanded='true'] .nav-sections li.nav-drop {
 }
 
 header .nav-wrapper .translation-wrapper {
-  padding: 0 22px;
+  padding: 0 24px;
   height: 50px;
   background-color: #464646;
   display: flex;
@@ -557,6 +557,10 @@ header .nav-wrapper .translation-wrapper > div {
     height: 25px;
     width: 25px;
     margin-top: -2px;
+  }
+
+  .translation-wrapper > div > .icon-logo-small {
+    margin-left: 5px;
   }
 }
 
@@ -693,6 +697,7 @@ header .nav-wrapper .translation-wrapper > div {
     margin-right: auto;
     height: 30px;
     width: 30px;
+    margin-left: 5px;
   }
 
   .translation-wrapper > div > .translate-group,
@@ -730,7 +735,7 @@ header .nav-wrapper .translation-wrapper > div {
 @media (width >= 768px) {
   .breadcrumbs {
     display: block;
-    padding: 30px 45px;
+    padding: 30px 32px;
     font-size: 16px;
     width: 100%;
     box-sizing: border-box;
@@ -830,6 +835,10 @@ header nav[aria-expanded='true'] .nav-sections .nav-drop ul li:last-child {
 
 /* Desktop submenu state */
 @media (width >= 1024px) {
+  .breadcrumbs {
+    padding: 30px 45px;
+  }
+
   header nav .nav-sections .default-content-wrapper > ul > li:hover > ul {
     display: flex;
     flex-wrap: wrap;
