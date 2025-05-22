@@ -30,7 +30,7 @@
   margin-top: 24px;
 }
 
-.accordion.accordion33 details + details {
+.accordion.accordion33 details + details, .accordion.accordion1 details + details {
   margin-top: 0;
 }
 
