@@ -274,6 +274,10 @@ main>.section:first-of-type {
   padding-top: 35px;
 }
 
+.section.hero-container.columns-container .default-content-wrapper {
+  color: #464646;
+}
+
 @media (width >= 768px) {
   main > .section > div {
     padding: 0 32px;
