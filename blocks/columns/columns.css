@@ -81,6 +81,10 @@ main .section.grey-bg .columns.text-image .button-container a.button:hover {
   margin-bottom: 40px;
 }
 
+.columns.columns24 > div {
+  position: relative;
+}
+
 .columns.columns-2-1 > div {
   flex-direction: row;
 }
@@ -112,6 +116,15 @@ main .section.grey-bg .columns.text-image .button-container a.button:hover {
 
 .columns.columns-2-1 > div > div.columns-img-col img {
   padding-top: 30px;
+}
+
+.columns.columns24 {
+  padding-bottom: 50px;
+}
+
+.columns.columns24 > div > div:first-child,
+.columns.columns24 > div > div:last-child {
+  margin-top: 100px;
 }
 
 @media (width >= 768px) {

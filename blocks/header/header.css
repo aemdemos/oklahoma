@@ -2,7 +2,7 @@
 header .nav-wrapper {
   background-color: var(--background-color);
   width: 100%;
-  z-index: 2;
+  z-index: 999;
   position: relative;
   border-bottom: 3px solid;
 }
@@ -602,6 +602,7 @@ header .nav-wrapper .translation-wrapper > div {
     height: 45px;
     display: flex;
     align-items: center;
+    z-index: 999;
   }
 
   header nav .nav-sections a {
@@ -729,10 +730,9 @@ header .nav-wrapper .translation-wrapper > div {
 @media (width >= 768px) {
   .breadcrumbs {
     display: block;
-    padding: 30px 16px;
+    padding: 30px 45px;
     font-size: 16px;
     width: 100%;
-    border-bottom: 1px solid #ddd;
     box-sizing: border-box;
     color: #464646
   }
@@ -838,5 +838,8 @@ header nav[aria-expanded='true'] .nav-sections .nav-drop ul li:last-child {
     min-height: 100px;
     padding: 30px;
     background-color: var(--light-color);
+    position: absolute;
+    top: 100%;
+    left: 0;
   }
 }
