@@ -86,6 +86,10 @@
   transform: translateY(-50%) rotate(-45deg);
 }
 
+.accordion.accordion1 details:has(details) details[open] summary::after {
+transform: translateY(-50%) rotate(-45deg);
+}
+
 .accordion details .accordion-item-body {
   padding: 0 16px;
 }
