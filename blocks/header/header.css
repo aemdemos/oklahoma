@@ -5,6 +5,7 @@ header .nav-wrapper {
   z-index: 999;
   position: relative;
   border-bottom: 3px solid;
+  min-height: 145px; /* Fixed height for mobile */
 }
 
 /* brand */
@@ -14,6 +15,7 @@ header .nav-brand {
   font-size: var(--heading-font-size-s);
   font-weight: 700;
   line-height: 1;
+  min-height: 75px; /* Fixed height for logo area */
 }
 
 header nav .nav-brand img {
@@ -21,6 +23,7 @@ header nav .nav-brand img {
   width: 200px;
   height: 55px;
   padding-left: 0;
+  aspect-ratio: 280/70; /* Maintain aspect ratio */
 }
 
 .search-wrapper .icon-search img {
@@ -149,6 +152,21 @@ header nav[aria-expanded='true'] .nav-brand img {
   .search-wrapper.expanded .icon-search {
     display: flex;
   }
+
+  header .nav-wrapper {
+    min-height: 165px; /* Adjusted height for tablet/desktop */
+  }
+
+  header nav .nav-brand {
+    min-height: 90px; /* Adjusted height for tablet/desktop */
+  }
+
+  header nav .nav-brand img {
+    padding-top: 20px;
+    width: 280px;
+    height: 70px;
+    padding-left: 0;
+  }
 }
 
 /* Rest of header styles */
@@ -162,7 +180,7 @@ header nav {
   gap: 0 24px;
   margin: auto;
   max-width: 1248px;
-  height: auto;
+  min-height: 95px; /* Fixed height for nav */
   padding: 0 22px;
   font-family: var(--body-font-family);
   padding-bottom: 10px;
@@ -517,13 +535,6 @@ header .nav-wrapper .translation-wrapper > div {
 }
 
 @media (width >= 768px) {
-  header nav .nav-brand img {
-    padding-top: 20px;
-    width: 280px;
-    height: 70px;
-    padding-left: 0;
-  }
-
   .search-wrapper {
     display: flex;
     align-items: center;
