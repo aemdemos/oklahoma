@@ -314,15 +314,19 @@ main>.section:first-of-type {
   margin-right: auto;
 }
 
-main .default-content-wrapper p:has(strong) {
-  margin-top: 50px;
-  margin-bottom: 20px;
+.multiple-links p {
+  margin-top: 0.5em;
 }
 
 .multiple-links p:not(:last-child) {
   padding-right: 20px;
   border-right: 1px solid #004E9A;
   font-style: normal;
+}
+
+main .section:not(.hero-container) .default-content-wrapper p:has(strong) {
+  margin-top: 50px;
+  margin-bottom: 20px;
 }
 
 .section.columns-section.cards-container .row-container:nth-child(3) {
@@ -445,12 +449,20 @@ main .section:not(.hero-container) {
 .multiple-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 10px;
   align-items: flex-start;
   margin-bottom: 20px;
 }
 
 .multiple-links p em {
   font-style: normal;
+}
+
+@media (width >= 768px) {
+  .multiple-links {
+    gap: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
 }
 
