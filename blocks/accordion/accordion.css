@@ -17,6 +17,13 @@
   flex: 0 0 100%;
 }
 
+.accordion.accordion1 details .accordion-item-label p strong {
+  font-family: "Montserrat SemiBold", sans-serif;
+  font-size: 21px;
+  line-height: 32px;
+  font-weight: 600;
+}
+
 .accordion.video:last-child,
 .accordion.accordion1:last-child,
 .accordion.accordion7:last-child,
@@ -96,10 +103,22 @@
   background-color: var(--background-color);
 }
 
+.accordion.video details[open] .accordion-item-body,
+.accordion.accordion9 details[open] .accordion-item-body,
+.accordion.accordion33 details[open] .accordion-item-body,
+.accordion.accordion7 details[open] .accordion-item-body {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  border-bottom: 5px solid #787878;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
 .accordion.accordion1 details[open] .accordion-item-body {
   padding-top: 10px;
   padding-bottom: 30px;
   border-bottom: 5px solid #787878;
+  border-top: none;
 }
 
 .accordion.accordion1 details[open] .accordion-item-body:has(img) {
@@ -140,6 +159,11 @@
 .accordion.accordion1 details[open] .accordion-item-body:has(> details) {
   flex-direction: column;
   display: flex;
+}
+
+.accordion.accordion1 details:has(details) details {
+  border-bottom: 1px solid #dadada;
+  border-top: 1px solid #dadada;
 }
 
 .accordion.accordion1 details[open] details[open] .accordion-item-body {
