@@ -3,9 +3,8 @@ header .nav-wrapper {
   background-color: var(--background-color);
   width: 100%;
   z-index: 999;
-  position: relative;
+  position: static;
   border-bottom: 3px solid;
-  min-height: 145px; /* Fixed height for mobile */
 }
 
 /* brand */
@@ -15,7 +14,6 @@ header .nav-brand {
   font-size: var(--heading-font-size-s);
   font-weight: 700;
   line-height: 1;
-  min-height: 75px; /* Fixed height for logo area */
 }
 
 header nav .nav-brand img {
@@ -153,19 +151,9 @@ header nav[aria-expanded='true'] .nav-brand img {
     display: flex;
   }
 
-  header .nav-wrapper {
-    min-height: 165px; /* Adjusted height for tablet/desktop */
-  }
-
-  header nav .nav-brand {
-    min-height: 90px; /* Adjusted height for tablet/desktop */
-  }
-
   header nav .nav-brand img {
-    padding-top: 20px;
     width: 280px;
     height: 70px;
-    padding-left: 0;
   }
 }
 
@@ -180,10 +168,10 @@ header nav {
   gap: 0 24px;
   margin: auto;
   max-width: 1248px;
-  min-height: 95px; /* Fixed height for nav */
   padding: 0 22px;
   font-family: var(--body-font-family);
   padding-bottom: 10px;
+  position: static;
 }
 
 header nav[aria-expanded='true'] {
@@ -476,7 +464,7 @@ header .nav-wrapper nav[aria-expanded='true'] .nav-sections li.nav-drop {
 }
 
 header .nav-wrapper .translation-wrapper {
-  padding: 0 22px;
+  padding: 0 32px;
   height: 50px;
   background-color: #464646;
   display: flex;
