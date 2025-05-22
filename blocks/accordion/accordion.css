@@ -17,6 +17,13 @@
   flex: 0 0 100%;
 }
 
+.accordion.accordion1 details .accordion-item-label p strong {
+  font-family: "Montserrat SemiBold", sans-serif;
+  font-size: 21px;
+  line-height: 32px;
+  font-weight: 600;
+}
+
 .accordion.video:last-child,
 .accordion.accordion1:last-child,
 .accordion.accordion7:last-child,
@@ -30,7 +37,7 @@
   margin-top: 24px;
 }
 
-.accordion.accordion33 details + details {
+.accordion.accordion33 details + details, .accordion.accordion1 details + details {
   margin-top: 0;
 }
 
@@ -52,10 +59,6 @@
   list-style: none;
   overflow: auto;
   transition: background-color 0.2s;
-}
-
-.accordion details[open] summary {
-  background-color: var(--light-color);
 }
 
 .accordion details summary:focus {
@@ -83,6 +86,14 @@
   transform: translateY(-50%) rotate(-45deg);
 }
 
+.accordion.accordion1 details:has(details) details summary::after {
+transform: translateY(-50%) rotate(135deg);
+} 
+
+.accordion.accordion1 details:has(details) details[open] summary::after {
+transform: translateY(-50%) rotate(-45deg);
+}
+
 .accordion details .accordion-item-body {
   padding: 0 16px;
 }
@@ -100,17 +111,6 @@
   background-color: var(--background-color);
 }
 
-.accordion.accordion1 details[open] .accordion-item-body {
-  padding-top: 10px;
-  padding-bottom: 30px;
-  border-bottom: 5px solid #787878;
-  display: grid;
-  grid-template:
-    'image heading' auto
-    'image content' 3fr / 25% auto;
-  grid-column-gap: 30px;
-}
-
 .accordion.video details[open] .accordion-item-body,
 .accordion.accordion9 details[open] .accordion-item-body,
 .accordion.accordion33 details[open] .accordion-item-body,
@@ -120,6 +120,21 @@
   border-bottom: 5px solid #787878;
   margin-bottom: 0;
   margin-top: 0;
+}
+
+.accordion.accordion1 details[open] .accordion-item-body {
+  padding-top: 10px;
+  padding-bottom: 30px;
+  border-bottom: 5px solid #787878;
+  border-top: none;
+}
+
+.accordion.accordion1 details[open] .accordion-item-body:has(img) {
+  display: grid;
+  grid-template:
+    'image heading' auto
+    'image content' 3fr / 25% auto;
+  grid-column-gap: 30px;
 }
 
 .accordion.accordion33 details[open] .accordion-item-body a {
@@ -152,6 +167,11 @@
 .accordion.accordion1 details[open] .accordion-item-body:has(> details) {
   flex-direction: column;
   display: flex;
+}
+
+.accordion.accordion1 details:has(details) details {
+  border-bottom: 1px solid #dadada;
+  border-top: 1px solid #dadada;
 }
 
 .accordion.accordion1 details[open] details[open] .accordion-item-body {
