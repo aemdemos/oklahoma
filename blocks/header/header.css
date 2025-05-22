@@ -729,7 +729,7 @@ header .nav-wrapper .translation-wrapper > div {
 @media (width >= 768px) {
   .breadcrumbs {
     display: block;
-    padding: 30px 45px;
+    padding: 30px 32px;
     font-size: 16px;
     width: 100%;
     box-sizing: border-box;
@@ -829,6 +829,15 @@ header nav[aria-expanded='true'] .nav-sections .nav-drop ul li:last-child {
 
 /* Desktop submenu state */
 @media (width >= 1024px) {
+  .translation-wrapper > div {
+    max-width: 1264px;
+    padding: 0;
+  }
+
+  .breadcrumbs {
+    padding: 30px 45px;
+  }
+
   header nav .nav-sections .default-content-wrapper > ul > li:hover > ul {
     display: flex;
     flex-wrap: wrap;
