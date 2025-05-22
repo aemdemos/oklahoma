@@ -136,6 +136,10 @@ main .section.grey-bg .columns.text-image .button-container a.button:hover {
   margin-top: 100px;
 }
 
+.columns.history.single-border.block{
+  border-top: 5px solid #787878;
+}
+
 @media (width >= 768px) {
   .columns > div {
     align-items: flex-start;

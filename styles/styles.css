@@ -268,23 +268,6 @@ main>.section:first-of-type {
   flex-direction: column-reverse;
 }
 
-.section.helpful-links {
-  margin-top: 10px;
-}
-
-.section.helpful-links .default-content-wrapper {
-  margin: 0 15px;
-  border-bottom: 5px solid #787878;
-  padding: 0;
-}
-
-.section.helpful-links .default-content-wrapper h1{
-  font: 32px / 40px "Montserrat SemiBold", sans-serif;
-  letter-spacing: 0.21px;
-  margin-top: 0;
-  color: #464646;
-}
-
 .section.hero-container {
   margin: 0;
   margin-bottom: 0;
@@ -318,13 +301,6 @@ main>.section:first-of-type {
     margin-top: 10px;
     width: 58.3333%;
   }
-
-  .section.helpful-links .default-content-wrapper h1{
-    font: 42px / 47px "Montserrat SemiBold", sans-serif;
-    letter-spacing: 0.21px;
-    margin-top: 0;
-    color: #464646;
-  }
 }
 
 .section.columns-section.cards-container  {
@@ -344,14 +320,6 @@ main>.section:first-of-type {
   padding-right: 20px;
   border-right: 1px solid #004E9A;
   font-style: normal;
-}
-
-.section.helpful-links .default-content-wrapper p {
-  max-width: 850px;
-  padding-bottom: 10px;
-  font: 18px / 27px "Open Sans","Open Sans SemiBold",  sans-serif;
-  letter-spacing: 0.43px;
-  color: #464646;
 }
 
 main .section:not(.hero-container) .default-content-wrapper p:has(strong) {
@@ -476,7 +444,7 @@ main .section:not(.hero-container) {
   padding-top: 30px;
 }
 
-main .section.helpful-links, main .section.columns-container {
+main .section.columns-container {
   padding-top: 0;
 }
 
@@ -500,7 +468,7 @@ main .section.helpful-links, main .section.columns-container {
     margin-top: 20px;
   }
 
-  .section.columns-section.cards-container , .section.helpful-links {
+  .section.columns-section.cards-container {
     max-width: 1176px;
     width: 100%;
     margin-left: auto;
