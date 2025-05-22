@@ -54,10 +54,6 @@
   transition: background-color 0.2s;
 }
 
-.accordion details[open] summary {
-  background-color: var(--light-color);
-}
-
 .accordion details summary:focus {
   border: 2px solid #1DA6DF;
 }
