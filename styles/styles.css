@@ -274,6 +274,10 @@ main>.section:first-of-type {
   padding: 0;
 }
 
+.section.hero-container {
+  margin: 0;
+}
+
 @media (width >= 768px) {
   main > .section > div {
     padding: 0 32px;
