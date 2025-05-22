@@ -154,7 +154,7 @@ main .section.grey-bg .columns.text-image .button-container a.button:hover {
     padding-left: 24px;
   }
 
-  main .section.speaker-col .columns.history > div > div {
+  main .section.speaker-col .columns.history > div > div:not(.columns-img-col) {
     padding-top: 25px;
   }
 }
