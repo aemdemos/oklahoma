@@ -154,6 +154,37 @@ function wrapMultipleLinks(main) {
 }
 
 /**
+ * Creates and handles the back to top button functionality
+ */
+function decorateBackToTopButton() {
+  const button = document.querySelector('.side-back-to-top')
+    || document.body.appendChild(Object.assign(document.createElement('button'), {
+      className: 'side-back-to-top',
+      textContent: 'Back to Top',
+      onclick: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
+    }));
+
+  const footer = document.querySelector('footer');
+  if (!footer) return;
+
+  const updateButtonVisibility = () => {
+    const isFooterVisible = footer.getBoundingClientRect().top <= window.innerHeight;
+    button.classList.toggle('visible', window.scrollY > 200 && !isFooterVisible);
+  };
+
+  let scrollTimeout;
+  window.addEventListener('scroll', () => {
+    scrollTimeout = scrollTimeout || requestAnimationFrame(() => {
+      updateButtonVisibility();
+      scrollTimeout = null;
+    });
+  });
+
+  // Observe footer visibility
+  new IntersectionObserver(updateButtonVisibility, { threshold: 0.1 }).observe(footer);
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -169,6 +200,7 @@ export function decorateMain(main) {
   decorateColumnsSection(main);
   decorateExternalLinks(main);
   wrapMultipleLinks(main);
+  decorateBackToTopButton();
 }
 
 /**
