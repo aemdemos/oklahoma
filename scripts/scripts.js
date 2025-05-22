@@ -137,7 +137,7 @@ function decorateExternalLinks(main) {
 
 function wrapMultipleLinks(main) {
   const wrapper = main.querySelector('.hero-container > .default-content-wrapper');
-  const strongParagraphs = [...wrapper?.querySelectorAll('p:has(strong)') || []];
+  const strongParagraphs = [...wrapper?.querySelectorAll('p:has(strong em a)') || []];
 
   if (strongParagraphs.length <= 1) return;
 
