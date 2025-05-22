@@ -288,6 +288,7 @@ main>.section:first-of-type {
 .section.hero-container {
   margin: 0;
   margin-bottom: 0;
+  padding-top: 35px;
 }
 
 @media (width >= 768px) {
@@ -347,7 +348,7 @@ main>.section:first-of-type {
 
 .section.helpful-links .default-content-wrapper p {
   max-width: 850px;
-  padding-bottom: 30px;
+  padding-bottom: 10px;
   font: 18px / 27px "Open Sans","Open Sans SemiBold",  sans-serif;
   letter-spacing: 0.43px;
   color: #464646;
