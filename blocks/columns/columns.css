@@ -31,6 +31,10 @@
   padding-top: 20px;
 }
 
+.columns.history.single-border p a{
+  text-decoration: underline;
+}
+
 main .section.grey-bg .columns.text-image a {
   color: black;
   font-size: 18px;
@@ -212,3 +216,4 @@ main .section.grey-bg .columns.text-image .button-container a.button:hover {
 .columns.history.multi-border > div > div > ul > li::marker {
   color: #004E9A; /* blue bullet points only for the speaker-bureau page */
 }
+
