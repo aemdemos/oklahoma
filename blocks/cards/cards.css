@@ -169,6 +169,7 @@
     z-index: 5;
     position: absolute;
     margin-top: 100px;
+    text-align: center;
 }
 
  .cards.cards11 > ul{
