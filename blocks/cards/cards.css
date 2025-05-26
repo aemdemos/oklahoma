@@ -74,15 +74,50 @@
     min-height: 360px;
 }
 
+.cards.cards22 > ul > li {
+  display: block; /* Create side-by-side layout for image and text */
+  background-color: #FFF; /* White background for the card */
+  border: none;
+  font: 21px / 32px "Montserrat SemiBold", sans-serif;
+}
+
+.cards.cards23 > ul > li {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex: 0 0 calc((100% - 64px) / 3);
+  min-width: 0;
+  max-width: calc((100% - 64px) / 3);
+  margin: 0;
+  border-radius: 0;
+  height: auto;
+  border: none;
+}
+
+.cards.cards11 > ul > li:nth-child(4n){
+  order: 4;
+}
+
+.cards.cards11 > ul > li:nth-child(3n){
+  order: 2;
+}
+
+.cards.cards11 > ul > li:nth-child(2n){
+  order: 3;
+}
+
+.cards.cards11 > ul > li:nth-child(1){
+  order: 1;
+}
+
 .cards.cards11 .cards-card-image img{
   height: 360px;
 }
 
-/* Place the wrapper in 3D space */
 .cards.cards11 .card-wrapper::before {
   content: '';
   display: block;
-  padding-top: 66.66%; /* maintain aspect ratio, optional */
 }
 
 .cards.cards11 .card-wrapper > .cardimage-wrapper {
@@ -123,7 +158,7 @@
   }
 
   .cards.cards11 .cards-card-body p{
-    margin: 20px 10px;
+    margin: 20px;
   }
 
   .cards.cards11 .card-wrapper h2 {
@@ -140,7 +175,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    grid-gap: 100px 0;
+    grid-gap: 50px 0;
   }
 
 /* Flip on hover */
@@ -183,7 +218,7 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-    grid-gap: 100px 0;
+    grid-gap: 20px 0;
     flex-flow: row wrap;
   }
 
@@ -211,13 +246,6 @@
   flex-direction: column; /* Stack cards vertically */
   gap: 15px; /* Add consistent spacing between cards */
   margin-top: 50px;
-}
-
-.cards.cards22 > ul > li {
-  display: block; /* Create side-by-side layout for image and text */
-  background-color: #FFF; /* White background for the card */
-  border: none;
-  font: 21px / 32px "Montserrat SemiBold", sans-serif;
 }
 
 .cards.cards22 .cards-card-image {
@@ -388,20 +416,6 @@
   padding: 0;
   list-style: none;
   width: 100%;
-}
-
-.cards.cards23 > ul > li {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
-  flex: 0 0 calc((100% - 64px) / 3);
-  min-width: 0;
-  max-width: calc((100% - 64px) / 3);
-  margin: 0;
-  border-radius: 0;
-  height: auto;
-  border: none;
 }
 
 .cards.no-images.cardsnoimages41 > ul , .cards.no-images.cardsnoimages40 > ul , .cards.no-images.cardsnoimages25 > ul {
