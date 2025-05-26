@@ -77,4 +77,29 @@ export default function decorate(block) {
       });
     });
   }
+  if (block.classList.contains('cards11')) {
+    const cards = block.querySelectorAll('ul > li');
+    cards.forEach((card) => {
+      const cardwrapper = document.createElement('div');
+      const cardImageWrapper = document.createElement('div');
+      cardImageWrapper.className = 'cardimage-wrapper';
+      cardwrapper.className = 'card-wrapper';
+      const cardImage = card.querySelector('.cards-card-image');
+      const cardBody = card.querySelector('.cards-card-body');
+      const heading = cardBody.querySelector('h2');
+      const button = cardBody.querySelector('.button-container');
+      cardImageWrapper.appendChild(heading);
+      // Move the card body and image into the wrapper
+      cardImageWrapper.appendChild(cardImage);
+      cardwrapper.appendChild(cardImageWrapper);
+      cardwrapper.appendChild(cardBody);
+      // Clear the card and append the wrapper
+      card.innerHTML = '';
+      card.appendChild(cardwrapper);
+      if (button) {
+        card.appendChild(button);
+      }
+      // Add click handler to the card
+    });
+  }
 }
