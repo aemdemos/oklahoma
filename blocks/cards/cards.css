@@ -95,20 +95,20 @@
   border: none;
 }
 
-.cards.cards11 > ul > li:nth-child(4n){
+.cards.cards11 > ul > li:nth-child(4n+1){
+  order: 1;
+}
+
+.cards.cards11 > ul > li:nth-child(4n+4){
   order: 4;
 }
 
-.cards.cards11 > ul > li:nth-child(3n){
+.cards.cards11 > ul > li:nth-child(4n+3){
   order: 2;
 }
 
-.cards.cards11 > ul > li:nth-child(2n){
+.cards.cards11 > ul > li:nth-child(4n+2){
   order: 3;
-}
-
-.cards.cards11 > ul > li:nth-child(1){
-  order: 1;
 }
 
 .cards.cards11 .cards-card-image img{
@@ -225,6 +225,22 @@
       width: 49%;
       height: 460px;
   }
+
+  .cards.cards11 > ul > li:nth-child(4n+1){
+  order: 1;
+}
+
+.cards.cards11 > ul > li:nth-child(4n+4){
+  order: 4;
+}
+
+.cards.cards11 > ul > li:nth-child(4n+3){
+  order: 3;
+}
+
+.cards.cards11 > ul > li:nth-child(4n+2){
+  order: 2;
+}
 }
 
 .cards-container:has(.cards22) .default-content-wrapper h2 {
