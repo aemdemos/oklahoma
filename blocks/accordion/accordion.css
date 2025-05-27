@@ -10,7 +10,7 @@
 .accordion.video details,
 .accordion.grid.nested details,
 .accordion.accordion7 details,
-.accordion.accordion9 details,
+.accordion.table details,
 .accordion.accordion33 details {
   border: none;
   border-top: 1px solid #787878;
@@ -27,7 +27,7 @@
 .accordion.video:last-child,
 .accordion.grid.nested:last-child,
 .accordion.accordion7:last-child,
-.accordion.accordion9:last-child,
+.accordion.table:last-child,
 .accordion.accordion33:last-child {
   border-bottom: 1px solid #787878;
 }
@@ -43,7 +43,7 @@
 
 .accordion.video details + details,
 .accordion.accordion7 details + details,
-.accordion.accordion9 details + details {
+.accordion.table details + details {
   margin-top: 0;
 }
 
@@ -112,7 +112,7 @@ transform: translateY(-50%) rotate(-45deg);
 }
 
 .accordion.video details[open] .accordion-item-body,
-.accordion.accordion9 details[open] .accordion-item-body,
+.accordion.table details[open] .accordion-item-body,
 .accordion.accordion33 details[open] .accordion-item-body,
 .accordion.accordion7 details[open] .accordion-item-body {
   padding-top: 10px;
@@ -180,7 +180,7 @@ transform: translateY(-50%) rotate(-45deg);
   flex: 0 0 100%;
 }
 
-.accordion.accordion9 table {
+.accordion.table table {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
@@ -188,7 +188,7 @@ transform: translateY(-50%) rotate(-45deg);
 }
 
 /* Remove all default borders first */
-.accordion.accordion9 table td {
+.accordion.table table td {
   padding: 0 15px; /* Change to horizontal padding only */
   text-align: left;
   border: none;
@@ -201,17 +201,17 @@ transform: translateY(-50%) rotate(-45deg);
 }
 
 /* Add borders only between columns */
-.accordion.accordion9 table td:not(:last-child) {
+.accordion.table table td:not(:last-child) {
   border-right: 1px solid black;
 }
 
 /* Add bottom borders to all cells for row separation */
-.accordion.accordion9 table tr:last-of-type td {
+.accordion.table table tr:last-of-type td {
   border-bottom: 1px solid black;
 }
 
 /* Retain the black background for odd-numbered rows */
-.accordion.accordion9 table tr:nth-child(odd) td {
+.accordion.table table tr:nth-child(odd) td {
   background-color: #EFEFEF;
 }
 
