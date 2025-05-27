@@ -29,8 +29,8 @@
   --heading-font-size-xs: 18px;
   --nav-height: 210px;
   --header-height-mobile: 120px;
-  --header-height-desktop: 220px;
-  --header-height-desktop-with-breadcrumbs: 280px;
+  --header-height-desktop: 210px;
+  --header-height-desktop-with-breadcrumbs: 310px;
   --overlay-background-color: #EFEFEF;
 }
 

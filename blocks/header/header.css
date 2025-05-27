@@ -183,13 +183,13 @@ header nav[aria-expanded='true'] {
 }
 
 @media (width >= 1024px) {
+  /* Apply larger height when breadcrumbs are present */
   header {
-    height: var(--header-height-desktop);
+    height: var(--header-height-desktop-with-breadcrumbs);
   }
 
-  /* Apply larger height when breadcrumbs are present */
-  .homepageheader {
-    height: var(--header-height-desktop-with-breadcrumbs);
+  .homepage header {
+    height: var(--header-height-desktop);
   }
 
   header nav {
