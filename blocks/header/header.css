@@ -167,7 +167,6 @@ header nav {
   gap: 0 24px;
   margin: auto;
   max-width: 1248px;
-  height: 180px;
   padding: 0 22px;
   font-family: var(--body-font-family);
   padding-bottom: 10px;
@@ -195,6 +194,7 @@ header nav[aria-expanded='true'] {
     max-width: 1264px;
     padding: 0 32px;
     padding-bottom: 10px;
+    height: 180px;
   }
 
   header nav[aria-expanded='true'] {
