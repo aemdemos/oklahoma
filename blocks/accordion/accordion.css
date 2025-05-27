@@ -21,14 +21,14 @@
   margin-top: 0;
 }
 
-.accordion.default details + details, .accordion.grid.nested details + details {
-  margin-top: 0;
-}
-
 .accordion.grid.nested details {
   border: none;
   border-top: 1px solid #787878;
   flex: 0 0 100%;
+}
+
+.accordion.default details + details, .accordion.grid.nested details + details {
+  margin-top: 0;
 }
 
 .accordion.grid.nested details .accordion-item-label p strong {
