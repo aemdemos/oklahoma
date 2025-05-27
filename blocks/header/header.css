@@ -104,10 +104,6 @@ header nav[aria-expanded='true'] .nav-brand img {
     display: flex;
     align-items: center;
   }
-
-  header {
-    height: var(--header-height-desktop);
-  }
 }
 
 /* Tablet/Desktop search styles */
@@ -157,6 +153,10 @@ header nav[aria-expanded='true'] .nav-brand img {
 
   .search-wrapper.expanded .icon-search {
     display: flex;
+  }
+
+  header {
+    height: var(--header-height-desktop);
   }
 }
 
