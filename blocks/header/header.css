@@ -1,4 +1,9 @@
 /* header and nav layout */
+
+.header {
+  height: var(--header-height-mobile);
+}
+
 header .nav-wrapper {
   background-color: var(--background-color);
   width: 100%;
@@ -103,6 +108,10 @@ header nav[aria-expanded='true'] .nav-brand img {
 
 /* Tablet/Desktop search styles */
 @media (width >= 768px) {
+  .header {
+    height: var(--header-height-desktop);
+  }
+
   .search-wrapper {
     display: flex;
     align-items: center;
@@ -185,7 +194,7 @@ header nav[aria-expanded='true'] {
     gap: 0 32px;
     max-width: 1264px;
     padding: 0 32px;
-    padding-bottom: unset;
+    padding-bottom: 10px;
   }
 
   header nav[aria-expanded='true'] {

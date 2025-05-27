@@ -28,7 +28,8 @@
   --heading-font-size-s: 18px;
   --heading-font-size-xs: 18px;
   --nav-height: 210px;
-  --header-height: var(--nav-height);
+  --header-height-mobile: 120px;
+  --header-height-desktop: 220px
   --overlay-background-color: #EFEFEF;
 }
 
@@ -89,10 +90,6 @@
     --heading-font-size-s: 18px;
     --heading-font-size-xs: 18px;
   }
-
-  .header {
-    height: 220px
-  }
 }
 
 body {
@@ -107,10 +104,6 @@ body {
 
 body.appear {
   display: block;
-}
-
-.header {
-  height: 120px
 }
 
 header .header, footer .footer {
