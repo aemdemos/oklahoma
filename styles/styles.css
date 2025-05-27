@@ -29,7 +29,8 @@
   --heading-font-size-xs: 18px;
   --nav-height: 210px;
   --header-height-mobile: 120px;
-  --header-height-desktop: 220px
+  --header-height-desktop: 230px; /* 180px nav + 40px translation + 10px buffer */
+  --header-height-desktop-with-breadcrumbs: 290px; /* 180px nav + 40px translation + 60px breadcrumbs + 10px buffer */
   --overlay-background-color: #EFEFEF;
 }
 
@@ -111,11 +112,12 @@ body.appear {
 }
 
 header .header, footer .footer {
-  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 header .header[data-block-status="loaded"], footer .footer[data-block-status="loaded"] {
-  visibility: visible;
+  opacity: 1;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -473,6 +475,13 @@ main .section:not(.hero-container) {
 @media (width >= 1024px) {
   header {
     height: var(--header-height-desktop);
+    min-height: var(--header-height-desktop); /* Ensure minimum height is maintained */
+  }
+
+  /* Apply larger height when breadcrumbs are present */
+  header:has(.breadcrumbs) {
+    height: var(--header-height-desktop-with-breadcrumbs);
+    min-height: var(--header-height-desktop-with-breadcrumbs);
   }
 }
 

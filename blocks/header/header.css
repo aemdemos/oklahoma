@@ -1,6 +1,7 @@
 /* header and nav layout */
 header {
   height: var(--header-height-mobile);
+  min-height: 290px;
 }
 
 header .nav-wrapper {
@@ -184,6 +185,11 @@ header nav[aria-expanded='true'] {
 @media (width >= 1024px) {
   header {
     height: var(--header-height-desktop);
+  }
+
+  /* Apply larger height when breadcrumbs are present */
+  header:has(.breadcrumbs) {
+    height: var(--header-height-desktop-with-breadcrumbs);
   }
 
   header nav {
