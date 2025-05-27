@@ -31,7 +31,7 @@
   padding-top: 20px;
 }
 
-.columns.history.single-border p a{
+.columns.default.single-border p a{
   text-decoration: underline;
 }
 
@@ -70,22 +70,22 @@ main .section.grey-bg .columns.text-image .button-container a.button:hover {
   color: #666;
 }
 
-.columns.history p {
+.columns.default p {
   margin-bottom: 0.8em;
   margin-top: 0.25em;
 }
 
-.columns.history p:has(strong) {
+.columns.default p:has(strong) {
   margin-top: 0;
 }
 
-.columns.history > div {
+.columns.default > div {
   align-items: unset;
   margin-top: 40px;
   margin-bottom: 40px;
 }
 
-.columns.columns24 > div {
+.columns.parallel > div {
   position: relative;
 }
 
@@ -105,7 +105,7 @@ main .section.grey-bg .columns.text-image .button-container a.button:hover {
   padding-right: 20%;
 }
 
-.columns.history.multi-border > div {
+.columns.default.multi-border > div {
   border-top: #787878 solid 5px;
   padding-top: 40px;
 }
@@ -127,16 +127,16 @@ main .section.grey-bg .columns.text-image .button-container a.button:hover {
   padding-top: 30px;
 }
 
-.columns.columns24 {
+.columns.parallel {
   padding-bottom: 50px;
 }
 
-.columns.columns24 > div > div:first-child,
-.columns.columns24 > div > div:last-child {
+.columns.parallel > div > div:first-child,
+.columns.parallel > div > div:last-child {
   margin-top: 100px;
 }
 
-.columns.history.single-border.block{
+.columns.default.single-border.block{
   border-top: 5px solid #787878;
   margin-top: 30px;
 }
@@ -181,7 +181,7 @@ main .section.grey-bg .columns.text-image .button-container a.button:hover {
     padding-left: 24px;
   }
 
-  .columns.columns.history.multi-border > div > div:not(.columns-img-col) {
+  .columns.columns.default.multi-border > div > div:not(.columns-img-col) {
     padding-top: 25px;
   }
 }
@@ -203,25 +203,25 @@ main .section.grey-bg .columns.text-image .button-container a.button:hover {
     line-height: 28px;
   }
 
-  .columns.history.multi-border > div > .columns-img-col {
+  .columns.default.multi-border > div > .columns-img-col {
       max-width: 264px;
       max-height: 209px;
   }
 }
 
-.columns.history p strong {
+.columns.default p strong {
   font-weight: 700;
   font-family: "Open Sans SemiBold", "Open Sans", sans-serif;
 }
 
-.columns.history > div > .columns-img-col {
+.columns.default > div > .columns-img-col {
   flex: 0 0 25%;
 }
 
-.columns.history.single-border.block > div > .columns-img-col{
+.columns.default.single-border.block > div > .columns-img-col{
   padding-bottom: 30px;
 }
 
-.columns.history.multi-border > div > div > ul > li::marker {
+.columns.default.multi-border > div > div > ul > li::marker {
   color: #004E9A; /* blue bullet points only for the speaker-bureau page */
 }
