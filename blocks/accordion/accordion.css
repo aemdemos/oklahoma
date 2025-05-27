@@ -9,7 +9,7 @@
 
 .accordion.video details,
 .accordion.grid.nested details,
-.accordion.accordion7 details,
+.accordion.default details,
 .accordion.table details,
 .accordion.accordion33 details {
   border: none;
@@ -26,7 +26,7 @@
 
 .accordion.video:last-child,
 .accordion.grid.nested:last-child,
-.accordion.accordion7:last-child,
+.accordion.default:last-child,
 .accordion.table:last-child,
 .accordion.accordion33:last-child {
   border-bottom: 1px solid #787878;
@@ -42,7 +42,7 @@
 }
 
 .accordion.video details + details,
-.accordion.accordion7 details + details,
+.accordion.default details + details,
 .accordion.table details + details {
   margin-top: 0;
 }
@@ -114,7 +114,7 @@ transform: translateY(-50%) rotate(-45deg);
 .accordion.video details[open] .accordion-item-body,
 .accordion.table details[open] .accordion-item-body,
 .accordion.accordion33 details[open] .accordion-item-body,
-.accordion.accordion7 details[open] .accordion-item-body {
+.accordion.default details[open] .accordion-item-body {
   padding-top: 10px;
   padding-bottom: 20px;
   border-bottom: 5px solid #787878;
