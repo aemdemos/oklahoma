@@ -67,7 +67,7 @@
   size-adjust:108.96%;
 }
 
-.header {
+header {
   height: var(--header-height-mobile);
 }
 
@@ -471,7 +471,7 @@ main .section:not(.hero-container) {
 }
 
 @media (width >= 1024px) {
-  .header {
+  header {
     height: var(--header-height-desktop);
   }
 }
