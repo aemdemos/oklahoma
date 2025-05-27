@@ -437,13 +437,21 @@ export default async function decorate(block) {
     `;
 
     navWrapper.append(translationWrapper);
-
     decorateIcons(translationWrapper);
     navWrapper.append(nav);
     block.append(navWrapper);
 
-    // Initialize Google Translate
-    initGoogleTranslate();
+    // Handle initialization of Google Translate
+    const translateGroup = translationWrapper.querySelector('.translate-group');
+    if (translateGroup) {
+      let isInitialized = false;
+      translateGroup.addEventListener('click', () => {
+        if (!isInitialized) {
+          initGoogleTranslate();
+          isInitialized = true;
+        }
+      });
+    }
 
     // Check if current page is an OCSW page - Add breadcrumbs after the main navigation
     const isOcswPage = window.location.pathname.startsWith('/ocsw');
