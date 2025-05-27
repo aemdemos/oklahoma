@@ -27,7 +27,7 @@ export default async function decorate(block) {
       }
     }
 
-    if (block.classList.contains('accordion9')) {
+    if (block.classList.contains('table')) {
       const rows = [['', '', '']];
       const cells = [...body.querySelectorAll('li')];
       let i = 0;
