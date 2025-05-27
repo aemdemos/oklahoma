@@ -10,8 +10,7 @@
 .accordion.video details,
 .accordion.grid.nested details,
 .accordion.default details,
-.accordion.table details,
-.accordion.accordion33 details {
+.accordion.table details {
   border: none;
   border-top: 1px solid #787878;
   flex: 0 0 100%;
@@ -27,8 +26,7 @@
 .accordion.video:last-child,
 .accordion.grid.nested:last-child,
 .accordion.default:last-child,
-.accordion.table:last-child,
-.accordion.accordion33:last-child {
+.accordion.table:last-child {
   border-bottom: 1px solid #787878;
 }
 
@@ -37,7 +35,7 @@
   margin-top: 24px;
 }
 
-.accordion.accordion33 details + details, .accordion.grid.nested details + details {
+.accordion.default details + details, .accordion.grid.nested details + details {
   margin-top: 0;
 }
 
@@ -98,7 +96,7 @@ transform: translateY(-50%) rotate(-45deg);
   padding: 0 16px;
 }
 
-.accordion.accordion33 details .accordion-item-body {
+.accordion.default details .accordion-item-body {
   padding: 5px;
 }
 
@@ -113,7 +111,6 @@ transform: translateY(-50%) rotate(-45deg);
 
 .accordion.video details[open] .accordion-item-body,
 .accordion.table details[open] .accordion-item-body,
-.accordion.accordion33 details[open] .accordion-item-body,
 .accordion.default details[open] .accordion-item-body {
   padding-top: 10px;
   padding-bottom: 20px;
@@ -137,7 +134,7 @@ transform: translateY(-50%) rotate(-45deg);
   grid-column-gap: 30px;
 }
 
-.accordion.accordion33 details[open] .accordion-item-body a {
+.accordion.default details[open] .accordion-item-body a {
   background-color: unset;
   color: #004E9A;
   text-decoration: underline;
