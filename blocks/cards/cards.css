@@ -167,9 +167,9 @@
   margin: 0;
 }
 
-  /* .cards-container .cards-wrapper {
+  .cards-container .cards-wrapper {
     margin: 100px auto;
-  } */
+  }
 
   .cards.cards11 .cards-card-body p{
     margin: 30px 15px;
