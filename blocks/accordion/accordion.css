@@ -8,7 +8,7 @@
 }
 
 .accordion.video details,
-.accordion.accordion1 details,
+.accordion.grid.nested details,
 .accordion.accordion7 details,
 .accordion.accordion9 details,
 .accordion.accordion33 details {
@@ -17,7 +17,7 @@
   flex: 0 0 100%;
 }
 
-.accordion.accordion1 details .accordion-item-label p strong {
+.accordion.grid.nested details .accordion-item-label p strong {
   font-family: "Montserrat SemiBold", sans-serif;
   font-size: 21px;
   line-height: 32px;
@@ -25,7 +25,7 @@
 }
 
 .accordion.video:last-child,
-.accordion.accordion1:last-child,
+.accordion.grid.nested:last-child,
 .accordion.accordion7:last-child,
 .accordion.accordion9:last-child,
 .accordion.accordion33:last-child {
@@ -37,7 +37,7 @@
   margin-top: 24px;
 }
 
-.accordion.accordion33 details + details, .accordion.accordion1 details + details {
+.accordion.accordion33 details + details, .accordion.grid.nested details + details {
   margin-top: 0;
 }
 
@@ -86,11 +86,11 @@
   transform: translateY(-50%) rotate(-45deg);
 }
 
-.accordion.accordion1 details:has(details) details summary::after {
+.accordion.grid.nested details:has(details) details summary::after {
 transform: translateY(-50%) rotate(135deg);
 } 
 
-.accordion.accordion1 details:has(details) details[open] summary::after {
+.accordion.grid.nested details:has(details) details[open] summary::after {
 transform: translateY(-50%) rotate(-45deg);
 }
 
@@ -102,7 +102,7 @@ transform: translateY(-50%) rotate(-45deg);
   padding: 5px;
 }
 
-.accordion.accordion1 details .accordion-item-body img {
+.accordion.grid.nested details .accordion-item-body img {
   width: 100%;
 }
 
@@ -122,14 +122,14 @@ transform: translateY(-50%) rotate(-45deg);
   margin-top: 0;
 }
 
-.accordion.accordion1 details[open] .accordion-item-body {
+.accordion.grid.nested details[open] .accordion-item-body {
   padding-top: 10px;
   padding-bottom: 30px;
   border-bottom: 5px solid #787878;
   border-top: none;
 }
 
-.accordion.accordion1 details[open] .accordion-item-body:has(img) {
+.accordion.grid.nested details[open] .accordion-item-body:has(img) {
   display: grid;
   grid-template:
     'image heading' auto
@@ -149,32 +149,32 @@ transform: translateY(-50%) rotate(-45deg);
   border-radius: 0;
 }
 
-.accordion.accordion1 details[open] .accordion-item-body > p:first-child {
+.accordion.grid.nested details[open] .accordion-item-body > p:first-child {
   flex: 0 0 25%;
   grid-area: image;
 }
 
-.accordion.accordion1 details[open] .accordion-item-body > p:nth-child(2) {
+.accordion.grid.nested details[open] .accordion-item-body > p:nth-child(2) {
   flex: 0 0 75%;
   grid-area: heading;
 }
 
-.accordion.accordion1 details[open] .accordion-item-body > p:nth-child(3) {
+.accordion.grid.nested details[open] .accordion-item-body > p:nth-child(3) {
   flex: 0 0 75%;
   grid-area: content;
 }
 
-.accordion.accordion1 details[open] .accordion-item-body:has(> details) {
+.accordion.grid.nested details[open] .accordion-item-body:has(> details) {
   flex-direction: column;
   display: flex;
 }
 
-.accordion.accordion1 details:has(details) details {
+.accordion.grid.nested details:has(details) details {
   border-bottom: 1px solid #dadada;
   border-top: 1px solid #dadada;
 }
 
-.accordion.accordion1 details[open] details[open] .accordion-item-body {
+.accordion.grid.nested details[open] details[open] .accordion-item-body {
   display: flex;
   gap: 30px;
   flex: 0 0 100%;
@@ -216,7 +216,7 @@ transform: translateY(-50%) rotate(-45deg);
 }
 
 @media (width < 900px) {
-  .accordion.accordion1 details[open] .accordion-item-body {
+  .accordion.grid.nested details[open] .accordion-item-body {
     display: flex;
     flex-direction: column;
   }
