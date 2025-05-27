@@ -40,6 +40,10 @@ header nav[aria-expanded='true'] .nav-brand img {
   cursor: pointer;
 }
 
+.header {
+  height: var(--header-height-mobile);
+}
+
 /* Mobile search styles */
 @media (width < 768px) {
   .search-wrapper input {
@@ -98,6 +102,10 @@ header nav[aria-expanded='true'] .nav-brand img {
     padding: 0 22px;
     display: flex;
     align-items: center;
+  }
+
+  .header {
+    height: var(--header-height-desktop);
   }
 }
 
