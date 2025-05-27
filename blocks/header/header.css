@@ -1,7 +1,7 @@
 /* header and nav layout */
 header {
   height: var(--header-height-mobile);
-  min-height: 290px;
+  min-height: 120px;
 }
 
 header .nav-wrapper {
@@ -188,7 +188,7 @@ header nav[aria-expanded='true'] {
   }
 
   /* Apply larger height when breadcrumbs are present */
-  header:has(.breadcrumbs) {
+  .homepageheader {
     height: var(--header-height-desktop-with-breadcrumbs);
   }
 
