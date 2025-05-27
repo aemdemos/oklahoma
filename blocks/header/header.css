@@ -199,7 +199,6 @@ header nav[aria-expanded='true'] {
     gap: 0 32px;
     max-width: 1264px;
     padding: 0 32px;
-    padding-bottom: 10px;
     height: 180px;
   }
 
@@ -618,7 +617,7 @@ header .nav-wrapper .translation-wrapper > div {
   header nav .nav-sections .default-content-wrapper > ul > li {
     flex: 0 1 auto;
     position: relative;
-    height: 45px;
+    height: 52px;
     display: flex;
     align-items: center;
     z-index: 999;
@@ -669,7 +668,7 @@ header .nav-wrapper .translation-wrapper > div {
 
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop {
     padding: 0 15px;
-    height: 45px;
+    height: 52px;
     display: flex;
     align-items: center;
   }
@@ -736,7 +735,7 @@ header .nav-wrapper .translation-wrapper > div {
   position: absolute;
   top: 100%;
   left: 0;
-  margin-top: 11px;
+  margin-top: 7px;
   z-index: 9999;
   display: none;
 }
