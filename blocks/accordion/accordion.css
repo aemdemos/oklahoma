@@ -8,12 +8,22 @@
 }
 
 .accordion.video details,
-.accordion.grid.nested details,
 .accordion.default details,
-.accordion.table details {
+.accordion.table details,
+.accordion.grid.nested details {
   border: none;
   border-top: 1px solid #787878;
   flex: 0 0 100%;
+}
+
+.accordion.default details + details, .accordion.grid.nested details + details {
+  margin-top: 0;
+}
+
+.accordion.video details + details,
+.accordion.default details + details,
+.accordion.table details + details {
+  margin-top: 0;
 }
 
 .accordion.grid.nested details .accordion-item-label p strong {
@@ -33,16 +43,6 @@
 /* stylelint-disable-next-line no-descending-specificity */
 .accordion details + details {
   margin-top: 24px;
-}
-
-.accordion.default details + details, .accordion.grid.nested details + details {
-  margin-top: 0;
-}
-
-.accordion.video details + details,
-.accordion.default details + details,
-.accordion.table details + details {
-  margin-top: 0;
 }
 
 .accordion details p {
