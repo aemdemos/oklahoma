@@ -436,7 +436,7 @@ main .section.grey-bg a:hover {
   padding-top: 30px;
 }
 
-.section.grey-bg .columns.columns24 > div h2 {
+.section.grey-bg .columns.parallel > div h2 {
   padding-top: 0;
 }
 
