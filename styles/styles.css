@@ -89,6 +89,10 @@
     --heading-font-size-s: 18px;
     --heading-font-size-xs: 18px;
   }
+
+  .header {
+    height: 220px
+  }
 }
 
 body {
@@ -105,9 +109,9 @@ body.appear {
   display: block;
 }
 
-/* header {
-  height: var(--nav-height);
-} */
+.header {
+  height: 120px
+}
 
 header .header, footer .footer {
   visibility: hidden;
