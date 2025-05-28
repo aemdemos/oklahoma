@@ -28,7 +28,9 @@
   --heading-font-size-s: 18px;
   --heading-font-size-xs: 18px;
   --nav-height: 210px;
-  --header-height: var(--nav-height);
+  --header-height-mobile: 120px;
+  --header-height-desktop: 210px;
+  --header-height-desktop-with-breadcrumbs: 310px;
   --overlay-background-color: #EFEFEF;
 }
 
@@ -64,6 +66,10 @@
   descent-override:23.04%;
   line-gap-override:0.00%;
   size-adjust:108.96%;
+}
+
+header {
+  height: var(--header-height-mobile);
 }
 
 @media (width >= 768px) {
@@ -105,16 +111,13 @@ body.appear {
   display: block;
 }
 
-/* header {
-  height: var(--nav-height);
-} */
-
 header .header, footer .footer {
-  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0s ease;
 }
 
 header .header[data-block-status="loaded"], footer .footer[data-block-status="loaded"] {
-  visibility: visible;
+  opacity: 1;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -466,6 +469,19 @@ main .section:not(.hero-container) {
     gap: 20px;
     margin-bottom: 20px;
     margin-top: 20px;
+  }
+}
+
+@media (width >= 1024px) {
+  /* Apply larger height when breadcrumbs are present */
+  header {
+    height: var(--header-height-desktop-with-breadcrumbs);
+    min-height: var(--header-height-desktop-with-breadcrumbs);
+  }
+
+  .homepage header {
+    height: var(--header-height-desktop);
+    min-height: var(--header-height-desktop); /* Ensure minimum height is maintained */
   }
 }
 

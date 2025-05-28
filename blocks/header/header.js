@@ -1,5 +1,6 @@
 import { decorateIcons, getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
+import initGoogleTranslate from '../../scripts/delayed.js';
 
 const isDesktop = window.matchMedia('(min-width: 1024px)');
 const isTabletOrAbove = window.matchMedia('(min-width: 768px)');
@@ -436,49 +437,21 @@ export default async function decorate(block) {
     `;
 
     navWrapper.append(translationWrapper);
-
-    // Initialize Google Translate
-    const script = document.createElement('script');
-    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-    script.async = true;
-    document.body.appendChild(script);
-
-    // Google Translate initialization callback
-    window.googleTranslateElementInit = function () {
-      /* global google */
-      const translator = new google.translate.TranslateElement({
-        pageLanguage: 'en',
-        layout: google.translate.TranslateElement.InlineLayout.DROPDOWN,
-        autoDisplay: false,
-      }, 'google-translate-element');
-      return translator;
-    };
-
-    // Add click handler to show/hide the translation dropdown
-    const translateGroup = translationWrapper.querySelector('.translate-group');
-    translateGroup.addEventListener('click', () => {
-      const translateElement = document.getElementById('google-translate-element');
-      const selectElement = document.querySelector('.goog-te-combo');
-
-      if (translateElement && selectElement) {
-        translateElement.style.display = 'block';
-        selectElement.click();
-      }
-    });
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!translateGroup.contains(e.target)) {
-        const translateElement = document.getElementById('google-translate-element');
-        if (translateElement) {
-          translateElement.style.display = 'none';
-        }
-      }
-    });
-
     decorateIcons(translationWrapper);
     navWrapper.append(nav);
     block.append(navWrapper);
+
+    // Handle initialization of Google Translate
+    const translateGroup = translationWrapper.querySelector('.translate-group');
+    if (translateGroup) {
+      let isInitialized = false;
+      translateGroup.addEventListener('click', () => {
+        if (!isInitialized) {
+          initGoogleTranslate();
+          isInitialized = true;
+        }
+      });
+    }
 
     // Check if current page is an OCSW page - Add breadcrumbs after the main navigation
     const isOcswPage = window.location.pathname.startsWith('/ocsw');
@@ -492,6 +465,7 @@ export default async function decorate(block) {
       }
     }
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error('Error setting up header:', err);
     // Display a minimal header if there's an error
     const fallbackHeader = document.createElement('div');

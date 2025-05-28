@@ -1,10 +1,15 @@
 /* header and nav layout */
+header {
+  height: var(--header-height-mobile);
+  min-height: 120px;
+}
+
 header .nav-wrapper {
   background-color: var(--background-color);
   width: 100%;
   z-index: 999;
   position: relative;
-  border-bottom: 3px solid;
+  border-bottom: 2px solid;
 }
 
 /* brand */
@@ -17,7 +22,7 @@ header .nav-brand {
 }
 
 header nav .nav-brand img {
-  padding-top: 20px;
+  padding-top: 13px;
   width: 200px;
   height: 55px;
   padding-left: 0;
@@ -39,6 +44,7 @@ header nav[aria-expanded='true'] .nav-brand img {
   align-items: center;
   cursor: pointer;
 }
+
 
 /* Mobile search styles */
 @media (width < 768px) {
@@ -162,7 +168,6 @@ header nav {
   gap: 0 24px;
   margin: auto;
   max-width: 1248px;
-  height: auto;
   padding: 0 22px;
   font-family: var(--body-font-family);
   padding-bottom: 10px;
@@ -178,6 +183,15 @@ header nav[aria-expanded='true'] {
 }
 
 @media (width >= 1024px) {
+  /* Apply larger height when breadcrumbs are present */
+  header {
+    height: var(--header-height-desktop-with-breadcrumbs);
+  }
+
+  .homepage header {
+    height: var(--header-height-desktop);
+  }
+
   header nav {
     display: flex;
     flex-wrap: wrap;
@@ -185,7 +199,7 @@ header nav[aria-expanded='true'] {
     gap: 0 32px;
     max-width: 1264px;
     padding: 0 32px;
-    padding-bottom: unset;
+    height: 180px;
   }
 
   header nav[aria-expanded='true'] {
@@ -459,7 +473,7 @@ header .nav-wrapper nav[aria-expanded='true'] .nav-sections li.nav-drop {
 
 header .nav-wrapper .translation-wrapper {
   padding: 0 24px;
-  height: 50px;
+  height: 40px;
   background-color: #464646;
   display: flex;
   align-items: center;
@@ -518,7 +532,7 @@ header .nav-wrapper .translation-wrapper > div {
 
 @media (width >= 768px) {
   header nav .nav-brand img {
-    padding-top: 20px;
+    padding-top: 15px;
     width: 280px;
     height: 70px;
     padding-left: 0;
@@ -603,7 +617,7 @@ header .nav-wrapper .translation-wrapper > div {
   header nav .nav-sections .default-content-wrapper > ul > li {
     flex: 0 1 auto;
     position: relative;
-    height: 45px;
+    height: 52px;
     display: flex;
     align-items: center;
     z-index: 999;
@@ -654,7 +668,7 @@ header .nav-wrapper .translation-wrapper > div {
 
   header nav .nav-sections .default-content-wrapper > ul > li.nav-drop {
     padding: 0 15px;
-    height: 45px;
+    height: 52px;
     display: flex;
     align-items: center;
   }
@@ -721,7 +735,7 @@ header .nav-wrapper .translation-wrapper > div {
   position: absolute;
   top: 100%;
   left: 0;
-  margin-top: 11px;
+  margin-top: 7px;
   z-index: 9999;
   display: none;
 }
