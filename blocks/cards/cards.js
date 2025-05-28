@@ -77,7 +77,7 @@ export default function decorate(block) {
       });
     });
   }
-  if (block.classList.contains('cards11')) {
+  if (block.classList.contains('flip')) {
     const cards = block.querySelectorAll('ul > li');
     cards.forEach((card) => {
       const cardwrapper = document.createElement('div');
