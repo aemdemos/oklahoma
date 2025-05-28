@@ -20,42 +20,6 @@
   line-height: 0;
 }
 
-.cards.multiple-images .cards-card-body {
-  margin-left: 0;
-}
-
-.cards > ul > li img {
-  width: 100%;
-  object-fit: cover;
-}
-
-/* Multiple images variant */
-.cards.multiple-images > ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-}
-
-.cards.multiple-images > ul > li {
-  flex: 1 1 100%;
-  border: none;
-}
-
-.cards.no-images .cards-card-body p {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  margin-bottom: 0;
-}
-
-.cards.flip .card-wrapper {
-  perspective: 1000px;
-  position: relative;
-  min-height: 360px;
-}
-
-.cards.flip .cardimage-wrapper,
 .cards.flip .cards-card-body {
   width: 100%;
   height: 100%;
@@ -65,6 +29,70 @@
   backface-visibility: hidden;
   transition: transform 0.6s;
   border: none;
+}
+
+.cards.horizontal .cards-card-body {
+  display: flex; /* Treat text container as a flex container */
+  flex-direction: column; /* Stack title and date vertically */
+  align-items: flex-start; /* Left-align the text */
+  gap: 5px; /* Add minimal spacing between title and date */
+  padding: 0; /* Ensure no extra padding */
+  margin: 0; /* Remove unnecessary margins */
+}
+
+.cards.expandable .cards-card-body {
+    background: #464646;
+    padding: 140px 28px 36px;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    height: auto;
+    min-height: fit-content;
+    align-items: center;
+}
+
+.cards.horizontal > ul {
+  display: flex;
+  flex-direction: column; /* Stack cards vertically */
+  gap: 15px; /* Add consistent spacing between cards */
+  margin-top: 50px;
+}
+
+.cards.default.multi-image .cards-card-body {
+  margin-left: 0;
+}
+
+.cards > ul > li img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.cards.flip > ul {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.cards.expandable > ul {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 32px;
+  justify-content: flex-start;
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+
+/* Multiple images variant */
+.cards.default.multi-image > ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
 }
 
 .cards.flip > ul > li {
@@ -95,6 +123,36 @@
   border: none;
 }
 
+.cards.default.multi-image > ul > li {
+  flex: 1 1 100%;
+  border: none;
+}
+
+.cards.no-images .cards-card-body p {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+
+.cards.flip .card-wrapper {
+  perspective: 1000px;
+  position: relative;
+  min-height: 360px;
+}
+
+.cards.flip .cardimage-wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  backface-visibility: hidden;
+  transition: transform 0.6s;
+  border: none;
+}
+
 .cards.flip > ul > li:nth-child(4n+1){
   order: 1;
 }
@@ -111,7 +169,7 @@
   order: 3;
 }
 
-.cards.flip .cards-card-image img{
+.cards.flip .cards-card-image img {
   height: 360px;
 }
 
@@ -123,29 +181,6 @@
 .cards.flip .card-wrapper > .cardimage-wrapper {
   transform: rotateY(0deg);
   z-index: 2;
-}
-
-.cards.horizontal .cards-card-body {
-  display: flex; /* Treat text container as a flex container */
-  flex-direction: column; /* Stack title and date vertically */
-  align-items: flex-start; /* Left-align the text */
-  gap: 5px; /* Add minimal spacing between title and date */
-  padding: 0; /* Ensure no extra padding */
-  margin: 0; /* Remove unnecessary margins */
-}
-
-.cards.expandable .cards-card-body {
-    background: #464646;
-    padding: 140px 28px 36px;
-    display: flex;
-    flex-direction: column;
-    color: #fff;
-    margin: 0;
-    position: relative;
-    z-index: 1;
-    height: auto;
-    min-height: fit-content;
-    align-items: center;
 }
 
 .cards.no-images.red-bg .cards-card-body,  .cards.no-images.green-bg .cards-card-body,  .cards.no-images.orange-bg .cards-card-body {
@@ -167,30 +202,24 @@
   margin: 0;
 }
 
-  .cards-container .cards-wrapper:has(.cards.flip) {
+.cards-container .cards-wrapper:has(.cards.flip) {
     margin: 100px auto;
-  }
-
-  .cards.flip .cards-card-body p{
-    margin: 30px 15px;
-  }
-
-  .cards.flip .card-wrapper h2 {
-    color: white;
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    z-index: 5;
-    position: absolute;
-    margin-top: 100px;
-    text-align: center;
 }
 
- .cards.flip > ul{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
+.cards.flip .cards-card-body p {
+  margin: 30px 15px;
+}
+
+.cards.flip .card-wrapper h2 {
+  color: white;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  z-index: 5;
+  position: absolute;
+  margin-top: 100px;
+  text-align: center;
+}
 
 /* Flip on hover */
 .cards.flip .card-wrapper:hover > .cardimage-wrapper {
@@ -204,7 +233,12 @@
 }
 
 @media (width >= 768px) {
-  .cards.multiple-images > ul > li {
+  .cards.flip > ul > li {
+    width: 49%;
+    height: 460px;
+  }
+
+  .cards.default.multi-image > ul > li {
     flex: 0 0 calc((100% - 48px) / 3);
     min-width: 0;
   }
@@ -214,21 +248,21 @@
   }
 
   /* Handle multiple images side by side */
-  .cards.multiple-images .cards-card-image.multiple p {
+  .cards.default.multi-image .cards-card-image.multiple p {
     display: flex;
     gap: 16px;
   }
 
-  .cards.multiple-images .cards-card-image.multiple img {
+  .cards.default.multi-image .cards-card-image.multiple img {
     width: 100%;
     height: 100%;
   }
 
-  .cards.multiple-images .cards-card-body {
+  .cards.default.multi-image .cards-card-body {
     margin-left: unset;
   }
 
-  .cards.flip > ul{
+  .cards.flip > ul {
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -236,26 +270,21 @@
     flex-flow: row wrap;
   }
 
-  .cards.flip > ul > li {
-      width: 49%;
-      height: 460px;
-  }
-
   .cards.flip > ul > li:nth-child(4n+1){
-    order: 1;
-  }
+  order: 1;
+}
 
-  .cards.flip > ul > li:nth-child(4n+4){
-    order: 4;
-  }
+.cards.flip > ul > li:nth-child(4n+4){
+  order: 4;
+}
 
-  .cards.flip > ul > li:nth-child(4n+3){
-    order: 3;
-  }
+.cards.flip > ul > li:nth-child(4n+3){
+  order: 3;
+}
 
-  .cards.flip > ul > li:nth-child(4n+2){
-    order: 2;
-  }
+.cards.flip > ul > li:nth-child(4n+2){
+  order: 2;
+}
 }
 
 .cards-container:has(.horizontal) .default-content-wrapper h2 {
@@ -269,13 +298,6 @@
   height: 5px;
   background-color: #787878;
   margin-bottom: 30px;
-}
-
-.cards.horizontal > ul {
-  display: flex;
-  flex-direction: column; /* Stack cards vertically */
-  gap: 15px; /* Add consistent spacing between cards */
-  margin-top: 50px;
 }
 
 .cards.horizontal .cards-card-image {
@@ -382,7 +404,7 @@
   padding-left: 18px;
 }
 
-@media (width >= 900px) {
+@media (width >= 1024px) {
   .cards.horizontal > ul > li {
     display: flex; /* Create side-by-side layout for image and text */
     flex-direction: row; /* Align image and text horizontally */
@@ -410,9 +432,11 @@
     height: 100px;
     border: 1px solid #dadada;
   }
-}
 
-/* Generated CSS (original, except .cards.no-images.red-bg will be merged below) */
+  .cards.flip > ul {
+    grid-gap: 20px 0;
+  }
+}
 
 .cards.no-images.red-bg::before, .cards.no-images.green-bg::before, .cards.no-images.orange-bg::before {
   content: "";
@@ -435,18 +459,6 @@
 
 .cards.no-images.orange-bg::before {
   background: url('../../images/box-prairiegold-light-wide2c.png');
-}
-
-.cards.expandable > ul {
-  display: flex;
-  flex-flow: row wrap;
-  gap: 32px;
-  justify-content: flex-start;
-  align-items: stretch;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  width: 100%;
 }
 
 .cards.no-images.red-bg > ul , .cards.no-images.green-bg > ul , .cards.no-images.orange-bg > ul {
@@ -568,8 +580,6 @@
   }
 }
 
-
-/* Merged selector for .cards.no-images.red-bg */
 .cards.no-images.red-bg , .cards.no-images.green-bg , .cards.no-images.orange-bg{
   max-width: 820px;
   padding: 30px 15px;
@@ -614,10 +624,6 @@
 
   .cards.flip .cards-card-image img, .cards.flip .card-wrapper{
     height: 360px;
-  }
-
-  .cards.flip > ul{
-    grid-gap: 20px 0;
   }
 }
 
