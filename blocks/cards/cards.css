@@ -81,7 +81,7 @@
   font: 21px / 32px "Montserrat SemiBold", sans-serif;
 }
 
-.cards.overlap > ul > li {
+.cards.expandable > ul > li {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -134,7 +134,7 @@
   margin: 0; /* Remove unnecessary margins */
 }
 
-.cards.overlap .cards-card-body {
+.cards.expandable .cards-card-body {
     background: #464646;
     padding: 140px 28px 36px;
     display: flex;
@@ -302,7 +302,7 @@
   letter-spacing: 0.38px;
 }
 
-.cards.overlap .cards-card-body p {
+.cards.expandable .cards-card-body p {
   text-align: left;
   width: 100%;
 }
@@ -319,7 +319,7 @@
   color: #004E9A; /* Change font color to deep blue */
 }
 
-.cards.overlap .cards-card-image img {
+.cards.expandable .cards-card-image img {
   height: 261px;
   width: 100%;
   object-fit: cover;
@@ -340,11 +340,11 @@
   max-width: 100%;
 }
 
-.cards.overlap .cards-card-body > p:last-child {
+.cards.expandable .cards-card-body > p:last-child {
   margin-bottom: 0;
 }
 
-.cards.overlap .cards-card-body > p:first-child {
+.cards.expandable .cards-card-body > p:first-child {
   font-size: 1.18rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -356,7 +356,7 @@
 }
 
 
-.cards.overlap .cards-card-body > p:not(:first-child) {
+.cards.expandable .cards-card-body > p:not(:first-child) {
   font-size: 1rem;
   color: #e6e6e6;
   line-height: 1.6;
@@ -437,7 +437,7 @@
   background: url('../../images/box-prairiegold-light-wide2c.png');
 }
 
-.cards.overlap > ul {
+.cards.expandable > ul {
   display: flex;
   flex-flow: row wrap;
   gap: 32px;
@@ -474,7 +474,7 @@
   align-items: stretch;
 }
 
-.cards.overlap .cards-card-image {
+.cards.expandable .cards-card-image {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -484,7 +484,7 @@
   margin-bottom: -100px;
 }
 
-.cards.overlap .cards-card-body .content-wrapper {
+.cards.expandable .cards-card-body .content-wrapper {
   position: relative;
   overflow: hidden;
   opacity: 0;
@@ -493,18 +493,18 @@
   width: 100%;
 }
 
-.cards.overlap .cards-card-body .content-wrapper.expanded {
+.cards.expandable .cards-card-body .content-wrapper.expanded {
   opacity: 1;
   height: auto;
 }
 
-.cards.overlap .cards-card-body h2 {
+.cards.expandable .cards-card-body h2 {
   margin-bottom: 20px;
   text-align: left;
   width: 100%;
 }
 
-.cards.overlap .cards-card-body .toggle-button {
+.cards.expandable .cards-card-body .toggle-button {
   background-color: #004E9A;
   color: white;
   border: none;
@@ -520,11 +520,11 @@
   justify-content: center;
 }
 
-.cards.overlap .cards-card-body .toggle-button:hover {
+.cards.expandable .cards-card-body .toggle-button:hover {
   background-color: #003d77;
 }
 
-.cards.overlap .cards-card-body .toggle-button::before {
+.cards.expandable .cards-card-body .toggle-button::before {
   content: "";
   display: inline-block;
   width: 8px;
@@ -538,7 +538,7 @@
   top: 0;
 }
 
-.cards.overlap .cards-card-body .toggle-button.expanded::before {
+.cards.expandable .cards-card-body .toggle-button.expanded::before {
   transform: rotate(45deg);
 }
 
@@ -584,31 +584,31 @@
 }
 
 @media (width <= 768px) {
-  .cards.overlap > ul > li {
+  .cards.expandable > ul > li {
     flex: 1 1 100%;
     max-width: 100%;
   }
   
-  .cards.overlap > ul {
+  .cards.expandable > ul {
     gap: 16px 0;
   }
 }
 
 
 @media (width >= 768px) {
-    .cards.overlap .cards-card-image img {
+    .cards.expandable .cards-card-image img {
       width: 200px;
     }
 }
 
 @media (width >= 900px) {
-  .cards.overlap .cards-card-image img {
+  .cards.expandable .cards-card-image img {
     width: 231px;
   }
 }
 
 @media (width >= 1024px) {
-  .cards.overlap .cards-card-image img {
+  .cards.expandable .cards-card-image img {
     width: 300px;
   }
 
@@ -618,12 +618,12 @@
 }
 
 @media (width >= 1200px) {
-  .cards.overlap .cards-card-image img {
+  .cards.expandable .cards-card-image img {
     width: 331px;
   }
 }
 
-.cards.overlap .cards-card-body > h2 {
+.cards.expandable .cards-card-body > h2 {
   font-weight: 600;
   color: #FFF;
   text-align: center;
