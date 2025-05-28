@@ -202,8 +202,8 @@
   margin: 0;
 }
 
-.cards-container .cards-wrapper {
-  margin: 100px auto;
+.cards-container .cards-wrapper:has(.cards.flip) {
+    margin: 100px auto;
 }
 
 .cards.flip .cards-card-body p {
@@ -266,7 +266,7 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-    grid-gap: 20px 0;
+    grid-gap: 100px 0;
     flex-flow: row wrap;
   }
 
@@ -404,7 +404,7 @@
   padding-left: 18px;
 }
 
-@media (width >= 10240px) {
+@media (width >= 1024px) {
   .cards.horizontal > ul > li {
     display: flex; /* Create side-by-side layout for image and text */
     flex-direction: row; /* Align image and text horizontally */
@@ -431,6 +431,10 @@
     width: 185px;
     height: 100px;
     border: 1px solid #dadada;
+  }
+
+  .cards.flip > ul {
+    grid-gap: 20px 0;
   }
 }
 
