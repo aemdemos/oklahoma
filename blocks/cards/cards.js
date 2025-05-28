@@ -27,8 +27,8 @@ export default function decorate(block) {
     }
   });
 
-  // Add Read More functionality for cards23
-  if (block.classList.contains('cards23')) {
+  // Add Read More functionality for expandable card
+  if (block.classList.contains('expandable')) {
     const cardBodies = block.querySelectorAll('.cards-card-body');
     cardBodies.forEach((cardBody) => {
       // Get all content
