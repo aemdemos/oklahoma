@@ -63,18 +63,18 @@
 }
 
 .accordion.video .embed,
-.embed.embedvideo37 {
+.embed.video {
   max-width: unset;
 }
 
-.embed.embedvideo37 > div,
+.embed.video > div,
 .accordion.video .embed > div {
   padding-bottom: 0 !important;
   position: unset !important;
   height: unset !important;
 }
 
-.embed.embedvideo37 iframe,
+.embed.video iframe,
 .accordion.video .embed iframe {
   height: 390px !important;
   position: unset !important;
