@@ -31,7 +31,11 @@
   padding-top: 20px;
 }
 
-.columns.default.single-border p a{
+.columns.parallel a {
+  text-decoration: underline;
+}
+
+.columns.default.single-border p a {
   text-decoration: underline;
 }
 

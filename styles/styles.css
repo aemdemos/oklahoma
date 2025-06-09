@@ -180,7 +180,7 @@ input, textarea, select, button {
 
 /* links */
 a:any-link {
-  color: var(--link-color);
+  color: #004E9A;
   text-decoration: none;
   overflow-wrap: break-word;
 }
