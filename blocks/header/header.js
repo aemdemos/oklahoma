@@ -5,6 +5,38 @@ import initGoogleTranslate from '../../scripts/delayed.js';
 const isDesktop = window.matchMedia('(min-width: 1024px)');
 const isTabletOrAbove = window.matchMedia('(min-width: 768px)');
 
+// Utility functions for keyboard accessibility
+function addKeyboardHandler(element, callback, keys = ['Enter', ' ']) {
+  element.addEventListener('keydown', (e) => {
+    if (keys.includes(e.key)) {
+      e.preventDefault();
+      callback(e);
+    }
+  });
+}
+
+function addFocusStyles(element, styles = { outline: '2px solid #005fcc', outlineOffset: '2px', borderRadius: '4px' }) {
+  element.addEventListener('focus', () => {
+    Object.assign(element.style, styles);
+  });
+  element.addEventListener('blur', () => {
+    Object.keys(styles).forEach((key) => {
+      element.style[key] = '';
+    });
+  });
+}
+
+function makeAccessible(element, options = {}) {
+  const {
+    tabindex = '0', role, ariaLabel, focusStyles = true,
+  } = options;
+
+  if (tabindex !== null) element.setAttribute('tabindex', tabindex);
+  if (role) element.setAttribute('role', role);
+  if (ariaLabel) element.setAttribute('aria-label', ariaLabel);
+  if (focusStyles) addFocusStyles(element);
+}
+
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
     const nav = document.getElementById('nav');
@@ -154,9 +186,6 @@ async function buildBreadcrumbsFromNavTree(nav, currentUrl) {
 }
 
 async function buildBreadcrumbs() {
-  // TODO: remove breadcrumbs from content
-  // Remove any existing breadcrumbs that might be in the main content
-  // This targets the common pattern of breadcrumbs at the top of content
   const contentBreadcrumbs = document.querySelector('main > div.section:first-child > div.default-content-wrapper:first-child > ol:first-child');
   if (contentBreadcrumbs) {
     contentBreadcrumbs.remove();
@@ -214,74 +243,115 @@ export default async function decorate(block) {
       if (section) section.classList.add(`nav-${c}`);
     });
 
-    // Setup nav brand
+    // Setup nav brand - optimized focus handling
     const navBrand = nav.querySelector('.nav-brand');
     const brandLink = navBrand?.querySelector('.button');
     if (brandLink) {
       brandLink.className = '';
       brandLink.closest('.button-container').className = '';
+      brandLink.removeAttribute('tabindex');
+
+      // Optimize brand logo focus - handle icon spans directly
+      const iconSpans = brandLink.querySelectorAll('.icon');
+      iconSpans.forEach((span) => {
+        const img = span.querySelector('img');
+        if (img) {
+          img.setAttribute('tabindex', '-1');
+          img.setAttribute('alt', 'OCSW Logo Navigate to Oklahoma Commission on the Status of Women Homepage');
+          brandLink.insertBefore(img, span);
+          span.remove();
+        }
+      });
     }
 
     // Setup nav tools (search)
     const navTools = nav.querySelector('.nav-tools');
     if (navTools) {
+      makeAccessible(navTools, {
+        role: 'search',
+        ariaLabel: 'Search - press Enter to focus search input',
+      });
+
       const searchWrapperParent = navTools.querySelector('.default-content-wrapper');
       if (searchWrapperParent) {
         searchWrapperParent.className = 'search-wrapper-parent';
-
         const searchWrapper = document.createElement('div');
         searchWrapper.className = 'search-wrapper';
-
-        // Create input
         const input = document.createElement('input');
-        input.type = 'text';
-        input.placeholder = 'Search';
+        Object.assign(input, {
+          type: 'text',
+          placeholder: 'Search',
+          tabIndex: '0',
+        });
+        input.setAttribute('aria-label', 'Search');
 
-        // Move existing icon into the new wrapper
         const iconSpan = searchWrapperParent.querySelector('.icon-search');
         if (iconSpan) {
-          searchWrapper.appendChild(input);
-          searchWrapper.appendChild(iconSpan);
-          searchWrapperParent.innerHTML = ''; // clear old content
+          iconSpan.setAttribute('aria-hidden', 'true');
+          searchWrapper.append(input, iconSpan);
+          searchWrapperParent.innerHTML = '';
           searchWrapperParent.appendChild(searchWrapper);
 
-          // Function to toggle search state
           const toggleSearch = (show) => {
             const brandSection = nav.querySelector('.nav-brand');
             const hamburgerIcon = nav.querySelector('.nav-hamburger-icon');
 
             if (show) {
-              // Move only input to brand section when search is active
               searchWrapper.classList.add('expanded');
               brandSection.classList.add('search-active');
               hamburgerIcon.classList.add('search-close');
               brandSection.appendChild(input);
               input.focus();
+              iconSpan.setAttribute('aria-label', 'Close search');
             } else {
-              // Move input back to search wrapper when search is inactive
               searchWrapper.classList.remove('expanded');
               brandSection.classList.remove('search-active');
               hamburgerIcon.classList.remove('search-close');
               searchWrapper.insertBefore(input, iconSpan);
               input.value = '';
+              iconSpan.setAttribute('aria-label', 'Open search');
+              iconSpan.focus();
             }
           };
 
-          // Add click handler for search icon
-          iconSpan.addEventListener('click', () => {
-            if (!isTabletOrAbove.matches) {
+          // Keyboard handlers
+          addKeyboardHandler(navTools, () => {
+            if (isTabletOrAbove.matches) {
+              iconSpan.focus();
+            } else {
               toggleSearch(true);
             }
           });
 
-          // Close search on escape key
-          input.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-              toggleSearch(false);
+          makeAccessible(iconSpan, { role: 'button', ariaLabel: 'Search' });
+
+          iconSpan.addEventListener('click', () => toggleSearch(true));
+
+          addKeyboardHandler(iconSpan, () => {
+            if (!isTabletOrAbove.matches) {
+              toggleSearch(true);
+            } else {
+              const searchTerm = input.value.trim();
+              if (searchTerm) {
+                window.location.href = `/search-results?q=${encodeURIComponent(searchTerm)}`;
+              } else {
+                iconSpan.focus();
+              }
             }
           });
 
-          // Add click handler for hamburger button when in search mode
+          addKeyboardHandler(input, (e) => {
+            if (e.key === 'Enter') {
+              const searchTerm = input.value.trim();
+              if (searchTerm) {
+                window.location.href = `/search-results?q=${encodeURIComponent(searchTerm)}`;
+              }
+            } else if (e.key === 'Escape' && !isTabletOrAbove.matches) {
+              toggleSearch(false);
+            }
+          }, ['Enter', 'Escape']);
+
+          // Handle hamburger button when in search mode
           nav.addEventListener('click', (e) => {
             const hamburgerButton = e.target.closest('.nav-hamburger button');
             if (hamburgerButton && searchWrapper.classList.contains('expanded')) {
@@ -291,21 +361,20 @@ export default async function decorate(block) {
               return false;
             }
             return true;
-          }, true); // Use capture phase to handle event before mobile nav
+          }, true);
         }
       }
     }
 
-    // Setup nav sections
+    // Setup nav sections - simplified approach
     const navSections = nav.querySelector('.nav-sections');
     if (navSections) {
       navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
         if (navSection.querySelector('ul')) {
           navSection.classList.add('nav-drop');
-          // Set initial aria-expanded state
           navSection.setAttribute('aria-expanded', 'false');
 
-          // Function to handle mobile wrapper
+          // Handle mobile wrapper
           const handleMobileWrapper = (isMobile) => {
             const existingWrapper = navSection.closest('.nav-drop-wrapper');
             if (isMobile && !existingWrapper) {
@@ -319,46 +388,107 @@ export default async function decorate(block) {
             }
           };
 
-          // Initial setup
           handleMobileWrapper(!isDesktop.matches);
+          isDesktop.addEventListener('change', (e) => handleMobileWrapper(!e.matches));
 
-          // Add resize listener
-          isDesktop.addEventListener('change', (e) => {
-            handleMobileWrapper(!e.matches);
-          });
-
-          // Wrap text in title div
+          // Create title div
           const text = navSection.firstChild.textContent.trim();
           if (text) {
             const titleDiv = document.createElement('div');
             titleDiv.className = 'title';
             titleDiv.textContent = text;
+            titleDiv.tabIndex = 0;
+            titleDiv.setAttribute('role', 'button');
+            titleDiv.setAttribute('aria-expanded', 'false');
+            titleDiv.setAttribute('aria-label', `${text} menu`);
+
             navSection.replaceChild(titleDiv, navSection.firstChild);
 
-            // Add click handler for title div
-            titleDiv.addEventListener('click', (e) => {
-              e.stopPropagation(); // Prevent event bubbling
-              const isExpanded = navSection.getAttribute('aria-expanded') === 'true';
-              navSection.setAttribute('aria-expanded', !isExpanded ? 'true' : 'false');
+            // Auto-open dropdown when title gets focus
+            titleDiv.addEventListener('focus', () => {
+              navSection.setAttribute('aria-expanded', 'true');
+              titleDiv.setAttribute('aria-expanded', 'true');
+              const submenu = navSection.querySelector('ul');
+              if (submenu) submenu.classList.add('show');
+            });
 
+            // Toggle dropdown on click
+            titleDiv.addEventListener('click', (e) => {
+              e.stopPropagation();
+              const isOpen = titleDiv.getAttribute('aria-expanded') === 'true';
+              navSection.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+              titleDiv.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
               const submenu = navSection.querySelector('ul');
               if (submenu) {
-                submenu.classList.toggle('show');
+                if (isOpen) {
+                  submenu.classList.remove('show');
+                } else {
+                  submenu.classList.add('show');
+                }
               }
             });
+
+            // Handle keyboard navigation
+            addKeyboardHandler(titleDiv, (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                titleDiv.click();
+              } else if (e.key === 'ArrowDown') {
+                const firstLink = navSection.querySelector('ul a');
+                if (firstLink) firstLink.focus();
+              }
+            }, ['Enter', ' ', 'ArrowDown']);
           }
 
-          if (isDesktop.matches) {
-            navSection.addEventListener('mouseenter', () => {
-              toggleAllNavSections(navSections);
-            });
-          }
+          // Close dropdown when focus leaves
+          navSection.addEventListener('focusout', (e) => {
+            if (!navSection.contains(e.relatedTarget)) {
+              navSection.setAttribute('aria-expanded', 'false');
+              const titleDiv = navSection.querySelector('.title');
+              if (titleDiv) titleDiv.setAttribute('aria-expanded', 'false');
+              const submenu = navSection.querySelector('ul');
+              if (submenu) submenu.classList.remove('show');
+            }
+          });
 
-          // Add click handler for mobile submenu toggle
-          navSection.addEventListener('click', function (e) {
-            if ((!isDesktop.matches && e.target === this) || e.target.className === 'title') {
-              const submenu = this.querySelector('ul');
+          // Setup submenu links
+          const submenuLinks = navSection.querySelectorAll('ul a');
+          submenuLinks.forEach((link, index) => {
+            link.removeAttribute('tabindex');
+
+            addKeyboardHandler(link, (e) => {
+              if (e.key === 'Escape') {
+                navSection.setAttribute('aria-expanded', 'false');
+                const titleDiv = navSection.querySelector('.title');
+                if (titleDiv) {
+                  titleDiv.setAttribute('aria-expanded', 'false');
+                  titleDiv.focus();
+                }
+                const submenu = navSection.querySelector('ul');
+                if (submenu) submenu.classList.remove('show');
+              } else if (e.key === 'ArrowDown') {
+                const nextLink = submenuLinks[index + 1];
+                if (nextLink) nextLink.focus();
+              } else if (e.key === 'ArrowUp') {
+                if (index === 0) {
+                  const titleDiv = navSection.querySelector('.title');
+                  if (titleDiv) titleDiv.focus();
+                } else {
+                  const prevLink = submenuLinks[index - 1];
+                  if (prevLink) prevLink.focus();
+                }
+              }
+            }, ['Escape', 'ArrowDown', 'ArrowUp']);
+          });
+
+          // Mobile click handler
+          navSection.addEventListener('click', (e) => {
+            if (!isDesktop.matches && (e.target === navSection || e.target.className === 'title')) {
+              const submenu = navSection.querySelector('ul');
               if (submenu) {
+                const isOpen = submenu.classList.contains('show');
+                const titleDiv = navSection.querySelector('.title');
+                navSection.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+                if (titleDiv) titleDiv.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
                 submenu.classList.toggle('show');
               }
             }
@@ -374,8 +504,7 @@ export default async function decorate(block) {
         <span class="nav-hamburger-icon"></span>
       </button>`;
     hamburger.addEventListener('click', () => {
-      const expanded = nav.getAttribute('aria-expanded') === 'true';
-      nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      toggleMenu(nav, navSections);
     });
     nav.prepend(hamburger);
     nav.setAttribute('aria-expanded', 'false');
@@ -384,6 +513,7 @@ export default async function decorate(block) {
     isDesktop.addEventListener('change', (e) => {
       if (e.matches) {
         nav.setAttribute('aria-expanded', 'false');
+        document.body.style.overflowY = ''; // Re-enable scroll on desktop
       }
     });
 
@@ -424,14 +554,16 @@ export default async function decorate(block) {
     translationWrapper.className = 'translation-wrapper';
     translationWrapper.innerHTML = `
     <div>
-      <span class="icon icon-logo-small"></span>
+      <a href="/" class="logo-link" aria-label="Oklahoma.gov homepage">
+        <span class="icon icon-logo-small"></span>
+      </a>
       <div class="translate-group" style="cursor: pointer;">
         <span class="icon icon-translate"></span>
         <div>Translate</div>
         <div id="google-translate-element"></div>
       </div>
       <div>
-        State Agencies
+        <a href="/stateagency.html">State Agencies</a>
       </div>
     </div>
     `;
@@ -439,18 +571,28 @@ export default async function decorate(block) {
     navWrapper.append(translationWrapper);
     decorateIcons(translationWrapper);
     navWrapper.append(nav);
+
     block.append(navWrapper);
 
     // Handle initialization of Google Translate
     const translateGroup = translationWrapper.querySelector('.translate-group');
     if (translateGroup) {
+      makeAccessible(translateGroup, {
+        role: 'button',
+        ariaLabel: 'Open Google Translate',
+      });
+      translateGroup.style.cursor = 'pointer';
+
       let isInitialized = false;
-      translateGroup.addEventListener('click', () => {
+      const initTranslate = () => {
         if (!isInitialized) {
           initGoogleTranslate();
           isInitialized = true;
         }
-      });
+      };
+
+      translateGroup.addEventListener('click', initTranslate);
+      addKeyboardHandler(translateGroup, initTranslate);
     }
 
     // Check if current page is an OCSW page - Add breadcrumbs after the main navigation

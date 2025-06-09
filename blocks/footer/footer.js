@@ -44,5 +44,33 @@ export default async function decorate(block) {
     }
   }
 
+  // Add accessibility improvements for social media icons
+  const socialIcons = footer.querySelectorAll('.icon');
+  socialIcons.forEach((iconSpan) => {
+    const img = iconSpan.querySelector('img');
+    const link = iconSpan.closest('a');
+
+    if (img && link) {
+      const iconName = img.getAttribute('data-icon-name');
+
+      // Set appropriate alt text based on icon type
+      switch (iconName) {
+        case 'facebook':
+          img.setAttribute('alt', 'Facebook');
+          link.setAttribute('aria-label', 'Visit our Facebook page');
+          break;
+        case 'back-to-top':
+          img.setAttribute('alt', 'Back to top arrow');
+          break;
+        default:
+          // For other icons, use the icon name as alt text
+          if (iconName) {
+            const altText = iconName.charAt(0).toUpperCase() + iconName.slice(1);
+            img.setAttribute('alt', altText);
+          }
+      }
+    }
+  });
+
   block.replaceChildren(footer);
 }
