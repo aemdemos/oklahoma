@@ -287,7 +287,6 @@ export default async function decorate(block) {
 
         const iconSpan = searchWrapperParent.querySelector('.icon-search');
         if (iconSpan) {
-          iconSpan.setAttribute('aria-hidden', 'true');
           searchWrapper.append(input, iconSpan);
           searchWrapperParent.innerHTML = '';
           searchWrapperParent.appendChild(searchWrapper);
